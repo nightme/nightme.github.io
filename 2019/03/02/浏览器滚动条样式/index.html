@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Chrome滚动条样式CSS滚动条选择器 ::-webkit-scrollbar — 整个滚动条. ::-webkit-scrollbar-button — 滚动条上的按钮 (上下箭头). ::-webkit-scrollbar-thumb — 滚动条上的滚动滑块. ::-webkit-scrollbar-track — 滚动条轨道. ::-webkit-scrollbar-track-piece">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器滚动条样式">
+<meta property="og:url" content="https://nightme.github.io/2019/03/02/浏览器滚动条样式/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="Chrome滚动条样式CSS滚动条选择器 ::-webkit-scrollbar — 整个滚动条. ::-webkit-scrollbar-button — 滚动条上的按钮 (上下箭头). ::-webkit-scrollbar-thumb — 滚动条上的滚动滑块. ::-webkit-scrollbar-track — 滚动条轨道. ::-webkit-scrollbar-track-piece">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-31T08:48:47.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器滚动条样式">
+<meta name="twitter:description" content="Chrome滚动条样式CSS滚动条选择器 ::-webkit-scrollbar — 整个滚动条. ::-webkit-scrollbar-button — 滚动条上的按钮 (上下箭头). ::-webkit-scrollbar-thumb — 滚动条上的滚动滑块. ::-webkit-scrollbar-track — 滚动条轨道. ::-webkit-scrollbar-track-piece">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2019/03/02/浏览器滚动条样式/"/>
+
+
+
+
+
+  <title>浏览器滚动条样式 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2019/03/02/浏览器滚动条样式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器滚动条样式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T02:02:30+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/02/浏览器滚动条样式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/02/浏览器滚动条样式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Chrome滚动条样式"><a href="#Chrome滚动条样式" class="headerlink" title="Chrome滚动条样式"></a><code>Chrome</code>滚动条样式</h2><h5 id="CSS滚动条选择器"><a href="#CSS滚动条选择器" class="headerlink" title="CSS滚动条选择器"></a><code>CSS</code>滚动条选择器</h5><ul>
+<li><code>::-webkit-scrollbar</code> — 整个滚动条.</li>
+<li><code>::-webkit-scrollbar-button</code> — 滚动条上的按钮 (上下箭头).</li>
+<li><code>::-webkit-scrollbar-thumb</code> — 滚动条上的滚动滑块.</li>
+<li><code>::-webkit-scrollbar-track</code> — 滚动条轨道.</li>
+<li><code>::-webkit-scrollbar-track-piece</code> — 滚动条没有滑块的轨道部分.</li>
+<li><code>::-webkit-scrollbar-corner</code> — 当同时有垂直滚动条和水平滚动条时交汇的部分.</li>
+<li><code>::-webkit-resizer</code> — 某些元素的<code>corner</code>部分的部分样式(例:<code>textarea</code>的可拖动按钮).</li>
+</ul>
+<a id="more"></a>
+<h6 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 整个滚动条 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条上的按钮 (上下箭头) */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-button</span>    &#123;</span><br><span class="line">    <span class="attribute">background-color</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条轨道 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-track</span>     &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条没有滑块的轨道部分 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-track-piece</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#ff0000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条上的滚动滑块 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-thumb</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#FFA711</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>:<span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 当同时有垂直滚动条和水平滚动条时交汇的部分 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-corner</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 某些元素的`corner`部分的部分样式(例:`textarea`的可拖动按钮). */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-resizer</span>  &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#bf7326</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="demo"><a href="#demo" class="headerlink" title="demo"></a><code>demo</code></h6><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 整个滚动条 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条上的按钮 (上下箭头) */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-button</span>    &#123;</span><br><span class="line">    <span class="comment">/* background-color:blue; */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条轨道 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-track</span>     &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条没有滑块的轨道部分 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-track-piece</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 滚动条上的滚动滑块 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-thumb</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">80px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">80px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#999</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 当同时有垂直滚动条和水平滚动条时交汇的部分 */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-corner</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">border-bottom-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 某些元素的`corner`部分的部分样式(例:`textarea`的可拖动按钮). */</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-resizer</span>  &#123;</span><br><span class="line">    <span class="comment">/* background:#bf7326; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="FireFox滚动条样式"><a href="#FireFox滚动条样式" class="headerlink" title="FireFox滚动条样式"></a><code>FireFox</code>滚动条样式</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Only FireFox */</span></span><br><span class="line">* &#123;   </span><br><span class="line">    <span class="attribute">scrollbar-color</span>: transparent  transparent <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">scrollbar-width</span>: thin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IE滚动条样式"><a href="#IE滚动条样式" class="headerlink" title="IE滚动条样式"></a><code>IE</code>滚动条样式</h2><table>
+<thead>
+<tr>
+<th>Scrollbar Properties 属性</th>
+<th>CSS Version 版本</th>
+<th>Compatibility 兼容性</th>
+<th>Inherit From Parent 继承性</th>
+<th>Description 简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scrollbar-3d-light-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条亮边框颜色</td>
+</tr>
+<tr>
+<td>scrollbar-highlight-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条3D界面的亮边（ThreedHighlight）颜色</td>
+</tr>
+<tr>
+<td>scrollbar-face-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条3D表面（ThreedFace）的颜色</td>
+</tr>
+<tr>
+<td>scrollbar-arrow-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条方向箭头的颜色</td>
+</tr>
+<tr>
+<td>scrollbar-shadow-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条3D界面的暗边（ThreedShadow）颜色</td>
+</tr>
+<tr>
+<td>scrollbar-dark-shadow-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条暗边框（ThreedDarkShadow）颜色</td>
+</tr>
+<tr>
+<td>scrollbar-base-color</td>
+<td>IE专有属性</td>
+<td>IE5.5+</td>
+<td>有</td>
+<td>设置或检索滚动条基准颜色。其它界面颜色将据此自动调整</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scrollbar-arrow-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*三角箭头的颜色*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-face-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*立体滚动条的颜色（包括箭头部分的背景色）*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-3dlight-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*立体滚动条亮边的颜色*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-highlight-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*滚动条的高亮颜色（左阴影？）*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-shadow-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*立体滚动条阴影的颜色*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-darkshadow-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*立体滚动条外阴影的颜色*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-track-color</span>: <span class="selector-tag">color</span>; <span class="comment">/*立体滚动条背景颜色*/</span></span><br><span class="line"><span class="selector-tag">scrollbar-base-color</span><span class="selector-pseudo">:color</span>; <span class="comment">/*滚动条的基色*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar" target="_blank" rel="noopener"><code>::-webkit-scrollbar</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width" target="_blank" rel="noopener"><code>scrollbar-width firefox</code></a></li>
+<li><a href="https://github.com/Aris-t2/CustomCSSforFx/blob/master/classic/config/custom_scrollbar_appearance.css" target="_blank" rel="noopener"><code>CustomCSSforFx</code></a></li>
+<li><a href="https://www.php.cn/manual/view/14677.html" target="_blank" rel="noopener"><code>CSS Scrollbar Properties</code>滚动条属性IE</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/rn蓝牙打印2/" rel="next" title="rn蓝牙打印2">
+                <i class="fa fa-chevron-left"></i> rn蓝牙打印2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/19/react-hooks/" rel="prev" title="React Hooks">
+                React Hooks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/03/02/浏览器滚动条样式/"
+           data-title="浏览器滚动条样式" data-url="https://nightme.github.io/2019/03/02/浏览器滚动条样式/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome滚动条样式"><span class="nav-number">1.</span> <span class="nav-text">Chrome滚动条样式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CSS滚动条选择器"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">CSS滚动条选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#效果"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#demo"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">demo</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FireFox滚动条样式"><span class="nav-number">2.</span> <span class="nav-text">FireFox滚动条样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IE滚动条样式"><span class="nav-number">3.</span> <span class="nav-text">IE滚动条样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">4.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

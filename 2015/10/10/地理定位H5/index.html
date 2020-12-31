@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="H5," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="html5 Geolocation 基本介绍HTML5有一个新功能：Geolocation，它允许用户在 Web 应用程序中共享他们的位置，使其能够享受位置感知服务。Geolocation API的使用很简单，请求一个位置信息，如果用户同意，就返回位置信息。 注：此处所提到的定位都是javascript地图API，适合Web 应用程序 获取地理位置的方式设备可以使用的数据源： IP 地址 GPS（">
+<meta name="keywords" content="H5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="地理定位H5">
+<meta property="og:url" content="https://nightme.github.io/2015/10/10/地理定位H5/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="html5 Geolocation 基本介绍HTML5有一个新功能：Geolocation，它允许用户在 Web 应用程序中共享他们的位置，使其能够享受位置感知服务。Geolocation API的使用很简单，请求一个位置信息，如果用户同意，就返回位置信息。 注：此处所提到的定位都是javascript地图API，适合Web 应用程序 获取地理位置的方式设备可以使用的数据源： IP 地址 GPS（">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nightme.github.io/2015/10/10/地理定位H5/position.png">
+<meta property="og:image" content="https://nightme.github.io/2015/10/10/地理定位H5/browser.png">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.753Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="地理定位H5">
+<meta name="twitter:description" content="html5 Geolocation 基本介绍HTML5有一个新功能：Geolocation，它允许用户在 Web 应用程序中共享他们的位置，使其能够享受位置感知服务。Geolocation API的使用很简单，请求一个位置信息，如果用户同意，就返回位置信息。 注：此处所提到的定位都是javascript地图API，适合Web 应用程序 获取地理位置的方式设备可以使用的数据源： IP 地址 GPS（">
+<meta name="twitter:image" content="https://nightme.github.io/2015/10/10/地理定位H5/position.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2015/10/10/地理定位H5/"/>
+
+
+
+
+
+  <title>地理定位H5 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/10/10/地理定位H5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">地理定位H5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-10T15:36:56+08:00">
+                2015-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/10/地理定位H5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/10/地理定位H5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="html5-Geolocation-基本介绍"><a href="#html5-Geolocation-基本介绍" class="headerlink" title="html5 Geolocation 基本介绍"></a>html5 Geolocation 基本介绍</h2><p>HTML5有一个新功能：Geolocation，它允许用户在 Web 应用程序中共享他们的位置，使其能够享受位置感知服务。<br>Geolocation API的使用很简单，请求一个位置信息，如果用户同意，就返回位置信息。</p>
+<p><strong>注：此处所提到的定位都是javascript地图API，适合Web 应用程序</strong></p>
+<h2 id="获取地理位置的方式"><a href="#获取地理位置的方式" class="headerlink" title="获取地理位置的方式"></a>获取地理位置的方式</h2><h3 id="设备可以使用的数据源："><a href="#设备可以使用的数据源：" class="headerlink" title="设备可以使用的数据源："></a>设备可以使用的数据源：</h3><ul>
+<li>IP 地址</li>
+<li>GPS（Global Positioning System，全球定位系统）</li>
+<li>WiFi基站的mac地址</li>
+<li>手机信号（GSM或CDMA基站）</li>
+<li>用户自定义数据</li>
+</ul>
+<h3 id="数据源对比："><a href="#数据源对比：" class="headerlink" title="数据源对比："></a>数据源对比：</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP 地址</td>
+<td style="text-align:left">任何地方都可用、在服务器端处理</td>
+<td style="text-align:center">不精确（经常出错，一般精确到城市级）、运算代价大</td>
+</tr>
+<tr>
+<td>GPS</td>
+<td style="text-align:left">很精确</td>
+<td style="text-align:center">定位时间长，耗电量大 、室内效果差 、需要额外硬件设备支持</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td style="text-align:left">精确、可在室内使用、简单，快捷</td>
+<td style="text-align:center">在乡村这些 Wi-Fi 接入点少的地区无法使用</td>
+</tr>
+<tr>
+<td>手机信号</td>
+<td style="text-align:left">精确、可在室内使用、简单，快捷</td>
+<td style="text-align:center">需要能够访问手机或其 modem 设备</td>
+</tr>
+<tr>
+<td>用户自定义</td>
+<td style="text-align:left">可获得比程序定位服务更准确的位置数据，用户自行输入可能比自动检测更快</td>
+<td style="text-align:center">可能很不准确，特别是当用户位置变更后</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="推荐："><a href="#推荐：" class="headerlink" title="推荐："></a>推荐：</h3><p>可见它们各有优缺点，为了保证更高的精确度，许多设备使用多个数据源组合的方式。</p>
+<h2 id="地理位置获取流程"><a href="#地理位置获取流程" class="headerlink" title="地理位置获取流程"></a>地理位置获取流程</h2><ol>
+<li>用户打开需要获取地理位置的web应用</li>
+<li>应用通过Geolocation API 向浏览器请求地理位置，浏览器拦截请求，向用户请求授权。</li>
+<li>假设用户允许，浏览器从设备查询相关信息，如IP地址、WIFI地址或GPS坐标。</li>
+<li>浏览器将相关信息发送给信任的外部定位服务器，服务器返回具体的地理位置。</li>
+</ol>
+<h2 id="隐私"><a href="#隐私" class="headerlink" title="隐私"></a>隐私</h2><p>HTML5 Geolocation API提供了一套保护用户隐私的机制，必须先得到用户明确许可，才能获取用户的位置信息。访问使用Geolocation API的页面应用时，会触发隐私保护机制，浏览器会询问用户是否共享位置信息。</p>
+<p>因为位置数据属于敏感信息，所以应用程序的开发人员应考虑关于隐私的以下准则:</p>
+<ul>
+<li>仅在必要时请求位置信息，并且仅将位置信息用于其原计划用于的任务。</li>
+<li>如果用户没有授权存储这些数据，那么应用程序应该在相应任务完成后立即删除。</li>
+<li>如果要在服务器上存储位置数据，请务必确保位置数据不受到未经授权的访问，并允许用户更新和删除此信息。</li>
+</ul>
+<h2 id="检测浏览器是否支持Geolocation"><a href="#检测浏览器是否支持Geolocation" class="headerlink" title="检测浏览器是否支持Geolocation"></a>检测浏览器是否支持Geolocation</h2><p>在html5使用Geolocation API时，应确保浏览器支持Geolocation API，如果geolocation对象存在，那么地理位置服务可用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">"geolocation"</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">    console.log(<span class="string">"地理位置服务可用"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    console.log(<span class="string">"地理位置服务不可用"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意: 在 Firefox 24 和之前的浏览器中，即使 API 被禁止，代码 “geolocation” in navigator 也总是会得到 true。这在 Firefox 25 中已经被修复<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=884921" target="_blank" rel="noopener">bug 884921</a></strong></p>
+<p>##getCurrentPosition获取当前定位</p>
+<p>###getCurrentPosition函数介绍<br>使用 getCurrentPosition 方法获取当前的地理位置。<br><strong>语法</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);</span><br></pre></td></tr></table></figure></p>
+<p>getCurrentPosition包含三个参数，前两个为函数名，第三个为一个对象。其中只有第一个是必须的。当你执行上面的JavaScript语句后，浏览器通常会弹出一个提示，询问用户是否允许网站跟踪位置信息；同时getCurrentPosition函数会立即返回。如果用户选择了允许，则会执行上述successCallback函数，</p>
+<p>这个方法使用的是异步回调的方式。它的3个参数分别是：</p>
+<ol>
+<li>successCallback – 为浏览器成功获得位置信息后的回调函数。</li>
+<li>errorCallback – 用于位置信息获取失败时的回调函数。</li>
+<li>options – 配置参数，可以调整geolocation的数据收集方式  </li>
+</ol>
+<blockquote>
+<p><strong>注意: 默认情况下，getCurrentPosition() 会尽快返回一个低精度结果，这在您不关心准确度只关心快速获取结果的情况下很有用。有 GPS 的设备可能需要一分钟或更久来获取 GPS 定位，在这种情况下 getCurrentPosition() 会返回低精度数据（基于 IP 的定位或 Wi-Fi 定位）。</strong></p>
+</blockquote>
+<h3 id="成功获得地理位置信息"><a href="#成功获得地理位置信息" class="headerlink" title="成功获得地理位置信息"></a>成功获得地理位置信息</h3><p>下面是函数successCallback的写法示例。它有一个参数，你将最终通过这个函数获取到用户的位置。经纬度分别存在longitude和latitude变量中，同时还有精度、时间戳，以及一些其他额外信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> successCallback(pos) &#123;</span><br><span class="line">    // 将会获得以下信息</span><br><span class="line">    var latitude = pos.coords.latitude;</span><br><span class="line">    var longitude = pos.coords.longitude;</span><br><span class="line">    var accuracy = pos.coords.accuracy;</span><br><span class="line">    var timestamp = pos.timestamp;</span><br><span class="line"></span><br><span class="line">    // 以下信息不一定提供，和具体设备有关</span><br><span class="line">    var altitude = pos.coords.altitude;</span><br><span class="line">    var altitudeAccuracy = pos.coords.altitudeAccuracy;</span><br><span class="line">    var heading = pos.coords.heading;</span><br><span class="line">    var speed = pos.coords.speed;</span><br><span class="line"></span><br><span class="line">    console.log(pos.coords.latitude); // 纬度</span><br><span class="line">    console.log(pos.coords.longitude); // 经度</span><br><span class="line">    console.log(pos.coords.accuracy); // 准确度，由于geolocation的实现方式，呈现返回值时一定要检查返回值的准确度</span><br><span class="line">    console.log(pos.coords.altitude); // 海拔，以米为单位，如不支持altitude特性，返回null</span><br><span class="line">    console.log(pos.coords.altitudeAccuracy); // 海拔经度，以米为单位，如不支持altitude特性，返回null</span><br><span class="line">    console.log(pos.coords.heading); // 行进方向，相对正北</span><br><span class="line">    console.log(pos.coords.speed); // 行进速度，单位m/s</span><br><span class="line">    console.log(pos.timestamp); // 获取位置的时间</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中<strong>altitude</strong>、<strong>altitudeAccuracy</strong>、<strong>heading</strong>和<strong>speed</strong>则根据用户的终端不同，可能提供，可能为null<br><strong>参考图片</strong>：<br><img src="/2015/10/10/地理定位H5/position.png" title="位置信息"></p>
+<h3 id="错误信息处理"><a href="#错误信息处理" class="headerlink" title="错误信息处理"></a>错误信息处理</h3><p>上面我们还有一个errorCallback。显然，如果用户不同意，那我们无法获得任何信息，这时候系统会自动调用这个函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> errorCallback(error) &#123;</span><br><span class="line">    console.log(error.message);</span><br><span class="line">    switch (error.code) &#123;</span><br><span class="line">        <span class="keyword">case</span> error.PERMISSION_DENIED:</span><br><span class="line">            console.log(<span class="string">"用户不允许地理定位"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.POSITION_UNAVAILABLE:</span><br><span class="line">            console.log(<span class="string">"无法获取当前位置"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.TIMEOUT:</span><br><span class="line">            console.log(<span class="string">"操作超时"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.UNKNOWN_ERROR:</span><br><span class="line">            console.log(<span class="string">"发生未知错误"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中error.code为一个枚举类型，可能的取值如下：</p>
+<ul>
+<li>PERMISSION_DENIED：用户拒绝</li>
+<li>POSITION_UNAVAILABLE：地理位置获取失败（可能是用户没网或卫星搜不到等原因）</li>
+<li>TIMEOUT：地理位置获取超时</li>
+<li>UNKNOWN_ERROR:发生未知错误</li>
+</ul>
+<p><strong>而error.message则为一个可以帮助开发者调试的错误信息（此信息一般不适合直接显示在网页中给用户查看）。</strong></p>
+<h3 id="可选项"><a href="#可选项" class="headerlink" title="可选项"></a>可选项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var options = &#123;</span><br><span class="line">  enableHighAccuracy: <span class="literal">true</span>, //如果启动该参数，浏览器会启动 HTML5 Geolocation 服务的高精确度模式，这将导致机器花费更多的时间和资源来确定位置，应谨慎使用。默认值为 <span class="literal">false</span>;</span><br><span class="line">  maximumAge        : 30000, //以 ms 为单位，表示浏览器重新获取位置信息的时间间隔。默认值为 0，这意味着浏览器每次请求时必须立即重新计算位置。</span><br><span class="line">  timeout           : 27000 //单位为 ms，告诉浏览器获取当前位置信息所允许的最长时间。如果在这个时间段内未完成，就会调用错误处理程序。默认值为 Infinity，即无穷大（无限制）；</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中timeout是设定地理位置获取的超时时间（单位为毫秒，用户选择允许的时间不计算在内）；而maximumAge表示允许设备从缓存中读取位置，缓存的过期时间，单位是毫秒，设为0来禁用缓存读取。如果返回的是缓存中的时间，会在timestamp中反映出来。</p>
+<h2 id="watchPosition函数"><a href="#watchPosition函数" class="headerlink" title="watchPosition函数"></a>watchPosition函数</h2><p>您可以设定一个回调函数来响应定位数据发生的变更（设备发生了移动，或获取到了更高精度的地理位置信息）。您可以通过 watchPosition() 函数实现该功能。它与 getCurrentPosition() 接受相同的参数，但回调函数会被调用多次。错误回调函数与 getCurrentPosition() 中一样是可选的，也会被多次调用。</p>
+<p><strong>语法</strong>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var watchID = navigator.geolocation.watchPosition(successCallback, errorCallback, options);</span><br></pre></td></tr></table></figure></p>
+<p>watchPosition方法与getCurrentPosition方法类似，都有同样的三个参数，都立即返回。下面是watchPosition的特殊之处：</p>
+<ul>
+<li>该函数会返回一个整数，表示这个监视任务的 ID。</li>
+<li>将持续追踪用户的位置；相应，on_success函数会被多次地调用来更新信息。</li>
+<li>通过clearWatch(id)函数调用来停止监视。</li>
+</ul>
+<h2 id="clearWatch函数"><a href="#clearWatch函数" class="headerlink" title="clearWatch函数"></a>clearWatch函数</h2><p>这个方法接受一个参数，需要清理监视位置变化的方法的id：watchID（这个参数由watchPosition方法返回）。</p>
+<p><strong>参考代码</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.geolocation.clearWatch(watchID);</span><br></pre></td></tr></table></figure></p>
+<h2 id="DEMO源码"><a href="#DEMO源码" class="headerlink" title="DEMO源码"></a>DEMO源码</h2><h3 id="百度地图源码"><a href="#百度地图源码" class="headerlink" title="百度地图源码:"></a>百度地图源码:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"zh"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Cache-Control"</span> content=<span class="string">"no-cache"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-capable"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"telephone=no"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"email=no"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-touch-fullscreen"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-status-bar-style"</span> content=<span class="string">"black"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1, user-scalable=no"</span>&gt;</span><br><span class="line">&lt;title&gt;百度地图&lt;/title&gt;</span><br><span class="line">&lt;meta name=<span class="string">"keywords"</span> content=<span class="string">"百度地图"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"description"</span> content=<span class="string">"百度地图"</span>&gt;</span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">*&#123;margin:0;padding:0;&#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.map&#123;display:block;width:calc(100% - 20px);margin:10px auto;height:calc(100% - 20px);&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=<span class="string">"map"</span> class=<span class="string">"map"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span> src=<span class="string">"http://api.map.baidu.com/api?v=2.0&amp;ak=OuwScGRpy5UlO2jfRrDe7KKq"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    //此处使用百度地图2.0API</span><br><span class="line">    var map = new BMap.Map(<span class="string">"map"</span>);</span><br><span class="line">    var point = new BMap.Point(116.331398, 39.897445);//默认北京</span><br><span class="line">    map.centerAndZoom(point, 12);</span><br><span class="line"></span><br><span class="line">    var geolocation = new BMap.Geolocation();</span><br><span class="line">    geolocation.getCurrentPosition(<span class="keyword">function</span>(r) &#123;</span><br><span class="line">        <span class="keyword">if</span> (this.getStatus() == BMAP_STATUS_SUCCESS) &#123;</span><br><span class="line">            var mk = new BMap.Marker(r.point);</span><br><span class="line">            map.addOverlay(mk);// 将标注添加到地图中</span><br><span class="line">            map.panTo(r.point);</span><br><span class="line">            map.addControl(new BMap.GeolocationControl());  //定位控件，针对移动端开发，默认位于地图左下方。</span><br><span class="line">            <span class="keyword">if</span>(r.address)&#123;</span><br><span class="line">            	alert(<span class="string">"地址："</span>+r.address.province+r.address.city+r.address.district+r.address.street+r.address.street_number)</span><br><span class="line">            &#125;</span><br><span class="line">            //console.log(<span class="string">'您的位置：'</span> + r.point.lng + <span class="string">','</span> + r.point.lat);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            console.log(<span class="string">'failed'</span> + this.getStatus());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        enableHighAccuracy: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">    //关于状态码</span><br><span class="line">    //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。</span><br><span class="line">    //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。</span><br><span class="line">    //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。</span><br><span class="line">    //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。</span><br><span class="line">    //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。</span><br><span class="line">    //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。</span><br><span class="line">    //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)</span><br><span class="line">    //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)</span><br><span class="line">    //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="腾讯地图源码："><a href="#腾讯地图源码：" class="headerlink" title="腾讯地图源码："></a>腾讯地图源码：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"zh"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Cache-Control"</span> content=<span class="string">"no-cache"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-capable"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"telephone=no"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"email=no"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-touch-fullscreen"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-status-bar-style"</span> content=<span class="string">"black"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1, user-scalable=no"</span>&gt;</span><br><span class="line">&lt;title&gt;腾讯地图&lt;/title&gt;</span><br><span class="line">&lt;meta name=<span class="string">"keywords"</span> content=<span class="string">"腾讯地图"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"description"</span> content=<span class="string">"腾讯地图"</span>&gt;</span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">*&#123;margin:0;padding:0;&#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.map&#123;display:block;width:calc(100% - 20px);margin:10px auto;height:calc(100% - 20px);&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=<span class="string">"map"</span> class=<span class="string">"map"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script charset=<span class="string">"utf-8"</span> src=<span class="string">"http://map.qq.com/api/js?v=2.exp&amp;key=QFUBZ-BFPAR-RYOWE-WGKR7-TUEOK-CWF3N"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"><span class="keyword">if</span>(window.navigator.geolocation)&#123;</span><br><span class="line">    browserPostion();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">"您的浏览器不支持定位"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">browserPostion</span></span>()&#123;</span><br><span class="line">    var options = &#123;</span><br><span class="line">        enableHighAccuracy:<span class="literal">true</span>, //它将告诉浏览器是否启用高精度设备。</span><br><span class="line">        maximumAge:600000,  //超时，获取位置信息时超出设定的这个时长，将会触发错误，捕获错误的函数将被调用，并且错误码指向TIMEOUT。</span><br><span class="line">        timeout:60000   //缓存时间 缓存时间过后浏览器会再次调用getCurrentPosition方法。</span><br><span class="line">    &#125;;</span><br><span class="line">    //谷歌地图调用</span><br><span class="line">    window.navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError, options);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> getPositionSuccess(position)&#123;</span><br><span class="line">    var lat = position.coords.latitude;  //获取用户位置的纬度</span><br><span class="line">    var lng = position.coords.longitude; //获取用户位置的经度</span><br><span class="line">    var map = new qq.maps.Map(document.getElementById(<span class="string">"map"</span>),&#123;</span><br><span class="line">        center: new qq.maps.LatLng(39.914850, 116.403765),//默认坐标</span><br><span class="line">        zoom: 13,//设置地图的缩放级别</span><br><span class="line">        draggable: <span class="literal">true</span>,</span><br><span class="line">        scrollwheel: <span class="literal">true</span>,</span><br><span class="line">        disableDoubleClickZoom: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    var info = new qq.maps.InfoWindow(&#123;map: map&#125;);</span><br><span class="line">    var geocoder = new qq.maps.Geocoder(&#123;</span><br><span class="line">        complete : <span class="keyword">function</span>(result)&#123;</span><br><span class="line">            map.setCenter(result.detail.location);</span><br><span class="line">            var marker = new qq.maps.Marker(&#123;</span><br><span class="line">                map:map,</span><br><span class="line">                position: result.detail.location</span><br><span class="line">            &#125;);</span><br><span class="line">            //添加监听事件 当标记被点击了  设置图层</span><br><span class="line">            qq.maps.event.addListener(marker, <span class="string">'click'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">                info.open();</span><br><span class="line">                info.setContent(<span class="string">'&lt;div style="width:200px;height:40px;"&gt;'</span>+</span><br><span class="line">                    result.detail.address+<span class="string">'&lt;/div&gt;'</span>);</span><br><span class="line">                info.setPosition(result.detail.location);</span><br><span class="line">            &#125;);</span><br><span class="line">            alert(<span class="string">'地址为：'</span>+result.detail.address);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">	var center = new qq.maps.LatLng(lat,lng);</span><br><span class="line">    geocoder.getAddress(center);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> getPositionError(error) &#123;</span><br><span class="line">    switch (error.code) &#123;</span><br><span class="line">        <span class="keyword">case</span> error.PERMISSION_DENIED:</span><br><span class="line">            console.log(<span class="string">"用户不允许地理定位"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.POSITION_UNAVAILABLE:</span><br><span class="line">            console.log(<span class="string">"无法获取当前位置"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.TIMEOUT:</span><br><span class="line">            console.log(<span class="string">"操作超时"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.UNKNOWN_ERROR:</span><br><span class="line">            console.log(<span class="string">"发生未知错误"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="谷歌地图源码"><a href="#谷歌地图源码" class="headerlink" title="谷歌地图源码:"></a>谷歌地图源码:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"zh"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Cache-Control"</span> content=<span class="string">"no-cache"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-capable"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"telephone=no"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"email=no"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-touch-fullscreen"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-status-bar-style"</span> content=<span class="string">"black"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1, user-scalable=no"</span>&gt;</span><br><span class="line">&lt;title&gt;谷歌地图&lt;/title&gt;</span><br><span class="line">&lt;meta name=<span class="string">"keywords"</span> content=<span class="string">"谷歌地图"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"description"</span> content=<span class="string">"谷歌地图"</span>&gt;</span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">*&#123;margin:0;padding:0;&#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.map&#123;display:block;width:calc(100% - 20px);margin:10px auto;height:calc(100% - 20px);&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=<span class="string">"map"</span> class=<span class="string">"map"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span> src=<span class="string">"http://maps.google.com/maps/api/js?sensor=false"</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"><span class="keyword">if</span>(window.navigator.geolocation)&#123;</span><br><span class="line">    browserPostion();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">"您的浏览器不支持定位"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">browserPostion</span></span>()&#123;</span><br><span class="line">    var options = &#123;</span><br><span class="line">        enableHighAccuracy:<span class="literal">true</span>, //它将告诉浏览器是否启用高精度设备。</span><br><span class="line">        maximumAge:600000,  //超时，获取位置信息时超出设定的这个时长，将会触发错误，捕获错误的函数将被调用，并且错误码指向TIMEOUT。</span><br><span class="line">        timeout:60000   //缓存时间 缓存时间过后浏览器会再次调用getCurrentPosition方法。</span><br><span class="line">    &#125;;</span><br><span class="line">    //谷歌地图调用</span><br><span class="line">    window.navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError, options);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> getPositionSuccess(position)&#123;</span><br><span class="line">    var lat = position.coords.latitude;</span><br><span class="line">    var lon = position.coords.longitude;</span><br><span class="line">    var latlon = new google.maps.LatLng(lat, lon)</span><br><span class="line">    var mapholder = document.getElementById(<span class="string">'map'</span>);</span><br><span class="line">    var myOptions = &#123;</span><br><span class="line">        center: latlon,</span><br><span class="line">        zoom: 14,</span><br><span class="line">        mapTypeId: google.maps.MapTypeId.ROADMAP,</span><br><span class="line">        mapTypeControl: <span class="literal">false</span>,</span><br><span class="line">        navigationControlOptions: &#123;</span><br><span class="line">            style: google.maps.NavigationControlStyle.SMALL</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    var map = new google.maps.Map(mapholder, myOptions);</span><br><span class="line">    var marker = new google.maps.Marker(&#123;</span><br><span class="line">        position: latlon,</span><br><span class="line">        map: map,</span><br><span class="line">        title: <span class="string">"你在这里"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> getPositionError(error) &#123;</span><br><span class="line">    switch (error.code) &#123;</span><br><span class="line">        <span class="keyword">case</span> error.PERMISSION_DENIED:</span><br><span class="line">            console.log(<span class="string">"用户不允许地理定位"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.POSITION_UNAVAILABLE:</span><br><span class="line">            console.log(<span class="string">"无法获取当前位置"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.TIMEOUT:</span><br><span class="line">            console.log(<span class="string">"操作超时"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        <span class="keyword">case</span> error.UNKNOWN_ERROR:</span><br><span class="line">            console.log(<span class="string">"发生未知错误"</span>);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="高德地图源码："><a href="#高德地图源码：" class="headerlink" title="高德地图源码："></a>高德地图源码：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"zh"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Cache-Control"</span> content=<span class="string">"no-cache"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-capable"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"telephone=no"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"email=no"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-touch-fullscreen"</span> content=<span class="string">"yes"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"apple-mobile-web-app-status-bar-style"</span> content=<span class="string">"black"</span> /&gt;</span><br><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1, user-scalable=no"</span>&gt;</span><br><span class="line">&lt;title&gt;高德地图&lt;/title&gt;</span><br><span class="line">&lt;meta name=<span class="string">"keywords"</span> content=<span class="string">"高德地图"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"description"</span> content=<span class="string">"高德地图"</span>&gt;</span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">*&#123;margin:0;padding:0;&#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.map&#123;display:block;width:calc(100% - 20px);margin:10px auto;height:calc(100% - 20px);&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">	&lt;div id=<span class="string">"map"</span> class=<span class="string">"map"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script language=<span class="string">"javascript"</span> src=<span class="string">"http://webapi.amap.com/maps?v=1.3&amp;key=e8496e8ac4b0f01100b98da5bde96597"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">var map = new AMap.Map(<span class="string">"map"</span>, &#123;</span><br><span class="line">	view: new AMap.View2D(&#123;</span><br><span class="line">		center: new AMap.LngLat(116.397428, 39.90923),</span><br><span class="line">		zoom: 13</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">map.plugin([<span class="string">"AMap.MapType"</span>], <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">	var <span class="built_in">type</span> = new AMap.MapType(&#123;</span><br><span class="line">		defaultType: 0</span><br><span class="line">	&#125;);</span><br><span class="line">	map.addControl(<span class="built_in">type</span>);</span><br><span class="line">&#125;);</span><br><span class="line">map.plugin([<span class="string">"AMap.ToolBar"</span>], <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">	toolBar = new AMap.ToolBar();</span><br><span class="line">	map.addControl(toolBar);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var geolocation = null;</span><br><span class="line">map.plugin(<span class="string">'AMap.Geolocation'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">	geolocation = new AMap.Geolocation(&#123;</span><br><span class="line">		enableHighAccuracy: <span class="literal">true</span>, //是否使用高精度定位，默认:<span class="literal">true</span></span><br><span class="line">		timeout: 10000, //超过10秒后停止定位，默认：无穷大</span><br><span class="line">		maximumAge: 0, //定位结果缓存0毫秒，默认：0</span><br><span class="line">		convert: <span class="literal">true</span>, //自动偏移坐标，偏移后的坐标为高德坐标，默认：<span class="literal">true</span></span><br><span class="line">		showButton: <span class="literal">true</span>, //显示定位按钮，默认：<span class="literal">true</span></span><br><span class="line">		buttonPosition: <span class="string">'LB'</span>, //定位按钮停靠位置，默认：<span class="string">'LB'</span>，左下角</span><br><span class="line">		buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)</span><br><span class="line">		showMarker: <span class="literal">true</span>, //定位成功后在定位到的位置显示点标记，默认：<span class="literal">true</span></span><br><span class="line">		showCircle: <span class="literal">true</span>, //定位成功后用圆圈表示定位精度范围，默认：<span class="literal">true</span></span><br><span class="line">		panToLocation: <span class="literal">true</span>, //定位成功后将定位到的位置作为地图中心点，默认：<span class="literal">true</span></span><br><span class="line">		zoomToAccuracy: <span class="literal">true</span>, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：<span class="literal">false</span></span><br><span class="line">	&#125;);</span><br><span class="line">	map.addControl(geolocation);</span><br><span class="line">	AMap.event.addListener(geolocation, <span class="string">'complete'</span>, onComplete); //返回定位信息</span><br><span class="line">	AMap.event.addListener(geolocation, <span class="string">'error'</span>, onError); //返回定位出错信息</span><br><span class="line">	var marker = new AMap.Marker(&#123;</span><br><span class="line">		map: map,</span><br><span class="line">		bubble: <span class="literal">true</span></span><br><span class="line">	&#125;)</span><br><span class="line">&#125;);</span><br><span class="line">getCurrentPosition();</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *获取当前位置信息</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">getCurrentPosition</span></span>() &#123;</span><br><span class="line">	geolocation.getCurrentPosition();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *监控当前位置并获取当前位置信息</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">watchPosition</span></span>() &#123;</span><br><span class="line">	geolocation.watchPosition();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> onComplete(data) &#123;</span><br><span class="line">	var str = <span class="string">'&lt;p&gt;定位成功&lt;/p&gt;'</span>;</span><br><span class="line">	str += <span class="string">'&lt;p&gt;经度：'</span> + data.position.getLng() + <span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">	str += <span class="string">'&lt;p&gt;纬度：'</span> + data.position.getLat() + <span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">	str += <span class="string">'&lt;p&gt;精度：'</span> + data.accuracy + <span class="string">' 米&lt;/p&gt;'</span>;</span><br><span class="line">	str += <span class="string">'&lt;p&gt;是否经过偏移：'</span> + (data.isConverted ? <span class="string">'是'</span> : <span class="string">'否'</span>) + <span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">	//console.log(str);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *解析定位错误信息</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> onError(data) &#123;</span><br><span class="line">	var str = <span class="string">'&lt;p&gt;定位失败&lt;/p&gt;'</span>;</span><br><span class="line">	str += <span class="string">'&lt;p&gt;错误信息：'</span></span><br><span class="line">	switch (data.info) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'PERMISSION_DENIED'</span>:</span><br><span class="line">			str += <span class="string">'浏览器阻止了定位操作'</span>;</span><br><span class="line">			<span class="built_in">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'POSITION_UNAVAILBLE'</span>:</span><br><span class="line">			str += <span class="string">'无法获得当前位置'</span>;</span><br><span class="line">			<span class="built_in">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'TIMEOUT'</span>:</span><br><span class="line">			str += <span class="string">'定位超时'</span>;</span><br><span class="line">			<span class="built_in">break</span>;</span><br><span class="line">		default:</span><br><span class="line">			str += <span class="string">'未知错误'</span>;</span><br><span class="line">			<span class="built_in">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	str += <span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">	console.log(str);</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注：以上地图文件引入可能需要一个开发者key，具体参考官网的API</strong></p>
+<h2 id="浏览器支持情况"><a href="#浏览器支持情况" class="headerlink" title="浏览器支持情况"></a><a href="http://caniuse.com/#feat=geolocation" target="_blank" rel="noopener">浏览器支持情况</a></h2><img src="/2015/10/10/地理定位H5/browser.png" title="GeolocationAPI支持情况">
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="http://www.w3school.com.cn/html5/html_5_geolocation.asp" target="_blank" rel="noopener">w3schoolHTML5 地理定位</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/web/1208_wangjian_html5geo/" target="_blank" rel="noopener">HTML5 Geolocation 构建基于地理位置的 Web 应用</a></li>
+<li><a href="http://wlog.cn/html/geolocation.html" target="_blank" rel="noopener">冰点-html5 Geolocation 地理定位</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/Using_geolocation" target="_blank" rel="noopener">MDN-使用地理位置定位</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/gg589513%28v=vs.85%29.aspx" target="_blank" rel="noopener">Introduction to the Geolocation API</a></li>
+<li><a href="http://www.w3.org/TR/geolocation-API/" target="_blank" rel="noopener">地理定位API规范-en-us</a></li>
+<li><a href="http://developer.baidu.com/map/index.php?title=jspopular" target="_blank" rel="noopener">百度地图JavaScript API大众版</a></li>
+<li><a href="http://lbs.qq.com/javascript_v2/guide.html" target="_blank" rel="noopener">腾讯地图JavaScript API V2</a></li>
+<li><a href="https://developers.google.com/maps/documentation/geolocation/intro" target="_blank" rel="noopener">geolocation the Google地图API</a></li>
+<li><a href="http://lbs.amap.com/api/javascript-api/jsapi-markdown/%e5%bf%ab%e9%80%9f%e5%85%a5%e9%97%a8/" target="_blank" rel="noopener">高德地图 JavaScript API</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/H5/" rel="tag"># H5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/29/matrix/" rel="next" title="Matrix矩阵">
+                <i class="fa fa-chevron-left"></i> Matrix矩阵
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/16/块级元素与行内元素/" rel="prev" title="块级元素与行内元素">
+                块级元素与行内元素 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/10/10/地理定位H5/"
+           data-title="地理定位H5" data-url="https://nightme.github.io/2015/10/10/地理定位H5/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#html5-Geolocation-基本介绍"><span class="nav-number">1.</span> <span class="nav-text">html5 Geolocation 基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取地理位置的方式"><span class="nav-number">2.</span> <span class="nav-text">获取地理位置的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设备可以使用的数据源："><span class="nav-number">2.1.</span> <span class="nav-text">设备可以使用的数据源：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据源对比："><span class="nav-number">2.2.</span> <span class="nav-text">数据源对比：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐："><span class="nav-number">2.3.</span> <span class="nav-text">推荐：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地理位置获取流程"><span class="nav-number">3.</span> <span class="nav-text">地理位置获取流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐私"><span class="nav-number">4.</span> <span class="nav-text">隐私</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测浏览器是否支持Geolocation"><span class="nav-number">5.</span> <span class="nav-text">检测浏览器是否支持Geolocation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#成功获得地理位置信息"><span class="nav-number">5.1.</span> <span class="nav-text">成功获得地理位置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误信息处理"><span class="nav-number">5.2.</span> <span class="nav-text">错误信息处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选项"><span class="nav-number">5.3.</span> <span class="nav-text">可选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watchPosition函数"><span class="nav-number">6.</span> <span class="nav-text">watchPosition函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clearWatch函数"><span class="nav-number">7.</span> <span class="nav-text">clearWatch函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DEMO源码"><span class="nav-number">8.</span> <span class="nav-text">DEMO源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#百度地图源码"><span class="nav-number">8.1.</span> <span class="nav-text">百度地图源码:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯地图源码："><span class="nav-number">8.2.</span> <span class="nav-text">腾讯地图源码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谷歌地图源码"><span class="nav-number">8.3.</span> <span class="nav-text">谷歌地图源码:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高德地图源码："><span class="nav-number">8.4.</span> <span class="nav-text">高德地图源码：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器支持情况"><span class="nav-number">9.</span> <span class="nav-text">浏览器支持情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">10.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

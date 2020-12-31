@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="基本概念Date对象：javascript的Date对象用来处理日期和时间。协调世界时(Universal Time Coordinated)：简称UTC，由世界时同原子时协调而成的时间计算系统。它是当今世界无线电通讯中使用的标准时间。格林威治标准时间(Greenwich Mean Time)：简称GMT, 现在计算机和一些电子设备时间的计算和显示是以距历元(即格林威治标准时间 1970 年 1">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-Date日期对象">
+<meta property="og:url" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="基本概念Date对象：javascript的Date对象用来处理日期和时间。协调世界时(Universal Time Coordinated)：简称UTC，由世界时同原子时协调而成的时间计算系统。它是当今世界无线电通讯中使用的标准时间。格林威治标准时间(Greenwich Mean Time)：简称GMT, 现在计算机和一些电子设备时间的计算和显示是以距历元(即格林威治标准时间 1970 年 1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_2.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_3.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_4.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_5.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_6.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_7.png">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-Date日期对象">
+<meta name="twitter:description" content="基本概念Date对象：javascript的Date对象用来处理日期和时间。协调世界时(Universal Time Coordinated)：简称UTC，由世界时同原子时协调而成的时间计算系统。它是当今世界无线电通讯中使用的标准时间。格林威治标准时间(Greenwich Mean Time)：简称GMT, 现在计算机和一些电子设备时间的计算和显示是以距历元(即格林威治标准时间 1970 年 1">
+<meta name="twitter:image" content="https://nightme.github.io/2016/01/04/javascript-Date日期对象/date_pic_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2016/01/04/javascript-Date日期对象/"/>
+
+
+
+
+
+  <title>javascript-Date日期对象 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/01/04/javascript-Date日期对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-Date日期对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-04T11:02:06+08:00">
+                2016-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/04/javascript-Date日期对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/04/javascript-Date日期对象/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Date对象：javascript的Date对象用来处理日期和时间。<br>协调世界时(Universal Time Coordinated)：简称UTC，由世界时同原子时协调而成的时间计算系统。它是当今世界无线电通讯中使用的标准时间。<br>格林威治标准时间(Greenwich Mean Time)：简称GMT, 现在计算机和一些电子设备时间的计算和显示是以距历元(即格林威治标准时间 1970 年 1 月 1 日的 00:00:00.000)的偏移量为标准的。</p>
+<ol>
+<li>Date对象是基于1970年1月1日00:00:00时世界协调时(UTC)起的毫秒数，正负的范围为基准时间前后各1亿天</li>
+<li>人们通常所说的中国标准时间，就是协调世界时UTC</li>
+<li>Date对象会自动把当前日期和时间保存为其初始值。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date()  //返回当日的日期和时间</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<img src="/2016/01/04/javascript-Date日期对象/date_pic_1.png" title="网页响应头的GMT">
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>1、 new Date();</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new Date()              //如：Mon Jan 04 2016 13:47:57 GMT+0800 (中国标准时间)</span><br><span class="line">var today = new Date();</span><br></pre></td></tr></table></figure>
+<p>2、new Date(value)</p>
+<p>value:代表自世界协调时1970年1月1日00:00:00 经过的毫秒数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new Date(1451886597656); // Mon Jan 04 2016 13:49:57 GMT+0800 (中国标准时间)</span><br><span class="line">var Jan_04 = new Date(1451886597656);</span><br></pre></td></tr></table></figure>
+<p>3、new Date(dateString)</p>
+<p>dateString：表示日期的字符串值。该字符串应该能被 Date.parse() 方法识别</p>
+<p>推荐字符串格式：</p>
+<img src="/2016/01/04/javascript-Date日期对象/date_pic_2.png" title="字符串参考图">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new Date(<span class="string">'2009/07/12'</span>);         // Sun Jul 12 2009 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(<span class="string">'2009/7/12'</span>);          // Sun Jul 12 2009 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(<span class="string">'2009/07/12 12:34'</span>);   // Sun Jul 12 2009 12:34:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(<span class="string">'2009/07/12 12:34:56'</span>);// Sun Jul 12 2009 12:34:56 GMT+0800 (中国标准时间)</span><br><span class="line"></span><br><span class="line">new Date(<span class="string">'07/02/2012'</span>);         // Mon Jul 02 2012 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(<span class="string">'7/2/2012'</span>);           // Mon Jul 02 2012 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(<span class="string">'7/2/2012 12:34'</span>);     // Mon Jul 02 2012 12:34:00 GMT+0800 (中国标准时间)</span><br></pre></td></tr></table></figure>
+<p>4、new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]])</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">year</td>
+<td style="text-align:center">代表年份的整数值。为了避免2000年问题最好指定4位数的年份; 使用 1998, 而不要用 98</td>
+</tr>
+<tr>
+<td style="text-align:center">month</td>
+<td style="text-align:center">月份，用从 0 到 11 的整数表示（1 月至 12 月）</td>
+</tr>
+<tr>
+<td style="text-align:center">day</td>
+<td style="text-align:center">日期，用从 1 到 31 的整数表示</td>
+</tr>
+<tr>
+<td style="text-align:center">hour</td>
+<td style="text-align:center">小时，从 0 到 23 的整数（午夜到 11pm）</td>
+</tr>
+<tr>
+<td style="text-align:center">minute</td>
+<td style="text-align:center">分钟,从 0 到 59 的整数</td>
+</tr>
+<tr>
+<td style="text-align:center">second</td>
+<td style="text-align:center">秒数,从 0 到 59 的整数</td>
+</tr>
+<tr>
+<td style="text-align:center">millisecond</td>
+<td style="text-align:center">毫秒, 从 0 到 999 的整数</td>
+</tr>
+</tbody>
+</table>
+<p>参数依次表示年、月、日、小时、分钟、秒和毫秒，这种格式至少需要提供 <strong>年月</strong> 两个参数，其他参数可选，默认为0。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new Date(2015, 0);                  // Thu Jan 01 2015 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(2015, 0, 1, 0, 0, 0, 0);   // Thu Jan 01 2015 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line"></span><br><span class="line">//超出了正常范围</span><br><span class="line">new Date(2014, 16)                  // Fri May 01 2015 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(2014, -2)                  // Fri Nov 01 2013 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">new Date(2014, 0, -1)               // Mon Dec 30 2013 00:00:00 GMT+0800 (中国标准时间)</span><br></pre></td></tr></table></figure>
+<h2 id="Date-对象属性"><a href="#Date-对象属性" class="headerlink" title="Date 对象属性"></a>Date 对象属性</h2><p>Date.prototype：允许为 Date 实例对象添加属性。<br>Date.length：Date.length 的值是 7。这是该构造函数可接受的参数个数。</p>
+<img src="/2016/01/04/javascript-Date日期对象/date_pic_3.png" title="Date对象属性">
+<h2 id="Date对象的静态方法"><a href="#Date对象的静态方法" class="headerlink" title="Date对象的静态方法"></a>Date对象的静态方法</h2><h3 id="Date-now"><a href="#Date-now" class="headerlink" title="Date.now()"></a>Date.now()</h3><p>Date.now方法返回当前距离1970年1月1日 00:00:00 UTC的毫秒数（Unix时间戳乘以1000）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Date.now()                  // 如： 1451892741668</span><br><span class="line"></span><br><span class="line">毫秒更精确的时间,可精确到千分之一毫秒</span><br><span class="line">window.performance.now()    // 如： 4634702.617000002</span><br></pre></td></tr></table></figure>
+<h3 id="Date-parse"><a href="#Date-parse" class="headerlink" title="Date.parse()"></a>Date.parse()</h3><p>Date.parse方法用来解析日期字符串，返回距离1970年1月1日 00:00:00的毫秒数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date.parse(<span class="string">'Mon, 25 Dec 1995 13:30:00 +0430'</span>)   // 819882000000</span><br></pre></td></tr></table></figure>
+<h3 id="Date-UTC"><a href="#Date-UTC" class="headerlink" title="Date.UTC()"></a>Date.UTC()</h3><p>默认情况下，Date对象返回的都是当前时区的时间,返回当前距离1970年1月1日 00:00:00 UTC的毫秒数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date.UTC(2011, 0, 1, 2, 3, 4, 567)</span><br></pre></td></tr></table></figure>
+<h2 id="to类方法"><a href="#to类方法" class="headerlink" title="to类方法"></a>to类方法</h2><img src="/2016/01/04/javascript-Date日期对象/date_pic_4.png" title="to类方法">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//初始化日期</span><br><span class="line">var d = new Date(2013, 0, 1);</span><br><span class="line"></span><br><span class="line">d.toString();               // Tue Jan 01 2013 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">d.toLocaleString();         // 2013/1/1 上午12:00:00</span><br><span class="line">d.toLocaleDateString();     // 2013/1/1</span><br><span class="line">d.toLocaleTimeString();     // 上午12:00:00</span><br><span class="line"></span><br><span class="line">d.toDateString();           // Tue Jan 01 2013</span><br><span class="line">d.toTimeString();           // 00:00:00 GMT+0800 (中国标准时间)</span><br><span class="line">d.toGMTString();            // Mon, 31 Dec 2012 16:00:00 GMT</span><br><span class="line">d.toUTCString();            // Mon, 31 Dec 2012 16:00:00 GMT          </span><br><span class="line"></span><br><span class="line">把一个日期转换为符合 ISO 8601 扩展格式的字符串</span><br><span class="line">d.toISOString();            // 2012-12-31T16:00:00.000Z</span><br></pre></td></tr></table></figure>
+<h2 id="get类方法"><a href="#get类方法" class="headerlink" title="get类方法"></a>get类方法</h2><img src="/2016/01/04/javascript-Date日期对象/date_pic_5.png" title="get类方法">
+<h3 id="根据本地时"><a href="#根据本地时" class="headerlink" title="根据本地时"></a>根据本地时</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var d = new Date(2013, 0, 1, 1, 45, 35,400);</span><br><span class="line"></span><br><span class="line">d.getTime();                // 毫秒：356969600000</span><br><span class="line">d.getFullYear();            // 年：2013</span><br><span class="line">d.getMonth();               // 月: 0</span><br><span class="line">d.getDate();                // 日：1</span><br><span class="line">d.getHours();               // 时：1</span><br><span class="line">d.getMinutes();             // 分：45</span><br><span class="line">d.getSeconds();             // 秒: 35</span><br><span class="line">getMilliseconds();          // 毫秒：400</span><br><span class="line"></span><br><span class="line">返回本地时间与格林威治标准时间 (GMT) 的分钟差</span><br><span class="line">d.getTimezoneOffset()       // -480</span><br><span class="line">d.getYear();                // 113</span><br></pre></td></tr></table></figure>
+<h3 id="根据世界时"><a href="#根据世界时" class="headerlink" title="根据世界时"></a>根据世界时</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var d = new Date(2013, 0, 1, 1, 45, 35,400);    //2013/1/1 上午1:45:35</span><br><span class="line"></span><br><span class="line">d.getUTCFullYear();         // 年: 2012</span><br><span class="line">d.getUTCMonth();            // 月: 11</span><br><span class="line">d.getUTCDate();             // 日：31</span><br><span class="line">d.getUTCHours();            // 时：17</span><br><span class="line">d.getUTCMinutes();          // 分：45</span><br><span class="line">d.getUTCSeconds();          // 秒：35</span><br><span class="line">d.getUTCMilliseconds();     // 毫秒：400</span><br></pre></td></tr></table></figure>
+<h2 id="set类方法"><a href="#set类方法" class="headerlink" title="set类方法"></a>set类方法</h2><img src="/2016/01/04/javascript-Date日期对象/date_pic_6.png" title="set类方法">
+<h3 id="根据本地时-1"><a href="#根据本地时-1" class="headerlink" title="根据本地时"></a>根据本地时</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var d = new Date(2013, 0, 1, 1, 45, 35,400);</span><br><span class="line"></span><br><span class="line">d.setTime(1451896870207);       // Mon Jan 04 2016 16:41:10 GMT+0800 (中国标准时间)</span><br><span class="line">d.setFullYear(2018);            // Mon Jan 01 2018 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setMonth(8);                  // Sun Sep 01 2013 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setDate(16)                   // Wed Jan 16 2013 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setHours(20);                 // Tue Jan 01 2013 20:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setMinutes(46)                // Tue Jan 01 2013 01:46:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setSeconds(36)                // Tue Jan 01 2013 01:45:36 GMT+0800 (中国标准时间)</span><br><span class="line">d.setMilliseconds(500);         // 500</span><br></pre></td></tr></table></figure>
+<h3 id="根据世界时-1"><a href="#根据世界时-1" class="headerlink" title="根据世界时"></a>根据世界时</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var d = new Date(2013, 0, 1, 1, 45, 35,400);    </span><br><span class="line"></span><br><span class="line">d.setUTCFullYear(2015)          // Fri Jan 01 2016 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCMonth(1);               // Sat Mar 03 2012 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCDate(13);               // Fri Dec 14 2012 01:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCHours(3);               // Mon Dec 31 2012 11:45:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCMinutes(54);            // Tue Jan 01 2013 01:54:35 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCSeconds(44);            // Tue Jan 01 2013 01:45:44 GMT+0800 (中国标准时间)</span><br><span class="line">d.setUTCMilliseconds(100)       // 100</span><br></pre></td></tr></table></figure>
+<h2 id="日期库"><a href="#日期库" class="headerlink" title="日期库"></a>日期库</h2><p>1、Datejs</p>
+<p>Datejs是一个开源的JavaScript库解析日期,格式和处理。</p>
+<p>地址：<a href="https://github.com/datejs/Datejs" target="_blank" rel="noopener">https://github.com/datejs/Datejs</a></p>
+<p>2、Moment.js</p>
+<p>JavaScript 日期处理类库</p>
+<img src="/2016/01/04/javascript-Date日期对象/date_pic_7.png" title="moment.js">
+<p>中文地址：<a href="http://momentjs.cn/" target="_blank" rel="noopener">http://momentjs.cn/</a><br>英文地址：<a href="http://momentjs.com/" target="_blank" rel="noopener">http://momentjs.com/</a></p>
+<p>3、jquery-countdown.js</p>
+<p>jQuery倒计时是一个倒计时库</p>
+<p>地址：<a href="https://github.com/Reflejo/jquery-countdown" target="_blank" rel="noopener">https://github.com/Reflejo/jquery-countdown</a></p>
+<ol>
+<li>xdate.js</li>
+</ol>
+<p>一个现代JavaScript库</p>
+<p>地址：<a href="https://github.com/arshaw/xdate" target="_blank" rel="noopener">https://github.com/arshaw/xdate</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date#.E6.8F.8F.E8.BF.B0" target="_blank" rel="noopener">Date-MDN</a></li>
+<li><a href="http://www.w3school.com.cn/jsref/jsref_obj_date.asp" target="_blank" rel="noopener">w3school-Date</a></li>
+<li><a href="https://msdn.microsoft.com/zh-cn/library/cd9w2te4.aspx" target="_blank" rel="noopener">微软-Date</a></li>
+<li><a href="http://dygraphs.com/date-formats.html" target="_blank" rel="noopener">日期字符串解析</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/31/underscore模版/" rel="next" title="underscore模版">
+                <i class="fa fa-chevron-left"></i> underscore模版
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/05/Array方法/" rel="prev" title="Array对象">
+                Array对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/01/04/javascript-Date日期对象/"
+           data-title="javascript-Date日期对象" data-url="https://nightme.github.io/2016/01/04/javascript-Date日期对象/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Date-对象属性"><span class="nav-number">3.</span> <span class="nav-text">Date 对象属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Date对象的静态方法"><span class="nav-number">4.</span> <span class="nav-text">Date对象的静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-now"><span class="nav-number">4.1.</span> <span class="nav-text">Date.now()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-parse"><span class="nav-number">4.2.</span> <span class="nav-text">Date.parse()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-UTC"><span class="nav-number">4.3.</span> <span class="nav-text">Date.UTC()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#to类方法"><span class="nav-number">5.</span> <span class="nav-text">to类方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get类方法"><span class="nav-number">6.</span> <span class="nav-text">get类方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据本地时"><span class="nav-number">6.1.</span> <span class="nav-text">根据本地时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据世界时"><span class="nav-number">6.2.</span> <span class="nav-text">根据世界时</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类方法"><span class="nav-number">7.</span> <span class="nav-text">set类方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据本地时-1"><span class="nav-number">7.1.</span> <span class="nav-text">根据本地时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据世界时-1"><span class="nav-number">7.2.</span> <span class="nav-text">根据世界时</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期库"><span class="nav-number">8.</span> <span class="nav-text">日期库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

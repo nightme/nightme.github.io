@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="html," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="了解html W3C：万维网联盟-World Wide Web Consortium,创建于1994年 HTML：超级文本标记语言-HyperText Markup Language XHTML：可扩展超文本标记语言-Extensible HyperText Markup Language，XHTML 的目标是为取代 HTML DHTML：是动态HTML - Dynamic HTML，它不是 W3">
+<meta name="keywords" content="html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="块级元素与行内元素">
+<meta property="og:url" content="https://nightme.github.io/2015/10/16/块级元素与行内元素/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="了解html W3C：万维网联盟-World Wide Web Consortium,创建于1994年 HTML：超级文本标记语言-HyperText Markup Language XHTML：可扩展超文本标记语言-Extensible HyperText Markup Language，XHTML 的目标是为取代 HTML DHTML：是动态HTML - Dynamic HTML，它不是 W3">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="块级元素与行内元素">
+<meta name="twitter:description" content="了解html W3C：万维网联盟-World Wide Web Consortium,创建于1994年 HTML：超级文本标记语言-HyperText Markup Language XHTML：可扩展超文本标记语言-Extensible HyperText Markup Language，XHTML 的目标是为取代 HTML DHTML：是动态HTML - Dynamic HTML，它不是 W3">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2015/10/16/块级元素与行内元素/"/>
+
+
+
+
+
+  <title>块级元素与行内元素 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/10/16/块级元素与行内元素/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">块级元素与行内元素</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-16T14:01:52+08:00">
+                2015-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/16/块级元素与行内元素/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/16/块级元素与行内元素/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="了解html"><a href="#了解html" class="headerlink" title="了解html"></a>了解html</h2><ul>
+<li><strong>W3C</strong>：万维网联盟-World Wide Web Consortium,创建于1994年</li>
+<li><strong>HTML</strong>：超级文本标记语言-HyperText Markup Language</li>
+<li><strong>XHTML</strong>：可扩展超文本标记语言-Extensible HyperText Markup Language，XHTML 的目标是为取代 HTML</li>
+<li><strong>DHTML</strong>：是动态HTML - Dynamic HTML，它不是 W3C 标准</li>
+<li><strong>HTML5</strong>：万维网的核心语言，是超文本标记语言-html的第五次重大修改,是一项推荐标准</li>
+</ul>
+<h2 id="元素的基本定义"><a href="#元素的基本定义" class="headerlink" title="元素的基本定义"></a>元素的基本定义</h2><h3 id="块级元素与块元素"><a href="#块级元素与块元素" class="headerlink" title="块级元素与块元素"></a>块级元素与块元素</h3><ul>
+<li><strong>块级元素(block-level elements)</strong>：那些视觉上会被格式化成块状的元素，通俗一点来说就是那些会换新行的元素。display 属性值为：block, list-item, table 值都可以将一个元素设置成块级元素。<a id="more"></a></li>
+<li><strong>块元素</strong>：display属性值为block的元素，是块级元素的一个子集。</li>
+</ul>
+<h3 id="行内级元素与行内元素"><a href="#行内级元素与行内元素" class="headerlink" title="行内级元素与行内元素"></a>行内级元素与行内元素</h3><ul>
+<li><p><strong>行内级元素(inline-level elements)</strong>：行内级元素是那些不会为自身内容形成新的块，而让内容分布在同一行中的元素。display 属性的：inline, inline-table, inline-block 值都可以将一个元素设置成行内级元素。</p>
+</li>
+<li><p><strong>行内元素</strong>：display属性为inline的元素，是行内级元素的一个子集</p>
+</li>
+</ul>
+<h3 id="置换元素与非置换元素"><a href="#置换元素与非置换元素" class="headerlink" title="置换元素与非置换元素"></a>置换元素与非置换元素</h3><ul>
+<li><p><strong>置换元素(replaced element)</strong>：一个内容 不受CSS视觉格式化模型控制，CSS渲染模型并不考虑对此内容的渲染，且元素本身一般拥有固有尺寸（宽度，高度，宽高比）的元素，被称之为置换元素。这类元素，浏览器根据元素的标签和属性，来决定元素的具体显示内容。常见的置换元素有这些：img,input,textarea,select,button等，而某些元素像是audio或canvas只有在特殊情況下才是置換元素。</p>
+</li>
+<li><p><strong>非置换元素(non-replaced element)</strong>：w3c并没有给出明确的非置换元素的解释，但能确定的是除置换元素之外，所有的元素都是非置换元素。</p>
+</li>
+</ul>
+<h3 id="行内级非置换元素和行内级置换元素"><a href="#行内级非置换元素和行内级置换元素" class="headerlink" title="行内级非置换元素和行内级置换元素"></a>行内级非置换元素和行内级置换元素</h3><ul>
+<li><strong>行内级非置换元素</strong>：宽度与高度的设置对于行内级非置换元素时不适用的，例如span,a</li>
+<li><strong>行内级置换元素</strong>：置换元素一般都是一般拥有固有尺寸（宽度，高度，宽高比）的元素，因此对于置换元素在不设宽度和高度的情况下，元素宽高度等于元素自身固有尺寸。而且其遵循的特点如下：</li>
+</ul>
+<hr>
+<ol>
+<li>若宽高的计算值都为 auto 且元素有固有高度，则 height 的使用值为该固有高度<blockquote>
+<p>如表单元素input</p>
+</blockquote>
+</li>
+<li>若宽度的计算值为 auto 且元素有固有宽度，则 width 的使用值为该固有宽度<blockquote>
+<p>如表单元素input</p>
+</blockquote>
+</li>
+<li>若宽度的计算值为 auto 且高度有 非auto 的计算值，并且元素有固有宽高比，则 width 的使用值为 高度使用值 * 固有宽高比；<blockquote>
+<p>如img元素</p>
+</blockquote>
+</li>
+<li>若高度的计算值为 auto 且上述条件完全不符，则 height 的使用值不能大于150px，且宽度不能大于长方形高度的2倍。<blockquote>
+<p>如iframe元素</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="元素列表"><a href="#元素列表" class="headerlink" title="元素列表"></a>元素列表</h2><h3 id="块元素-block-element"><a href="#块元素-block-element" class="headerlink" title="块元素(block element)"></a>块元素(block element)</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&#60;address&#62;</td>
+<td style="text-align:center">定义文档作者或拥有者的联系信息</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;caption&#62;</td>
+<td style="text-align:center">定义表格标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;blockquote&#62;</td>
+<td style="text-align:center">块引用</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;dd&#62;</td>
+<td style="text-align:center">定义列表中定义条目</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;div&#62;</td>
+<td style="text-align:center">定义文档中的分区或节</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;dl&#62;</td>
+<td style="text-align:center">定义列表</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;dt&#62;</td>
+<td style="text-align:center">定义列表中的项目</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;fieldset&#62;</td>
+<td style="text-align:center">定义一个框架集</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;form&#62;</td>
+<td style="text-align:center">创建 HTML 表单</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h1&#62;</td>
+<td style="text-align:center">定义最大的标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h2&#62;</td>
+<td style="text-align:center">定义副标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h3&#62;</td>
+<td style="text-align:center">定义标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h4&#62;</td>
+<td style="text-align:center">定义标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h5&#62;</td>
+<td style="text-align:center">定义标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;h6&#62;</td>
+<td style="text-align:center">定义最小的标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;hr&#62;</td>
+<td style="text-align:center">创建一条水平线</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;legend&#62;</td>
+<td style="text-align:center">元素为 fieldset 元素定义标题</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;li&#62;</td>
+<td style="text-align:center">标签定义列表项目</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;noframes&#62;</td>
+<td style="text-align:center">为那些不支持框架的浏览器显示文本，于 frameset 元素内部</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;noscript&#62;</td>
+<td style="text-align:center">为定义在脚本未被执行时的替代内容</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;ol&#62;</td>
+<td style="text-align:center">定义有序列表</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;ul&#62;</td>
+<td style="text-align:center">定义无序列表</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;p&#62;</td>
+<td style="text-align:center">标签定义段落</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;pre&#62;</td>
+<td style="text-align:center">定义预格式化的文本</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;table&#62;</td>
+<td style="text-align:center">标签定义 HTML 表格</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;tbody&#62;</td>
+<td style="text-align:center">标签表格主体（正文）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;td&#62;</td>
+<td style="text-align:center">表格中的标准单元格</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;tfoot&#62;</td>
+<td style="text-align:center">定义表格的页脚（脚注或表注）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;th&#62;</td>
+<td style="text-align:center">定义表头单元格</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;thead&#62;</td>
+<td style="text-align:center">标签定义表格的表头</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;tr&#62;</td>
+<td style="text-align:center">定义表格中的行</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;header&#62;</td>
+<td style="text-align:center">区段头或页头</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;footer&#62;</td>
+<td style="text-align:center">区段尾或页尾。</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;section&#62;</td>
+<td style="text-align:center">一个页面区段。</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;article&#62;</td>
+<td style="text-align:center">定义文章。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内联元素-inline-element"><a href="#内联元素-inline-element" class="headerlink" title="内联元素(inline element)"></a>内联元素(inline element)</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&#60;a&#62;</td>
+<td style="text-align:center">超链接/锚点</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;acronym &#62;</td>
+<td style="text-align:center">定义只取首字母缩写</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;b&#62;</td>
+<td style="text-align:center">字体加粗</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;bdo&#62;</td>
+<td style="text-align:center">可覆盖默认的文本方向</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;big &#62;</td>
+<td style="text-align:center">大字体</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;br&#62;</td>
+<td style="text-align:center">换行</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;cite&#62;</td>
+<td style="text-align:center">引用进行定义</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;code&#62;</td>
+<td style="text-align:center">计定义计算机代码文本</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;dfn&#62;</td>
+<td style="text-align:center">定义一个定义项目</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;em &#62;</td>
+<td style="text-align:center">强调</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;font&#62;</td>
+<td style="text-align:center">字体设定(不推荐)</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; i &#62;</td>
+<td style="text-align:center">斜体文本效果</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;img &#62;</td>
+<td style="text-align:center">向网页中嵌入一幅图像</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;input &#62;</td>
+<td style="text-align:center">输入框</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;kbd &#62;</td>
+<td style="text-align:center">定义键盘文</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; label &#62;</td>
+<td style="text-align:center">标签为 input 元素定义标注（标记）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; q&#62;</td>
+<td style="text-align:center">短引用</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; s&#62;</td>
+<td style="text-align:center">中划线(不推荐)</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; samp&#62;</td>
+<td style="text-align:center">定义范例计算机代码</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;select &#62;</td>
+<td style="text-align:center">创建单选或多选菜单</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;small &#62;</td>
+<td style="text-align:center">小字体文本</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;span &#62;</td>
+<td style="text-align:center">组合文档中的行内元素</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;strike &#62;</td>
+<td style="text-align:center">中划线</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;strong &#62;</td>
+<td style="text-align:center">语气更强的强调的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;sub&#62;</td>
+<td style="text-align:center">下标</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;sup&#62;</td>
+<td style="text-align:center">上标</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;textarea &#62;</td>
+<td style="text-align:center">多行文本输入框</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60; tt&#62;</td>
+<td style="text-align:center">打字机或者等宽的文本效果</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;u &#62;</td>
+<td style="text-align:center">下划线</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;var&#62;</td>
+<td style="text-align:center">定义变量</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可变元素"><a href="#可变元素" class="headerlink" title="可变元素"></a>可变元素</h3><p><strong>可变元素 为根据上下文语境决定该元素为块元素或者内联元素。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&#60;applet &#62;</td>
+<td style="text-align:center">java applet</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;button &#62;</td>
+<td style="text-align:center">按钮</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;del &#62;</td>
+<td style="text-align:center">删除文本</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;iframe  &#62;</td>
+<td style="text-align:center">创建包含另外一个文档的内联框架（即行内框架）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;ins &#62;</td>
+<td style="text-align:center">标签定义已经被插入文档中的文本</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;map &#62;</td>
+<td style="text-align:center">客户端图像映射（即热区）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;object &#62;</td>
+<td style="text-align:center">object对象</td>
+</tr>
+<tr>
+<td style="text-align:center">&#60;script &#62;</td>
+<td style="text-align:center">客户端脚本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注：此处只包含部分标签分类，而”块级“在新的 HTML5 元素中暂时无明确定义</strong></p>
+<h2 id="块元素与内联元素的基本特点"><a href="#块元素与内联元素的基本特点" class="headerlink" title="块元素与内联元素的基本特点"></a>块元素与内联元素的基本特点</h2><h3 id="块元素特点："><a href="#块元素特点：" class="headerlink" title="块元素特点："></a>块元素特点：</h3><ol>
+<li>每个块级元素都从新的一行开始，并且其后的元素也另起一行。</li>
+<li>元素的高度、宽度、行高以及顶和底边距都可设置。</li>
+<li>元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致），除非设定一个宽度。</li>
+<li>它可以容纳内联元素和其他块元素</li>
+</ol>
+<h3 id="内联元素特点："><a href="#内联元素特点：" class="headerlink" title="内联元素特点："></a>内联元素特点：</h3><ol>
+<li>和其他元素都在一行上；</li>
+<li>高，行高及外边距和内边距不可改变；</li>
+<li>宽度就是它的文字或图片的宽度，不可改变</li>
+<li>内联元素只能容纳文本或者其他内联元素</li>
+</ol>
+<h3 id="对行内元素，需要注意如下"><a href="#对行内元素，需要注意如下" class="headerlink" title="对行内元素，需要注意如下:"></a>对行内元素，需要注意如下:</h3><ol>
+<li>设置宽度width 无效。</li>
+<li>设置高度height 无效，可以通过line-height来设置。</li>
+<li>设置margin 只有左右margin有效，上下无效。</li>
+<li>设置padding 只有左右padding有效，上下则无效。注意元素范围是增大了，但是对元素周围的内容是没影响的。</li>
+</ol>
+<p><strong>注：行内各别元素除外如类似img元素</strong></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="http://www.w3cwhy.com/css-html/html-hkmarka.html" target="_blank" rel="noopener">w3c常见的块状元素与内联元素</a></li>
+<li><a href="http://segmentfault.com/a/1190000003409574" target="_blank" rel="noopener">关于元素高度与宽度的讨论</a></li>
+<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/CSS/Replaced_element" target="_blank" rel="noopener">MDN-置換元素</a></li>
+<li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren" target="_blank" rel="noopener">w3c视觉格式化模型</a></li>
+<li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visudet/zh-hans" target="_blank" rel="noopener">w3c视觉布局模型细节</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Block-level_elements#块级元素与行内元素" target="_blank" rel="noopener">MDN-块级元素</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Visual_formatting_model" target="_blank" rel="noopener">MDN-视觉格式化模型</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/10/地理定位H5/" rel="next" title="地理定位H5">
+                <i class="fa fa-chevron-left"></i> 地理定位H5
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/19/EDM制作/" rel="prev" title="EDM制作">
+                EDM制作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/10/16/块级元素与行内元素/"
+           data-title="块级元素与行内元素" data-url="https://nightme.github.io/2015/10/16/块级元素与行内元素/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解html"><span class="nav-number">1.</span> <span class="nav-text">了解html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素的基本定义"><span class="nav-number">2.</span> <span class="nav-text">元素的基本定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素与块元素"><span class="nav-number">2.1.</span> <span class="nav-text">块级元素与块元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行内级元素与行内元素"><span class="nav-number">2.2.</span> <span class="nav-text">行内级元素与行内元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#置换元素与非置换元素"><span class="nav-number">2.3.</span> <span class="nav-text">置换元素与非置换元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行内级非置换元素和行内级置换元素"><span class="nav-number">2.4.</span> <span class="nav-text">行内级非置换元素和行内级置换元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素列表"><span class="nav-number">3.</span> <span class="nav-text">元素列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#块元素-block-element"><span class="nav-number">3.1.</span> <span class="nav-text">块元素(block element)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联元素-inline-element"><span class="nav-number">3.2.</span> <span class="nav-text">内联元素(inline element)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变元素"><span class="nav-number">3.3.</span> <span class="nav-text">可变元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块元素与内联元素的基本特点"><span class="nav-number">4.</span> <span class="nav-text">块元素与内联元素的基本特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#块元素特点："><span class="nav-number">4.1.</span> <span class="nav-text">块元素特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联元素特点："><span class="nav-number">4.2.</span> <span class="nav-text">内联元素特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对行内元素，需要注意如下"><span class="nav-number">4.3.</span> <span class="nav-text">对行内元素，需要注意如下:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

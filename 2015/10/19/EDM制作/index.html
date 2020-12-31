@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="html," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="基本定义EDM 是 Email Direct Marketing 的缩写，即电子邮件营销，简称为邮件营销，是利用电子邮件（Email）与受众客户进行商业交流的一种直销方式。下面是一张参考图：">
+<meta name="keywords" content="html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EDM制作">
+<meta property="og:url" content="https://nightme.github.io/2015/10/19/EDM制作/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="基本定义EDM 是 Email Direct Marketing 的缩写，即电子邮件营销，简称为邮件营销，是利用电子邮件（Email）与受众客户进行商业交流的一种直销方式。下面是一张参考图：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nightme.github.io/2015/10/19/EDM制作/jd_edm.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/10/19/EDM制作/table.png">
+<meta property="og:image" content="https://nightme.github.io/2015/10/19/EDM制作/edm_pic.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/10/19/EDM制作/email.png">
+<meta property="og:image" content="https://nightme.github.io/2015/10/19/EDM制作/guide.png">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EDM制作">
+<meta name="twitter:description" content="基本定义EDM 是 Email Direct Marketing 的缩写，即电子邮件营销，简称为邮件营销，是利用电子邮件（Email）与受众客户进行商业交流的一种直销方式。下面是一张参考图：">
+<meta name="twitter:image" content="https://nightme.github.io/2015/10/19/EDM制作/jd_edm.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2015/10/19/EDM制作/"/>
+
+
+
+
+
+  <title>EDM制作 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/10/19/EDM制作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">EDM制作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-19T09:54:10+08:00">
+                2015-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/19/EDM制作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/19/EDM制作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h2><p>EDM 是 Email Direct Marketing 的缩写，即电子邮件营销，简称为邮件营销，是利用电子邮件（Email）与受众客户进行商业交流的一种直销方式。下面是一张参考图：<br><img src="/2015/10/19/EDM制作/jd_edm.jpg" title="京东商城"><br><a id="more"></a></p>
+<h2 id="了解规范"><a href="#了解规范" class="headerlink" title="了解规范"></a>了解规范</h2><h3 id="邮件制作概述"><a href="#邮件制作概述" class="headerlink" title="邮件制作概述"></a>邮件制作概述</h3><p>邮件制作不同于其他的页面制作，所以有些规范您还是得考虑的。<br>这些限制并不是DMdelivery来决定的，而来自于艺术、网络礼仪的现状、技术交流和目标群体的各种邮件客户端。 如果您的邮件符合这些规范,将有利于您邮件对正确目标群体的受欢迎程度</p>
+<h3 id="模板编码语言选择："><a href="#模板编码语言选择：" class="headerlink" title="模板编码语言选择："></a>模板编码语言选择：</h3><p>模板编码设定与使用的发送软件有关，一般来说，utf-8为较常用的选择，错误的编码会造成用户浏览的时候出现乱码；</p>
+<h3 id="对于HTML格式邮件的要求："><a href="#对于HTML格式邮件的要求：" class="headerlink" title="对于HTML格式邮件的要求："></a>对于HTML格式邮件的要求：</h3><ul>
+<li>包括空格在内，邮件标题的字符最好控制在35个字符。</li>
+<li>文件大小(HTML和图片)最好控制在500KB以下。</li>
+<li>电子邮件主流邮件的宽度为650px左右, 鉴于现的浏览器普遍偏大,可根据设计的显示效果自定义宽度,建议不要超过750像素</li>
+<li>不推荐使用最新的HTML版本,因为目前常用的浏览器有些是不支持最新的HTML标签的,为了给用户更好的浏览效果,采用“老版本” HTML3.2、 HTM L4.0即可</li>
+<li>不可将 word 类文件直接转换为 html 格式，否则会造成编码不规范。</li>
+<li>如果需要邮件居中显示，请在 table 里设定 align=”center”。</li>
+<li>请使用 table 表格来布局。同一个 td 里只放一张图片，同一段文字放在同一 td 里。</li>
+<li>若邮件模板内侧边或者上下有空白间距，不要用 padding，必须得用标准的 td 来设定空白间距，否则会导致各个邮箱解析不同。</li>
+</ul>
+<h3 id="不要使用div，使用最简单的嵌套table定位"><a href="#不要使用div，使用最简单的嵌套table定位" class="headerlink" title="不要使用div，使用最简单的嵌套table定位:"></a>不要使用div，使用最简单的嵌套table定位:</h3><p>Div+css是近几年新兴的web2.0定位方式，这种方式不适合在EDM邮件模板切割中使用，不同邮件客户端或在线浏览器对css模型解释不尽 相同，会造成错位或布局混乱等问题。同时也不要使用单一table重复多次colspan，可能会被邮件客户端判断为结构过于复杂，归类为垃圾邮件；同时 也容易被打乱布局而影响用户浏览。参考图：<br><img src="/2015/10/19/EDM制作/table.png" title="表格的使用"></p>
+<h3 id="图片样式与背景图片颜色使用"><a href="#图片样式与背景图片颜色使用" class="headerlink" title="图片样式与背景图片颜色使用:"></a>图片样式与背景图片颜色使用:</h3><ul>
+<li>制作edm邮件模板尽量不要使用背景图片。背景图片在某些邮件客户端或或web界面中默认不显示</li>
+<li>模板中每张图的地址都一定要用绝对地址，否则会不显示；</li>
+<li>每张图都 要指定alt属性，可以在图片被拦截的时候显示图片的内容；</li>
+<li>每张图都要指定width宽度、height高度，在图片被拦截的时候，不会因图片大小无法读 取而被打乱布局。</li>
+<li>body中不要设定背景色，不然在转发邮件的时候，转发人写的信息背景色都会变为被转发邮件的背景色，影响浏览。如果一定要给邮件模板设 定整体背景色，请在模板文件最外面加一个table，设定此table的背景色。</li>
+<li>在切割模板的时候，要注意限制图片的大小和数量，不要为了效果使图片过大，会使邮件接收者打开过于缓慢，甚至直接关闭邮件。更不要完全把模板切为图片形式，那样会在图片被拦截的时候使用户看不到内容，并且很可能会直接被邮件运营商或邮件客户端认定为垃圾邮件。</li>
+</ul>
+<h3 id="动画与互动元素的处理"><a href="#动画与互动元素的处理" class="headerlink" title="动画与互动元素的处理:"></a>动画与互动元素的处理:</h3><ul>
+<li>可以使用简单的gif动画来表达某些需要明显突出的要素，但要控制gif文件的大小，不要影响整封EDM邮件的下载浏览速度；</li>
+<li>不要使用不要使用Flash、 Java、 Javascript、 Frames,I-Frames、 ActiveX、 dynamic HTML等，前些年邮件病毒泛滥，大部分邮件运营商都已经屏蔽了这些元素。具体可以查看EDM营销存在的<a href="http://www.cnblogs.com/EDM-DATA/archive/2012/07/29/2614140.html" target="_blank" rel="noopener">六大问题</a></li>
+</ul>
+<h3 id="css样式编写："><a href="#css样式编写：" class="headerlink" title="css样式编写："></a>css样式编写：</h3><p>制作edm邮件模板不要使用外部样式表引用，因为大部分的ISP会屏蔽css样式表，将样式表写入模板内部，如果模板有完全相同样式的列表型文本，可以吧样式表写在页面 内<style></style> 中引用，但缺点是在邮件转发过程中经过web编辑器或邮件客户端的编辑，<style></style>被去掉，导致此列表样式 变形。这种页面内引用的方式却能节省大量代码，使代码与内容比降低，同时也缩减了模板文件大小，有利于模板评分；可以如下设置样式：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">"color:#ffffff;font-size:24px;font-family:Microsoft YaHei,MicrosoftJhengHei,Verdana, Geneva, sans-serif;"</span>&gt;</span></span><br><span class="line">            致webpower中国区全体员工的新年祝福：</span><br><span class="line">        <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="模板html标签规则："><a href="#模板html标签规则：" class="headerlink" title="模板html标签规则："></a>模板html标签规则：</h3><ul>
+<li>尽量不要使用提交表单；padding和margin标签</li>
+<li>table中，EDM邮件营销发送的某些邮件客户端或web界面（如Gmail），对浮 动的标签(padding、margin等)支持很差，所以尽量不要使用；</li>
+<li>float浮动标签：某些邮件客户端不支持浮动属性，尽量避免使用。</li>
+<li>在页面内调 用&#60;style&#62;&#60;/style&#62;的情况下，尽量不要使 用&#60;h2&#62;、&#60;ul&#62;、&#60;li&#62;、&#60;p&#62;、&#60;ol&#62;等有默认样式的标签，防 止&#60;style&#62;&#60;/style&#62;被隔离时页面布局混乱。</li>
+</ul>
+<h3 id="邮件附件夹带"><a href="#邮件附件夹带" class="headerlink" title="邮件附件夹带:"></a>邮件附件夹带:</h3><p>制作edm邮件模板邮件一定不要夹带附件，发送大量附件会占用大量珍贵的网络带宽，切大部分附件用户根本不会打开，这部分占用的带宽基本都是浪费的。带有附件的邮件有 很大可能被用户认为是病毒，对品牌产生不良影响。在模板上设置下载按钮，链接到网站上下载页面，还可以给网站带来一部分流量，何乐而不为。</p>
+<h3 id="使用所见即所得工具，在制作完成后手动优化代码"><a href="#使用所见即所得工具，在制作完成后手动优化代码" class="headerlink" title="使用所见即所得工具，在制作完成后手动优化代码:"></a>使用所见即所得工具，在制作完成后手动优化代码:</h3><p>使用主流所见即所得工具可以节省大量时间、提高工作效率，但所见即所得工具生成的代码会有许多垃圾代码掺杂其中，最好在制作完成后手动优化。</p>
+<h3 id="纯图片邮件图片于图片之前出现断行："><a href="#纯图片邮件图片于图片之前出现断行：" class="headerlink" title="纯图片邮件图片于图片之前出现断行："></a>纯图片邮件图片于图片之前出现断行：</h3><p>目前很多公司的邮件都是使用大图片切图这种不规则的，形式来制作邮件的，经常会出现下面问题。<br><img src="/2015/10/19/EDM制作/edm_pic.jpg" title="切图问题"><br><strong>解决方法：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=<span class="string">"http://blog.54575.com/logo.gif"</span> width=<span class="string">"297″ height="</span>160<span class="string">" alt="</span>情人节特供<span class="string">" style="</span>display:block;<span class="string">" /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在每张图片后添加style=”display:block;”此CSS即可。</p>
+<h3 id="图片与文本链接规则"><a href="#图片与文本链接规则" class="headerlink" title="图片与文本链接规则:"></a>图片与文本链接规则:</h3><ul>
+<li>文字内容，版面尽量简洁，突出主题，以达到更高的点击率。</li>
+<li>模板中文本文字不能使用过大的字体，否则可能会被邮 件客户端判定为垃圾邮件.</li>
+<li>文字应尽量定义字体的样式，每个邮箱的默认字体样式不同，为了达到您想要的效果，字体样式一定要定义完整。</li>
+<li>不使用类似如下敏感及带促销类的文字：免费、优惠、特惠、特价、低价、便宜、廉价、视频、赚钱、群发、发财、致富、代开、薪水、交友、支付、商机、法宝、宝典、秘密、情报、机密、保密、绝密、神秘、秘诀等。如果一定需要，请把敏感字做成图片。</li>
+<li>文字中出现网站地址链接被屏蔽为垃圾邮件的风险是极高的，例如：http:// xxx.com此类链接，建议写成“XXX公司”文字加链接，或是将网址做成图片加链接</li>
+<li>请使用英文字符对图片名称命名，不要使用中文、非法字符来命名图片，否则会导致图片无法显示,不能含有 ad 字符，否则图片上传后会显示成“被过滤广告”。</li>
+<li>模板中所有链接，都必须使用绝对路径；</li>
+<li>EDM邮件营销发送的邮件链接长度不能超过255个字符，不能存在空格，也不能有中文字符，否则可能会导致连 接无法追踪；</li>
+<li>图片链接不要使用&#60;map&#62;标签，而导致图片无法点击,否则可能被邮件客户端判定为垃圾邮件，甚至被邮件运营商直接屏蔽。</li>
+<li>为避免用户收到的邮件图片无法浏览，请制作一份和邮件内容一样的 web 页面，然后在邮件顶部注明：“如果您无法查看邮件内容，请点击这里”，链接到访友同样内容的 web 页面。</li>
+</ul>
+<h3 id="尽可能用table而不用div-要重点强调的一点"><a href="#尽可能用table而不用div-要重点强调的一点" class="headerlink" title="尽可能用table而不用div(要重点强调的一点):"></a>尽可能用table而不用div(要重点强调的一点):</h3><p>做web前端有点年限的都知道，早年间才用table布局，table是一个很落后的布局方式了，现在div甚至于html5出现以来，table仅有的作用在于用在数据表格的制作，但是殊不知，在制作edm邮件模板的时候，用table往往也会比div要好，table的兼容性还是不错的。而且为了考虑在foxmail，outlook等软件上能够正常显示，table比div要更好。</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>了解以上规范，会对我们高校的制作EDM有所帮助。为了帮助你制作EDM这里提供了参考链接：</p>
+<ul>
+<li><a href="http://www.w3cplus.com/css/build-an-html-email-template-from-scratch.html" target="_blank" rel="noopener">从头开始构建一个HTML电子邮件模板/zh-cn</a></li>
+<li><a href="http://webdesign.tutsplus.com/articles/build-an-html-email-template-from-scratch--webdesign-12770" target="_blank" rel="noopener">Build an HTML Email Template From Scratch/en-us</a><img src="/2015/10/19/EDM制作/email.png" title="EDM制作">
+</li>
+</ul>
+<ul>
+<li><a href="https://www.campaignmonitor.com/css/" target="_blank" rel="noopener">邮件css指南/The Ultimate Guide to CSS：</a><img src="/2015/10/19/EDM制作/guide.png" title="邮件css参考">
+</li>
+</ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="http://www.qietu.com/9-production-edm-mail-template-specification" target="_blank" rel="noopener">切图网模板规范</a></li>
+<li><a href="https://www.campaignmonitor.com/css/" target="_blank" rel="noopener">The Ultimate Guide to CSS</a></li>
+<li><a href="http://www.w3cplus.com/css/build-an-html-email-template-from-scratch.html" target="_blank" rel="noopener">从头开始构建一个HTML电子邮件模板-大漠<strong>译</strong></a></li>
+<li><a href="http://webdesign.tutsplus.com/articles/build-an-html-email-template-from-scratch--webdesign-12770" target="_blank" rel="noopener">Build an HTML Email Template From Scratch</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/16/块级元素与行内元素/" rel="next" title="块级元素与行内元素">
+                <i class="fa fa-chevron-left"></i> 块级元素与行内元素
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/10/css选择器/" rel="prev" title="css选择符">
+                css选择符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/10/19/EDM制作/"
+           data-title="EDM制作" data-url="https://nightme.github.io/2015/10/19/EDM制作/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本定义"><span class="nav-number">1.</span> <span class="nav-text">基本定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解规范"><span class="nav-number">2.</span> <span class="nav-text">了解规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#邮件制作概述"><span class="nav-number">2.1.</span> <span class="nav-text">邮件制作概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板编码语言选择："><span class="nav-number">2.2.</span> <span class="nav-text">模板编码语言选择：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于HTML格式邮件的要求："><span class="nav-number">2.3.</span> <span class="nav-text">对于HTML格式邮件的要求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要使用div，使用最简单的嵌套table定位"><span class="nav-number">2.4.</span> <span class="nav-text">不要使用div，使用最简单的嵌套table定位:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片样式与背景图片颜色使用"><span class="nav-number">2.5.</span> <span class="nav-text">图片样式与背景图片颜色使用:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画与互动元素的处理"><span class="nav-number">2.6.</span> <span class="nav-text">动画与互动元素的处理:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css样式编写："><span class="nav-number">2.7.</span> <span class="nav-text">css样式编写：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板html标签规则："><span class="nav-number">2.8.</span> <span class="nav-text">模板html标签规则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邮件附件夹带"><span class="nav-number">2.9.</span> <span class="nav-text">邮件附件夹带:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用所见即所得工具，在制作完成后手动优化代码"><span class="nav-number">2.10.</span> <span class="nav-text">使用所见即所得工具，在制作完成后手动优化代码:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯图片邮件图片于图片之前出现断行："><span class="nav-number">2.11.</span> <span class="nav-text">纯图片邮件图片于图片之前出现断行：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片与文本链接规则"><span class="nav-number">2.12.</span> <span class="nav-text">图片与文本链接规则:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽可能用table而不用div-要重点强调的一点"><span class="nav-number">2.13.</span> <span class="nav-text">尽可能用table而不用div(要重点强调的一点):</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

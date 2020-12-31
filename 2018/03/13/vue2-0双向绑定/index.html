@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="MVVMMVVM是Model-View-ViewModel 的简写,是MVC的改进版. 在双向绑定中,Model和View之间没有耦合,通过操作Model，利用ViewModel提供的机制，自动实现ViewModel的更新。">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue2.0双向绑定">
+<meta property="og:url" content="https://nightme.github.io/2018/03/13/vue2-0双向绑定/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="MVVMMVVM是Model-View-ViewModel 的简写,是MVC的改进版. 在双向绑定中,Model和View之间没有耦合,通过操作Model，利用ViewModel提供的机制，自动实现ViewModel的更新。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20180313094253.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20180313142540.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/201803121750.png">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue2.0双向绑定">
+<meta name="twitter:description" content="MVVMMVVM是Model-View-ViewModel 的简写,是MVC的改进版. 在双向绑定中,Model和View之间没有耦合,通过操作Model，利用ViewModel提供的机制，自动实现ViewModel的更新。">
+<meta name="twitter:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20180313094253.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2018/03/13/vue2-0双向绑定/"/>
+
+
+
+
+
+  <title>vue2.0双向绑定 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2018/03/13/vue2-0双向绑定/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue2.0双向绑定</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T18:45:05+08:00">
+                2018-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/13/vue2-0双向绑定/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/13/vue2-0双向绑定/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p>MVVM是Model-View-ViewModel 的简写,是MVC的改进版.</p>
+<p>在双向绑定中,Model和View之间没有耦合,通过操作Model，利用ViewModel提供的机制，自动实现ViewModel的更新。</p>
+<a id="more"></a>
+<h2 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty"></a>Object.defineProperty</h2><p>Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj, prop, descriptor)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>obj</code>:要在其上定义属性的对象</li>
+<li><code>prop</code>:要定义或修改的属性的名称</li>
+<li><code>descriptor</code>:将被定义或修改的属性描述符。</li>
+</ul>
+<ol>
+<li><code>get</code>: 一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。该方法返回值被用作属性值。默认为 <code>undefined</code></li>
+<li><code>set</code>: 一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。该方法将接受唯一参数，并将该参数的新值分配给该属性。默认为 <code>undefined</code>。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Log</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> val = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="keyword">var</span> id = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">'name'</span>, &#123;</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> val;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">          arr.push(&#123;<span class="attr">id</span>:id++,<span class="attr">oldVal</span>:val,<span class="attr">newVal</span>:newVal&#125;);</span><br><span class="line">          val = newVal;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">this</span>.getLog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> arr; &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lg = <span class="keyword">new</span> Log();</span><br><span class="line">lg.name=<span class="string">"小明"</span>;</span><br><span class="line">lg.name=<span class="string">"小华"</span>;</span><br><span class="line">lg.name=<span class="string">"小刚"</span>;</span><br><span class="line">lg.getLog();</span><br></pre></td></tr></table></figure>
+<h2 id="发布-订阅者模式"><a href="#发布-订阅者模式" class="headerlink" title="发布/订阅者模式"></a>发布/订阅者模式</h2><p>订阅者把自己想订阅的事件注册到调度中心，</p>
+<p>当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">            发布                  订阅</span><br><span class="line">发布者       -&gt;      调度中心       &lt;-      订阅者(多个)</span><br></pre></td></tr></table></figure>
+<p>vue双向绑定的实现<code>Dep、Observer、Watcher:</code></p>
+<ul>
+<li><code>Dep</code>(调度中心):存放收集<code>Watcher</code>,Watcher的实例就是订阅者。</li>
+<li><code>Observer</code>(发布者):是一个类(class),每个<code>Observer</code>都附有被观察的对象，观察的对象，一旦连接，观察者就转换目标对象的属性键成为<code>getter/setters</code>,收集依赖关系并发送更新</li>
+<li><code>Watcher</code>(订阅者):观察者分析表达式，收集依赖关系，并在表达式值更改时触发回调。</li>
+</ul>
+<h3 id="Watcher-订阅者"><a href="#Watcher-订阅者" class="headerlink" title="Watcher(订阅者)"></a>Watcher(订阅者)</h3><p>解析对象路径函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [解析对象路径 obj = &#123;a:b:&#123;c:1&#125;&#125;]</span></span><br><span class="line"><span class="comment"> * a.b.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parsePath</span> (<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bailRE = <span class="regexp">/[^\w.$]/</span>;</span><br><span class="line">    <span class="keyword">if</span> (bailRE.test(path)) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> segments = path.split(<span class="string">'.'</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; segments.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!obj) &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">            obj = obj[segments[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [订阅者]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> Watcher = <span class="function"><span class="keyword">function</span> <span class="title">Watcher</span>(<span class="params">vm,expOrFn,cb</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.vm = vm;</span><br><span class="line">    <span class="keyword">this</span>.cb = cb;</span><br><span class="line">    <span class="keyword">this</span>.expression = expOrFn;</span><br><span class="line">    <span class="keyword">this</span>.getter = parsePath(expOrFn);</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="keyword">this</span>.get()<span class="comment">//更新前的值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取表达式的值</span></span><br><span class="line">Watcher.prototype.get = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Dep.target = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="keyword">this</span>.vm.data;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="keyword">this</span>.getter.call(data, data);</span><br><span class="line">    <span class="comment">//表明是watcher调用了getter</span></span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//订阅者的更新方法</span></span><br><span class="line">Watcher.prototype.update = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//获取更新后的值</span></span><br><span class="line">    <span class="keyword">var</span> value = <span class="keyword">this</span>.get()</span><br><span class="line">    <span class="keyword">var</span> oldVal = <span class="keyword">this</span>.value;</span><br><span class="line">    <span class="keyword">if</span>(value!==oldVal)&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = value <span class="comment">//更新新值</span></span><br><span class="line">        <span class="keyword">this</span>.cb.call(<span class="keyword">this</span>.vm,value,oldVal);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 添加订阅者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Watcher.prototype.addDep = <span class="function"><span class="keyword">function</span> <span class="title">addDep</span> (<span class="params">dep</span>) </span>&#123;</span><br><span class="line">    dep.addSub(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Dep-调度中心"><a href="#Dep-调度中心" class="headerlink" title="Dep(调度中心)"></a>Dep(调度中心)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [调度中心]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> Dep = <span class="function"><span class="keyword">function</span> <span class="title">Dep</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.subs = []<span class="comment">//订阅者队列</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个全局变量，用来判断是否是watcher调用了getter</span></span><br><span class="line">Dep.target = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [添加订阅者]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Dep.prototype.addSub = <span class="function"><span class="keyword">function</span> <span class="title">addSub</span> (<span class="params">sub</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.subs.push(sub);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [移除订阅者]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Dep.prototype.removeSub = <span class="function"><span class="keyword">function</span> <span class="title">removeSub</span> (<span class="params">sub</span>) </span>&#123;</span><br><span class="line">    remove(<span class="keyword">this</span>.subs, sub);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [订阅者，注册事件到事件中心]</span></span><br><span class="line"><span class="comment"> * set触发notify,并触发相应的update方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Dep.prototype.notify = <span class="function"><span class="keyword">function</span> <span class="title">notify</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 复制一个新的订阅者数组</span></span><br><span class="line">    <span class="keyword">var</span> subs = <span class="keyword">this</span>.subs.slice();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'notify'</span>,subs)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = subs.length; i &lt; l; i++) &#123;</span><br><span class="line">        <span class="comment">//调度中心统一调度订阅者注册到调度中心的处理代码</span></span><br><span class="line">        subs[i].update();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [增加订阅者watcher到对象Dep]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Dep.prototype.depend = <span class="function"><span class="keyword">function</span> <span class="title">depend</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        Dep.target.addDep(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Observer-发布者"><a href="#Observer-发布者" class="headerlink" title="Observer(发布者)"></a>Observer(发布者)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [发布者 Observer 对data做监听]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> Observer = <span class="function"><span class="keyword">function</span> <span class="title">Observer</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.data = data;</span><br><span class="line">    <span class="keyword">this</span>.dep = <span class="keyword">new</span> Dep();</span><br><span class="line">    <span class="keyword">this</span>.walk(data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 遍历对象所有属性，包括子属性,使其拥有getter/setter方法</span></span><br><span class="line"><span class="comment"> * 仅限值类型是对象，这个方法才能被调用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Observer.prototype.walk = <span class="function"><span class="keyword">function</span> <span class="title">walk</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(obj);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; keys.length; i++) &#123;</span><br><span class="line">        <span class="keyword">this</span>.defineReactive(obj, keys[i], obj[keys[i]]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * [在对象上定义一个响应式属性]</span></span><br><span class="line"><span class="comment"> * @return &#123;[type]&#125; [description]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Observer.prototype.defineReactive = <span class="function"><span class="keyword">function</span>(<span class="params"> obj, key,val</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//实例化一个Dep</span></span><br><span class="line">    <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">var</span> dep = <span class="keyword">new</span> Dep();</span><br><span class="line">    observe(val);</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span>,</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span> <span class="title">reactiveGetter</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//Dep.target指针指向watcher，增加订阅者watcher到对象Dep</span></span><br><span class="line">            <span class="keyword">if</span>(Dep.target)&#123;</span><br><span class="line">                <span class="comment">//console.log('Dep.target')</span></span><br><span class="line">                <span class="comment">// dep.depend();</span></span><br><span class="line">                dep.addSub(Dep.target)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> val;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: <span class="function"><span class="keyword">function</span> <span class="title">reactiveSetter</span> (<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 如果新设置的值和原来相等,则不重新赋值</span></span><br><span class="line">            <span class="comment">// console.log('set之前',val,newVal)</span></span><br><span class="line">            <span class="keyword">if</span> (newVal === val) &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            val = newVal;</span><br><span class="line">            observe(newVal);</span><br><span class="line">            <span class="comment">//调度中心发出通知</span></span><br><span class="line">            dep.notify();</span><br><span class="line">            <span class="comment">// console.log('set之后',val,newVal)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Observer.prototype.$watcher = <span class="function"><span class="keyword">function</span>(<span class="params">expOrFn,cb</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Watcher(<span class="keyword">this</span>,expOrFn,cb);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是对象，则再实例化一个Observer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span> (<span class="params">val,vm</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Object</span>.prototype.toString.call(val) ===<span class="string">"[object Object]"</span>)&#123;</span><br><span class="line">        <span class="keyword">new</span> Observer(val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> Observer;</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">'小明'</span>,<span class="attr">other</span>:<span class="number">20</span>,<span class="attr">power</span>:&#123;</span><br><span class="line">        p1:<span class="string">'有钱'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Observer(obj);</span><br><span class="line">app.$watcher(<span class="string">'name'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'打印name'</span>,newVal,oldVal)</span><br><span class="line">&#125;);</span><br><span class="line">app.$watcher(<span class="string">'power.p1'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'power.p1'</span>,newVal,oldVal)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    obj.name = <span class="string">"小刚"</span>;</span><br><span class="line">    obj.power.p1 = <span class="string">'会打王者'</span>;</span><br><span class="line">&#125;,<span class="number">1500</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="抽象语法树AST-abstract-syntax-tree"><a href="#抽象语法树AST-abstract-syntax-tree" class="headerlink" title="抽象语法树AST(abstract syntax tree)"></a>抽象语法树AST(abstract syntax tree)</h2><p>AST是指抽象语法树（abstract syntax tree或者缩写为AST），或者语法树（syntax tree），是源代码的抽象语法结构的树状表现形式。</p>
+<p><code>Vue.js v2.5.13</code></p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20180313094253.png" alt="image"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * `createCompilerCreator`允许创建使用替代的编译器</span></span><br><span class="line"><span class="comment"> * 解析器/优化器/ codegen，例如SSR优化编译器。</span></span><br><span class="line"><span class="comment"> * 这里我们只使用默认的部分导出一个默认的编译器。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> createCompiler = createCompilerCreator(<span class="function"><span class="keyword">function</span> <span class="title">baseCompile</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  template,</span></span></span><br><span class="line"><span class="function"><span class="params">  options</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> ast = parse(template.trim(), options);</span><br><span class="line">  <span class="keyword">if</span> (options.optimize !== <span class="literal">false</span>) &#123;</span><br><span class="line">    optimize(ast, options);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> code = generate(ast, options);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ast: ast,</span><br><span class="line">    render: code.render,</span><br><span class="line">    staticRenderFns: code.staticRenderFns</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将HTML字符串转换为AST</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parse</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  template,</span></span></span><br><span class="line"><span class="function"><span class="params">  options</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> root;</span><br><span class="line">    <span class="comment">/*todo....*/</span></span><br><span class="line">    parseHTML(template, &#123;</span><br><span class="line">        warn: warn$<span class="number">2</span>,</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">        start: <span class="function"><span class="keyword">function</span> <span class="title">start</span> (<span class="params">tag, attrs, unary</span>) </span>&#123;&#125;</span><br><span class="line">        end: <span class="function"><span class="keyword">function</span> <span class="title">end</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;,</span><br><span class="line">        chars: <span class="function"><span class="keyword">function</span> <span class="title">chars</span> (<span class="params">text</span>) </span>&#123;<span class="comment">/*...*/</span>&#125;,</span><br><span class="line">        comment: <span class="function"><span class="keyword">function</span> <span class="title">comment</span> (<span class="params">text</span>)</span>&#123;<span class="comment">/*...*/</span>&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>vue</code>将模板字符串给<code>parse</code>函数，最终返回一个抽象语法树(AST)</p>
+<p><code>parse</code>函数内部会调用一个<code>parseHTML</code>,来完成对模板字符串解析，最终返回个js语法的树形结构。</p>
+<p>执行<code>generate</code>函数返回<code>code</code>中有个<code>render</code>函数和<code>staticRenderFns</code>函数</p>
+<h2 id="虚拟DOM-VNode"><a href="#虚拟DOM-VNode" class="headerlink" title="虚拟DOM(VNode)"></a>虚拟DOM(VNode)</h2><p>文档对象模型（Document Object Model，简称DOM）。用<code>jquery</code>在网页中直接操作dom结构,相对于原生API无疑方便了很多。</p>
+<p>为了追求性能、和更方便的对DOM维护，于是就引入了虚拟DOM。</p>
+<p>用JS表示DOM结构,操作DOM慢，而javascript很快，用javascript对象可以很容易地表示DOM节点。DOM节点包括标签、属性和子节点.</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20180313142540.png" alt="image"></p>
+<p><code>Vue.js v2.5.13</code>(VNode.js):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">/* @flow */</span><br><span class="line"><span class="built_in">export</span> default class VNode &#123;</span><br><span class="line">  tag: string | void;/* 标签类型 */</span><br><span class="line">  data: VNodeData | void; /* 节点上的class,attribute,style 事件 */</span><br><span class="line">  children: ?Array&lt;VNode&gt;;/* 存放的是子虚拟节点 */</span><br><span class="line">  text: string | void;/* 表明文本节点内容 */</span><br><span class="line">  elm: Node | void;/* 虚拟节点对应的真实DOM节点 */</span><br><span class="line">  ns: string | void;/* html命名空间 */</span><br><span class="line">  context: Component | void; /* 在此组件的作用域 */</span><br><span class="line">  key: string | number | void; /* 是vnode的标记 */</span><br><span class="line">  componentOptions: VNodeComponentOptions | void;/* 组件参数 */</span><br><span class="line">  componentInstance: Component | void; /* 组件实例 */</span><br><span class="line">  parent: VNode | void; /*  */</span><br><span class="line"></span><br><span class="line">  /*  严格内部 */</span><br><span class="line">  raw: boolean; /* 包含原始HTML？ （仅限服务器） */</span><br><span class="line">  isStatic: boolean; /* 悬挂静态节点 */</span><br><span class="line">  isRootInsert: boolean; /* 进入转换检查所必需的 */</span><br><span class="line">  isComment: boolean; /* 空注释占位符? */</span><br><span class="line">  isCloned: boolean; /*是否是一个克隆节点?  */</span><br><span class="line">  isOnce: boolean; /* 是否是一次性节点? */</span><br><span class="line">  asyncFactory: Function | void; /* 异步组件 factory <span class="keyword">function</span> */</span><br><span class="line">  asyncMeta: Object | void;</span><br><span class="line">  isAsyncPlaceholder: boolean;</span><br><span class="line">  ssrContext: Object | void;</span><br><span class="line">  fnContext: Component | void; /* 真实的上下文虚拟功能节点 */</span><br><span class="line">  fnOptions: ?ComponentOptions; /* 用于SSR缓存 */</span><br><span class="line">  fnScopeId: ?string; /*  功能范围id支持 */</span><br><span class="line"></span><br><span class="line">  constructor (</span><br><span class="line">    tag?: string,</span><br><span class="line">    data?: VNodeData,</span><br><span class="line">    children?: ?Array&lt;VNode&gt;,</span><br><span class="line">    text?: string,</span><br><span class="line">    elm?: Node,</span><br><span class="line">    context?: Component,</span><br><span class="line">    componentOptions?: VNodeComponentOptions,</span><br><span class="line">    asyncFactory?: Function</span><br><span class="line">  ) &#123;</span><br><span class="line">    this.tag = tag</span><br><span class="line">    this.data = data</span><br><span class="line">    this.children = children</span><br><span class="line">    this.text = text</span><br><span class="line">    this.elm = elm</span><br><span class="line">    this.ns = undefined</span><br><span class="line">    this.context = context</span><br><span class="line">    this.fnContext = undefined</span><br><span class="line">    this.fnOptions = undefined</span><br><span class="line">    this.fnScopeId = undefined</span><br><span class="line">    this.key = data &amp;&amp; data.key</span><br><span class="line">    this.componentOptions = componentOptions</span><br><span class="line">    this.componentInstance = undefined</span><br><span class="line">    this.parent = undefined</span><br><span class="line">    this.raw = <span class="literal">false</span></span><br><span class="line">    this.isStatic = <span class="literal">false</span></span><br><span class="line">    this.isRootInsert = <span class="literal">true</span></span><br><span class="line">    this.isComment = <span class="literal">false</span></span><br><span class="line">    this.isCloned = <span class="literal">false</span></span><br><span class="line">    this.isOnce = <span class="literal">false</span></span><br><span class="line">    this.asyncFactory = asyncFactory</span><br><span class="line">    this.asyncMeta = undefined</span><br><span class="line">    this.isAsyncPlaceholder = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 弃用: 别名 为组件实例 向后兼容.</span><br><span class="line">   * istanbul ignore next</span><br><span class="line">   */</span><br><span class="line">  get child (): Component | void &#123;</span><br><span class="line">    <span class="built_in">return</span> this.componentInstance</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 创建一个空的vnode实例 */</span><br><span class="line"><span class="built_in">export</span> const createEmptyVNode = (text: string = <span class="string">''</span>) =&gt; &#123;</span><br><span class="line">  const node = new VNode()</span><br><span class="line">  node.text = text</span><br><span class="line">  node.isComment = <span class="literal">true</span></span><br><span class="line">  <span class="built_in">return</span> node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 创建一个文本vnode */</span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> createTextVNode (val: string | number) &#123;</span><br><span class="line">  <span class="built_in">return</span> new VNode(undefined, undefined, undefined, String(val))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 优化的浅层克隆</span><br><span class="line"> * 用于静态节点和插槽节点，因为它们可能会被重复使用</span><br><span class="line"> * 多重渲染，克隆它们可以避免DOM操作依赖时的错误</span><br><span class="line"> * 克隆一个vnode</span><br><span class="line"> */</span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> cloneVNode (vnode: VNode): VNode &#123;</span><br><span class="line">  const cloned = new VNode(</span><br><span class="line">    vnode.tag,</span><br><span class="line">    vnode.data,</span><br><span class="line">    vnode.children,</span><br><span class="line">    vnode.text,</span><br><span class="line">    vnode.elm,</span><br><span class="line">    vnode.context,</span><br><span class="line">    vnode.componentOptions,</span><br><span class="line">    vnode.asyncFactory</span><br><span class="line">  )</span><br><span class="line">  cloned.ns = vnode.ns</span><br><span class="line">  cloned.isStatic = vnode.isStatic</span><br><span class="line">  cloned.key = vnode.key</span><br><span class="line">  cloned.isComment = vnode.isComment</span><br><span class="line">  cloned.fnContext = vnode.fnContext</span><br><span class="line">  cloned.fnOptions = vnode.fnOptions</span><br><span class="line">  cloned.fnScopeId = vnode.fnScopeId</span><br><span class="line">  cloned.isCloned = <span class="literal">true</span></span><br><span class="line">  <span class="built_in">return</span> cloned</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mountComponent</span> (<span class="params"> vm, el, hydrating</span>) </span>&#123;</span><br><span class="line">  vm.$el = el;</span><br><span class="line">  <span class="keyword">if</span> (!vm.$options.render) &#123;</span><br><span class="line">    vm.$options.render = createEmptyVNode;</span><br><span class="line">    <span class="comment">/* .... */</span></span><br><span class="line">  &#125;</span><br><span class="line">  callHook(vm, <span class="string">'beforeMount'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> updateComponent;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="string">"development"</span> !== <span class="string">'production'</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">    updateComponent = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      vm._update(vnode, hydrating);</span><br><span class="line">      <span class="comment">/* .... */</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    updateComponent = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      vm._update(vm._render(), hydrating);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//我们在观察者的构造函数中将其设置为vm._watcher</span></span><br><span class="line">  <span class="comment">//因为观察者的初始补丁可能会调用$ forceUpdate（例如在子内部）</span></span><br><span class="line">  <span class="comment">//组件的挂载钩子），这依赖于已经定义的vm._watcher</span></span><br><span class="line">  <span class="keyword">new</span> Watcher(vm, updateComponent, noop, <span class="literal">null</span>, <span class="literal">true</span> <span class="comment">/* isRenderWatcher */</span>);</span><br><span class="line">  hydrating = <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">/* .... */</span></span><br><span class="line">  <span class="keyword">return</span> vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在初始化的时候执行<code>mountComponent</code>函数方法，其中的<code>vm._render()</code>函数返回虚拟Dom(在模板编译后生成的render方法挂载了实例上)</p>
+<p>其中的<code>updateComponent</code>传给了<code>Watcher</code>,而<code>updateComponent</code>中有<code>vm._update(vnode, hydrating)</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype._update = <span class="function"><span class="keyword">function</span> (<span class="params">vnode, hydrating</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (vm._isMounted) &#123;</span><br><span class="line">    callHook(vm, <span class="string">'beforeUpdate'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> prevEl = vm.$el;</span><br><span class="line">  <span class="keyword">var</span> prevVnode = vm._vnode;</span><br><span class="line">  <span class="keyword">var</span> prevActiveInstance = activeInstance;</span><br><span class="line">  activeInstance = vm;</span><br><span class="line">  vm._vnode = vnode;</span><br><span class="line">  <span class="comment">// Vue.prototype.__patch__方法已经在入口点注入</span></span><br><span class="line">  <span class="comment">// based on the rendering backend used.</span></span><br><span class="line">  <span class="keyword">if</span> (!prevVnode) &#123;</span><br><span class="line">    <span class="comment">// 初始渲染</span></span><br><span class="line">    vm.$el = vm.__patch__(</span><br><span class="line">      vm.$el, vnode, hydrating, <span class="literal">false</span> <span class="comment">/* removeOnly */</span>,</span><br><span class="line">      vm.$options._parentElm,</span><br><span class="line">      vm.$options._refElm</span><br><span class="line">    );</span><br><span class="line">    <span class="comment">//在初始补丁之后不需要ref节点</span></span><br><span class="line">    <span class="comment">// 这可以防止在内存中保留分离的DOM树（＃5851）</span></span><br><span class="line">    vm.$options._parentElm = vm.$options._refElm = <span class="literal">null</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 更新</span></span><br><span class="line">    vm.$el = vm.__patch__(prevVnode, vnode);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>传入新的<code>vnode</code>与老的<code>vnode</code>进行diff,来进行dom更新操作,其中的<code>vm.__patch__</code>方法在入口处已经注入</p>
+<p>定义<code>patch</code>补丁函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> patch = createPatchFunction(&#123; <span class="attr">nodeOps</span>: nodeOps, <span class="attr">modules</span>: modules &#125;);</span><br></pre></td></tr></table></figure></p>
+<p><code>注入</code>patch<code>方法</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装平台补丁功能</span></span><br><span class="line">Vue.prototype.__patch__ = inBrowser ? patch : noop;</span><br></pre></td></tr></table></figure></p>
+<p>函数<code>createPatchFunction</code>返回patch方法，其中的patch方法之后来完成<code>vnode</code>的diff过程和打补丁<code>pacth</code>过程,<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* sameVnode会对传入的2个vnode进行基本属性的比较 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sameVnode</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* .... */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPatchFunction</span> (<span class="params">backend</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">emptyNodeAt</span> (<span class="params">elm</span>) </span>&#123;<span class="keyword">return</span> <span class="keyword">new</span> VNode(nodeOps.tagName(elm).toLowerCase(), &#123;&#125;, [], <span class="literal">undefined</span>, elm)&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createRmCb</span> (<span class="params">childElm, listeners</span>)&#125;</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">removeNode</span> (<span class="params">el</span>) </span>&#123;&#125;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">patchVnode</span> (<span class="params">oldVnode, vnode, insertedVnodeQueue, removeOnly</span>)</span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">updateChildren</span> (<span class="params">parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly</span>) </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">invokeInsertHook</span> (<span class="params">vnode, queue, initial</span>) </span>&#123;&#125;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode, hydrating, removeOnly, parentElm, refElm</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//销毁钩子</span></span><br><span class="line">        <span class="keyword">if</span> (isUndef(vnode)) &#123;</span><br><span class="line">          <span class="keyword">if</span> (isDef(oldVnode)) &#123; invokeDestroyHook(oldVnode); &#125;</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* ...  */</span></span><br><span class="line">        <span class="keyword">if</span> (isUndef(oldVnode)) &#123;</span><br><span class="line">            <span class="comment">// oldVnode不存在,创建一个root节点</span></span><br><span class="line">            isInitialPatch = <span class="literal">true</span>;</span><br><span class="line">            createElm(vnode, insertedVnodeQueue, parentElm, refElm);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> isRealElement = isDef(oldVnode.nodeType);</span><br><span class="line">            <span class="keyword">if</span> (!isRealElement &amp;&amp; sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">                <span class="comment">// 是同一个节点的时候直接修改现有的节点</span></span><br><span class="line">                patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">/* .... */</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*调用insert钩子*/</span></span><br><span class="line">        invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);</span><br><span class="line">        <span class="keyword">return</span> vnode.elm</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h2><p>生命周期钩子(<code>Vue.js v2.5.13</code>)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> LIFECYCLE_HOOKS = [</span><br><span class="line">  <span class="string">'beforeCreate'</span>,</span><br><span class="line">  <span class="string">'created'</span>,</span><br><span class="line">  <span class="string">'beforeMount'</span>,</span><br><span class="line">  <span class="string">'mounted'</span>,</span><br><span class="line">  <span class="string">'beforeUpdate'</span>,</span><br><span class="line">  <span class="string">'updated'</span>,</span><br><span class="line">  <span class="string">'beforeDestroy'</span>,</span><br><span class="line">  <span class="string">'destroyed'</span>,</span><br><span class="line">  <span class="string">'activated'</span>,</span><br><span class="line">  <span class="string">'deactivated'</span>,</span><br><span class="line">  <span class="string">'errorCaptured'</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/201803121750.png" alt="image"></p>
+<p>版本：Vue.js v2.5.13</p>
+<ol>
+<li><code>beforeCreate</code>:在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</li>
+<li><code>created</code>:在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (<code>data observer</code>)，属性和方法的运算，<code>watch/event</code> 事件回调。然而，挂载阶段还没开始，<code>$el</code> 属性目前不可见。</li>
+<li><code>beforeMount</code>：在挂载开始之前被调用：相关的 render 函数首次被调用。(该钩子在服务器端渲染期间不被调用)</li>
+<li><code>mounted</code>:<code>el</code> 被新创建的 <code>vm.$el</code> 替换，并挂载到实例上去之后调用该钩子。如果 <code>root</code> 实例挂载了一个文档内元素，当 <code>mounted</code> 被调用时 <code>vm.$el</code> 也在文档内。(该钩子在服务器端渲染期间不被调用。)<ul>
+<li>注意 <code>mounted</code> 不会承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 <code>vm.$nextTick</code> 替换掉 <code>mounted</code></li>
+</ul>
+</li>
+<li><code>beforeUpdate</code>:数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。(该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。)</li>
+<li><code>updated</code>:由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子(该钩子在服务器端渲染期间不被调用)</li>
+<li><code>activated</code>:<code>keep-alive</code> 组件激活时调用(该钩子在服务器端渲染期间不被调用)</li>
+<li><code>deactivated</code>:<code>keep-alive</code> 组件停用时调用(该钩子在服务器端渲染期间不被调用)</li>
+<li><code>beforeDestroy</code>:实例销毁之前调用。在这一步，实例仍然完全可用。</li>
+<li><code>destroyed</code>:Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁(该钩子在服务器端渲染期间不被调用)</li>
+<li><code>errorCaptured</code>:当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。此钩子可以返回 false 以阻止该错误继续向上传播。</li>
+</ol>
+<p><code>new Vue()</code>调用构造函数,执行<code>this._init(options)</code></p>
+<p>构造函数<code>Vue$3</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue$3</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">"development"</span> !== <span class="string">'production'</span> &amp;&amp;</span><br><span class="line">    !(<span class="keyword">this</span> <span class="keyword">instanceof</span> Vue$<span class="number">3</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(<span class="string">`Vue是一个构造函数，应该用new关键字`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>._init(options);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> Vue$<span class="number">3</span>;</span><br></pre></td></tr></table></figure></p>
+<p>原型对象上的<code>_init</code>方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype._init = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  <span class="comment">/* todo... */</span></span><br><span class="line">  &#123;</span><br><span class="line">    initProxy(vm);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*初始化生命周期*/</span></span><br><span class="line">  initLifecycle(vm);</span><br><span class="line">  <span class="comment">/* 初始化事件 */</span></span><br><span class="line">  initEvents(vm);</span><br><span class="line">  initRender(vm);</span><br><span class="line">  <span class="comment">/*调用beforeCreate钩子函数并且触发beforeCreate钩子事件*/</span></span><br><span class="line">  callHook(vm, <span class="string">'beforeCreate'</span>);</span><br><span class="line">  initInjections(vm); <span class="comment">// 在data/props之前初始化注入</span></span><br><span class="line">  <span class="comment">/*初始化props、methods、data、computed、watch */</span></span><br><span class="line">  initState(vm);</span><br><span class="line">  initProvide(vm); <span class="comment">// resolve provide after data/props</span></span><br><span class="line">  <span class="comment">/*调用created钩子函数并且触发created钩子事件*/</span></span><br><span class="line">  callHook(vm, <span class="string">'created'</span>);</span><br><span class="line">  <span class="comment">/* todo... */</span></span><br><span class="line">  <span class="keyword">if</span> (vm.$options.el) &#123;</span><br><span class="line">    <span class="comment">/*挂载组件*/</span></span><br><span class="line">    vm.$mount(vm.$options.el);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>初始化<code>props、methods、data、computed、watch</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initState</span> (<span class="params">vm</span>) </span>&#123;</span><br><span class="line">  vm._watchers = [];</span><br><span class="line">  <span class="keyword">var</span> opts = vm.$options;</span><br><span class="line">  <span class="comment">/*初始化props*/</span></span><br><span class="line">  <span class="keyword">if</span> (opts.props) &#123; initProps(vm, opts.props); &#125;</span><br><span class="line">  <span class="comment">/*初始化方法*/</span></span><br><span class="line">  <span class="keyword">if</span> (opts.methods) &#123; initMethods(vm, opts.methods); &#125;</span><br><span class="line">  <span class="comment">/*初始化data*/</span></span><br><span class="line">  <span class="keyword">if</span> (opts.data) &#123;</span><br><span class="line">    initData(vm);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">/*该组件没有data的时候绑定一个空对象*/</span></span><br><span class="line">    observe(vm._data = &#123;&#125;, <span class="literal">true</span> <span class="comment">/* asRootData */</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*初始化computed*/</span></span><br><span class="line">  <span class="keyword">if</span> (opts.computed) &#123; initComputed(vm, opts.computed); &#125;</span><br><span class="line">  <span class="comment">/*初始化watchers*/</span></span><br><span class="line">  <span class="keyword">if</span> (opts.watch &amp;&amp; opts.watch !== nativeWatch) &#123;</span><br><span class="line">    initWatch(vm, opts.watch);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>初始化数据<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initData</span> (<span class="params">vm</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> data = vm.$options.data;</span><br><span class="line">  data = vm._data = <span class="keyword">typeof</span> data === <span class="string">'function'</span>? getData(data, vm): data || &#123;&#125;;</span><br><span class="line">  <span class="comment">/* todo.... */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(data);</span><br><span class="line">  <span class="keyword">var</span> i = keys.length;</span><br><span class="line">  <span class="comment">/* todo... */</span></span><br><span class="line">  <span class="keyword">while</span> (i--) &#123;</span><br><span class="line">    <span class="keyword">var</span> key = keys[i];</span><br><span class="line">    <span class="comment">/* todo... */</span></span><br><span class="line">    <span class="comment">//代理数据到实例上</span></span><br><span class="line">    proxy(vm, <span class="string">"_data"</span>, key);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 开始观察数据，递归进行数据绑定</span></span><br><span class="line">  observe(data, <span class="literal">true</span> <span class="comment">/* 作为根数据 */</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理数据到实例上:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">proxy</span> (<span class="params">target, sourceKey, key</span>) </span>&#123;</span><br><span class="line">  sharedPropertyDefinition.get = <span class="function"><span class="keyword">function</span> <span class="title">proxyGetter</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>[sourceKey][key]</span><br><span class="line">  &#125;;</span><br><span class="line">  sharedPropertyDefinition.set = <span class="function"><span class="keyword">function</span> <span class="title">proxySetter</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>[sourceKey][key] = val;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(target, key, sharedPropertyDefinition);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>尝试创建一个<code>Observer</code>实例，如果成功创建<code>Observer</code>实例则返回新的<code>Observer</code>实例，如果已有<code>Observer</code>实例则返回现有的<code>Observer</code>实例。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span> (<span class="params">value, asRootData</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isObject(value) || value <span class="keyword">instanceof</span> VNode) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> ob;</span><br><span class="line">  <span class="comment">/* todo... */</span></span><br><span class="line">  ob = <span class="keyword">new</span> Observer(value);</span><br><span class="line">  <span class="keyword">return</span> ob</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>挂载组件，并编译模板：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createCompiler = createCompilerCreator(<span class="function"><span class="keyword">function</span> <span class="title">baseCompile</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  template,</span></span></span><br><span class="line"><span class="function"><span class="params">  options</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> ast = parse(template.trim(), options);</span><br><span class="line">  <span class="keyword">if</span> (options.optimize !== <span class="literal">false</span>) &#123;</span><br><span class="line">    optimize(ast, options);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> code = generate(ast, options);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ast: ast,</span><br><span class="line">    render: code.render,</span><br><span class="line">    staticRenderFns: code.staticRenderFns</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> ref$<span class="number">1</span> = createCompiler(baseOptions);</span><br><span class="line"><span class="keyword">var</span> compileToFunctions = ref$<span class="number">1.</span>compileToFunctions;</span><br><span class="line"><span class="comment">/*将$mount方法保存下来,此时没编译模板，在最后边调用。*/</span></span><br><span class="line"><span class="keyword">var</span> mount = Vue$<span class="number">3.</span>prototype.$mount;</span><br><span class="line"></span><br><span class="line">Vue$<span class="number">3.</span>prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  el = el &amp;&amp; query(el);</span><br><span class="line">  <span class="comment">/* todo... */</span></span><br><span class="line">  <span class="keyword">var</span> options = <span class="keyword">this</span>.$options;</span><br><span class="line">  <span class="comment">// resolve template/el and convert to render function</span></span><br><span class="line">  <span class="comment">// 处理模板templete，编译成render函数，render不存在的时候编译template,否则使用render</span></span><br><span class="line">  <span class="keyword">if</span> (!options.render) &#123;</span><br><span class="line">    <span class="keyword">var</span> template = options.template;</span><br><span class="line">    <span class="keyword">if</span> (template) &#123;</span><br><span class="line">      <span class="comment">/* todo... */</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (el) &#123;</span><br><span class="line">      <span class="comment">/*获取el的outerHTML*/</span></span><br><span class="line">      template = getOuterHTML(el);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (template) &#123;</span><br><span class="line">      <span class="comment">/* todo... */</span></span><br><span class="line">      <span class="comment">/* 编译模板，最后返回两个函数render和staticRenderFns */</span></span><br><span class="line">      <span class="keyword">var</span> ref = compileToFunctions(template, &#123;</span><br><span class="line">        shouldDecodeNewlines: shouldDecodeNewlines,</span><br><span class="line">        shouldDecodeNewlinesForHref: shouldDecodeNewlinesForHref,</span><br><span class="line">        delimiters: options.delimiters,</span><br><span class="line">        comments: options.comments</span><br><span class="line">      &#125;, <span class="keyword">this</span>);</span><br><span class="line">      <span class="keyword">var</span> render = ref.render;</span><br><span class="line">      <span class="keyword">var</span> staticRenderFns = ref.staticRenderFns;</span><br><span class="line">      options.render = render;</span><br><span class="line">      options.staticRenderFns = staticRenderFns;</span><br><span class="line">      <span class="comment">/* todo... */</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//调用保存下来的mount方法</span></span><br><span class="line">  <span class="keyword">return</span> mount.call(<span class="keyword">this</span>, el, hydrating)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当模板编译了之后调用公共挂载方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 公共挂载方法</span></span><br><span class="line">Vue$<span class="number">3.</span>prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  el = el &amp;&amp; inBrowser ? query(el) : <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">return</span> mountComponent(<span class="keyword">this</span>, el, hydrating)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>挂载组件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mountComponent</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  vm,</span></span></span><br><span class="line"><span class="function"><span class="params">  el,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  vm.$el = el;</span><br><span class="line">  <span class="keyword">if</span> (!vm.$options.render) &#123;</span><br><span class="line">    vm.$options.render = createEmptyVNode;</span><br><span class="line">    <span class="comment">/* todo */</span></span><br><span class="line">  &#125;</span><br><span class="line">  callHook(vm, <span class="string">'beforeMount'</span>);</span><br><span class="line">  <span class="keyword">var</span> updateComponent;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">"development"</span> !== <span class="string">'production'</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">    updateComponent = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">/* todo... */</span></span><br><span class="line">      vm._update(vnode, hydrating);</span><br><span class="line">      <span class="comment">/* todo... */</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    updateComponent = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      vm._update(vm._render(), hydrating);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 我们在观察者的构造函数中将其设置为vm._watcher</span></span><br><span class="line"><span class="comment">   * 因为观察者的初始补丁可能会调用$forceUpdate（例如在子内部组件的挂载钩子），</span></span><br><span class="line"><span class="comment">   * 这依赖于已经定义的vm._watcher</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">new</span> Watcher(vm, updateComponent, noop, <span class="literal">null</span>, <span class="literal">true</span> <span class="comment">/* isRenderWatcher */</span>);</span><br><span class="line">  hydrating = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 手动挂载实例，调用自己挂载</span></span><br><span class="line"><span class="comment">   * 在其插入的钩子中调用渲染创建的子组件</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (vm.$vnode == <span class="literal">null</span>) &#123;</span><br><span class="line">    vm._isMounted = <span class="literal">true</span>;</span><br><span class="line">    callHook(vm, <span class="string">'mounted'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>强制更新：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$forceUpdate = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (vm._watcher) &#123;</span><br><span class="line">    vm._watcher.update();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/水平垂直居中/" rel="next" title="水平垂直居中">
+                <i class="fa fa-chevron-left"></i> 水平垂直居中
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/07/面向对象-继承/" rel="prev" title="面向对象-继承">
+                面向对象-继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/03/13/vue2-0双向绑定/"
+           data-title="vue2.0双向绑定" data-url="https://nightme.github.io/2018/03/13/vue2-0双向绑定/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM"><span class="nav-number">1.</span> <span class="nav-text">MVVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-defineProperty"><span class="nav-number">2.</span> <span class="nav-text">Object.defineProperty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布-订阅者模式"><span class="nav-number">3.</span> <span class="nav-text">发布/订阅者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Watcher-订阅者"><span class="nav-number">3.1.</span> <span class="nav-text">Watcher(订阅者)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dep-调度中心"><span class="nav-number">3.2.</span> <span class="nav-text">Dep(调度中心)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer-发布者"><span class="nav-number">3.3.</span> <span class="nav-text">Observer(发布者)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">3.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象语法树AST-abstract-syntax-tree"><span class="nav-number">4.</span> <span class="nav-text">抽象语法树AST(abstract syntax tree)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟DOM-VNode"><span class="nav-number">5.</span> <span class="nav-text">虚拟DOM(VNode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue生命周期"><span class="nav-number">6.</span> <span class="nav-text">vue生命周期</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

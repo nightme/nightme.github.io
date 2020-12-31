@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Git工具GIT （分布式版本控制系统）,下载地址： https://git-scm.com/downloads/下载完成后，安装。">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git与tortoisegit的使用">
+<meta property="og:url" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="Git工具GIT （分布式版本控制系统）,下载地址： https://git-scm.com/downloads/下载完成后，安装。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/git_tool.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/ssh_key.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/git_en.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/git_zh.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/tortoisegit_home.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/tortoisegit_dowload.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/tortoisegit_lang.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/tortoisegit_user.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/shh_client.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/puttygen.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/puttygen_generate.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/puttygen_key.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/pageant.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/pageant_key.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/puttygen_doload.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/conver_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/conver_2.png">
+<meta property="og:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/conver_load.png">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.677Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git与tortoisegit的使用">
+<meta name="twitter:description" content="Git工具GIT （分布式版本控制系统）,下载地址： https://git-scm.com/downloads/下载完成后，安装。">
+<meta name="twitter:image" content="https://nightme.github.io/2016/10/19/tortoisegit的使用/git_tool.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2016/10/19/tortoisegit的使用/"/>
+
+
+
+
+
+  <title>Git与tortoisegit的使用 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/10/19/tortoisegit的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git与tortoisegit的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-19T21:33:52+08:00">
+                2016-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/19/tortoisegit的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/19/tortoisegit的使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Git工具"><a href="#Git工具" class="headerlink" title="Git工具"></a>Git工具</h2><p>GIT （分布式版本控制系统）,下载地址： <a href="https://git-scm.com/downloads/" target="_blank" rel="noopener">https://git-scm.com/downloads/</a><br>下载完成后，安装。</p>
+<img src="/2016/10/19/tortoisegit的使用/git_tool.png" title="Git工具">
+<a id="more"></a>
+<p>在使用git前，需要告诉git自己是谁以及自己的邮箱是什么，所以我们需要对git进行一些基本设置。打开终端（Windows打开安装git时安装的git bash）执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"你的名字或昵称"</span></span><br><span class="line">git config --global user.email <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置SSH公钥"><a href="#配置SSH公钥" class="headerlink" title="配置SSH公钥"></a>配置SSH公钥</h2><p>ssh是一种安全的传输协议,SSH 密钥总是成双出现的，一把公钥，一把私钥;</p>
+<p>公钥登录：就是用户将自己的公钥储存在远程主机上，登录的时候，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来，远程主机用事先储存的公钥进行解密，如果成功，就证明用户是可信的，直接允许登录 ，不再要求密码；</p>
+<p>github支持使用 SSH 协议来访问 github仓库,用户可以在账户里面设置 SSH公钥,使用自己的私钥来获取github的相应全权限。</p>
+<p><strong>注意：一个公钥只能认证一个用户，而一个用户却可以拥有多个公钥。</strong></p>
+<h2 id="生成SSH-key"><a href="#生成SSH-key" class="headerlink" title="生成SSH key"></a>生成SSH key</h2><p>1、检查SSH keys是否存在，一般默认会在账户的主目录下的 ~/.ssh 目录</p>
+<p>关键是看有没有 xxx 和 xxx.pub 来命名的一对文件，这个 xxx 通常就是 id_dsa 或 id_rsa。有 .pub 后缀的文件就是公钥，另一个文件则是密钥。假如没有这些文件，或者干脆连 .ssh 目录都没有，可以用 ssh-keygen 来创建</p>
+<p>2、生成ssh key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
+<p>然后根据提示连续回车即可在~/.ssh目录下得到id_rsa和id_rsa.pub两个文件，id_rsa.pub文件里存放的就是我们要使用的公钥key。</p>
+<p>3、复制到github账户</p>
+<img src="/2016/10/19/tortoisegit的使用/ssh_key.png" title="SSHKey">
+<p>将id_rsa.pub文件的内容（公钥key），复制到上面的文本框（key），标题（title），自己命名，点击（Add SSH key）。</p>
+<p>4、测试本地与github</p>
+<p>执行下面命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
+<p>成功后会提示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi XXXXXX! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure></p>
+<p>这样，你和你的github通讯，再也不需要登陆验证了。</p>
+<h2 id="配置中文"><a href="#配置中文" class="headerlink" title="配置中文"></a>配置中文</h2><p>项目目录，有中文目录，中文文件，提交日志，中文显示为八进制的字符编码</p>
+<img src="/2016/10/19/tortoisegit的使用/git_en.png" title="八进制字符">
+<p>设置相应参数其值为(false)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<img src="/2016/10/19/tortoisegit的使用/git_zh.png" title="中文字符">
+<p>到此，基本就可以正常显示中文了，git的主要配置基本上差不多了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##GBK字符集设置</span></span><br><span class="line">git config --global i18n.commitEncoding gbk</span><br></pre></td></tr></table></figure>
+<h2 id="tortoisegit安装"><a href="#tortoisegit安装" class="headerlink" title="tortoisegit安装"></a>tortoisegit安装</h2><p>TortoiseGit是一个开放的git版本控制系统的源客户端，支持Winxp/vista/win7。</p>
+<p>tortoisegit下载地址：<a href="https://download.tortoisegit.org/tgit/" target="_blank" rel="noopener">https://download.tortoisegit.org/tgit/</a>,里面各个版本；</p>
+<p>The current stable version of TortoiseGit is: 2.3.0（当前稳定的版本）<br>The latest preview releases can be found here.（最后发布的版本）</p>
+<img src="/2016/10/19/tortoisegit的使用/tortoisegit_home.png" title="tortoisegit版本">
+<p>点击一个版本进去下载，选择适合自己系统位数的版本下载，再下载简体中文语言包。</p>
+<img src="/2016/10/19/tortoisegit的使用/tortoisegit_dowload.png" title="下载tortoisegit">
+<ul>
+<li>先安装tortoisegit，一路全部默认。</li>
+<li>再安装语言包，等待安装完成。</li>
+</ul>
+<p>在空白处鼠标右键, 选择 TortoiseGit =》 Settings, 然后选择，Genera，再选择相应的语言，应用就行了，就行了</p>
+<img src="/2016/10/19/tortoisegit的使用/tortoisegit_lang.png" title="选择中文">
+<h2 id="检查tortoisegit配置"><a href="#检查tortoisegit配置" class="headerlink" title="检查tortoisegit配置"></a>检查tortoisegit配置</h2><p>之前已经配置过了git，并且使用git与github进行通讯，读写github上的文件，并推送到github.</p>
+<p>检查Tortoisegit 设置里面的 GIT选项，此时发现默认选中（实际生效），<br>读取到的用户名，和邮箱是你git配置的用户名和邮箱</p>
+<img src="/2016/10/19/tortoisegit的使用/tortoisegit_user.png" title="设置用户">
+<p>点击 “编辑全局 .git/config(O)”按钮，设置记住密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[gui]</span><br><span class="line">[user]</span><br><span class="line">	email = xxx@163.com</span><br><span class="line">	name = xxx</span><br><span class="line">[credential]</span><br><span class="line">  helper = store</span><br><span class="line">[core]</span><br><span class="line">	quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>检查ssh客户端路径，默认类似如下</p>
+<img src="/2016/10/19/tortoisegit的使用/shh_client.png" title="设置用户">
+<p>如果你使用的是比较新,如现在的2.3.0.的版本的话，基本上已经可以从github上拉去项目，并推送项目了。</p>
+<h2 id="用TortoiseGit为github账号添加SSH-keys"><a href="#用TortoiseGit为github账号添加SSH-keys" class="headerlink" title="用TortoiseGit为github账号添加SSH keys"></a>用TortoiseGit为github账号添加SSH keys</h2><p>设置SSH key后,与远程服务器同步代码时，就不必每次都要输入用户名和密码了；</p>
+<p>用TortoiseGit作为本地管理工具，而TortoiseGit，使用扩展名为ppk的秘钥而不是ssh-keygen生成的rsa密钥。也就是说使用ssh-keygen -C “<a href="mailto:username@email.com" target="_blank" rel="noopener">username@email.com</a>“ -t rsa产生的密钥TortoiseGit中不能用；</p>
+<p>而基于github的开发必须要用到rsa密钥，因此需要用到TortoiseGit的putty key generator工具来生成既适用于github的rsa密钥也适用于TortoiseGit的ppk密钥；</p>
+<ul>
+<li>打开TortoiseGit下的PuttyGen;</li>
+<li>在打开的窗口中点击Generate按钮，会出现绿色进度条，等下生成，生成过程中可以多晃晃鼠标增加随机性。</li>
+<li>直到进度条完毕</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/puttygen.png" title="puttygen">
+<img src="/2016/10/19/tortoisegit的使用/puttygen_generate.png" title="puttygen_generate">
+<ul>
+<li>生成之后复制生成的全部内容（公钥），窗口先留着不关闭，同时下面有两个按钮（保存公钥和保存私钥）</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/puttygen_key.png" title="puttygen_generate">
+<ul>
+<li><p>登录到github,找到的SSH key之后点击Add SSH key在出现的界面中填写SSH key的名称，再点击add key就可以了。</p>
+</li>
+<li><p>回到窗口，点击Save private key按钮保存为适用于TortoiseGit的私钥扩展名为.ppk的文件</p>
+</li>
+<li><p>运行TortoiseGit开始菜单中的Pageant，程序启动后将自动停靠在任务栏中，双击该图标，弹出key管理列表。</p>
+</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/pageant.png" title="pageant">
+<img src="/2016/10/19/tortoisegit的使用/pageant_key.png" title="pageant_key">
+<ul>
+<li>点击add key,将保存的私钥.(.ppk）文件载进来。</li>
+</ul>
+<p>至此，，就可以使用TortoiseGit进行push、pull操作了</p>
+<h2 id="OpenSSH-到-PuTTY-的转换"><a href="#OpenSSH-到-PuTTY-的转换" class="headerlink" title="OpenSSH 到 PuTTY 的转换"></a>OpenSSH 到 PuTTY 的转换</h2><p>转换需要用到 PuTTYgen应用程序，就是刚才生成TortoiseGit的SSH key的那个：</p>
+<img src="/2016/10/19/tortoisegit的使用/puttygen_doload.png" title="puttygen转换界面">
+<ul>
+<li>单击 “Conversions” 后再单击 “Import key”</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/conver_1.png" title="PuTTYgen转换界面">
+<ul>
+<li>选择你的OpenSSH private key (私钥)，如github生成的私钥.ssh目录的id_rsa文件，此时会生成SSH的公钥，也可保存适用于TortoiseGit的ppk私钥</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/conver_2.png" title="PuTTYgen转换界面">
+<ul>
+<li>然后你想要的公钥和私钥就都有了，不用重新生成了</li>
+</ul>
+<h2 id="PuTTY-到-OpenSSH-的转换"><a href="#PuTTY-到-OpenSSH-的转换" class="headerlink" title="PuTTY 到 OpenSSH  的转换"></a>PuTTY 到 OpenSSH  的转换</h2><ul>
+<li>单击 “Load”按钮，选择用于TortoiseGit的.ppk私钥文件，此时会生成相应的公钥私钥</li>
+</ul>
+<img src="/2016/10/19/tortoisegit的使用/conver_load.png" title="单击load按钮">
+<ul>
+<li><p>单击 “Conversions” 然后单击 “Export OpenSSH key”，此时就得到github需要的SSH私钥</p>
+</li>
+<li><p>然后公钥私钥你都有了，不用重新再生成了</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag"># 工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/23/js编程试题/" rel="next" title="js编程试题">
+                <i class="fa fa-chevron-left"></i> js编程试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/05/cygwin安装/" rel="prev" title="cygwin安装">
+                cygwin安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/10/19/tortoisegit的使用/"
+           data-title="Git与tortoisegit的使用" data-url="https://nightme.github.io/2016/10/19/tortoisegit的使用/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git工具"><span class="nav-number">1.</span> <span class="nav-text">Git工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置SSH公钥"><span class="nav-number">2.</span> <span class="nav-text">配置SSH公钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成SSH-key"><span class="nav-number">3.</span> <span class="nav-text">生成SSH key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置中文"><span class="nav-number">4.</span> <span class="nav-text">配置中文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tortoisegit安装"><span class="nav-number">5.</span> <span class="nav-text">tortoisegit安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查tortoisegit配置"><span class="nav-number">6.</span> <span class="nav-text">检查tortoisegit配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用TortoiseGit为github账号添加SSH-keys"><span class="nav-number">7.</span> <span class="nav-text">用TortoiseGit为github账号添加SSH keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenSSH-到-PuTTY-的转换"><span class="nav-number">8.</span> <span class="nav-text">OpenSSH 到 PuTTY 的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PuTTY-到-OpenSSH-的转换"><span class="nav-number">9.</span> <span class="nav-text">PuTTY 到 OpenSSH  的转换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

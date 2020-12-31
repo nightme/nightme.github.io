@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="某人" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="escape()和unescape()函数escape()函数定义和用法: escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。 字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示. 返回值: 已编码的 string 的副本。其中某些字符被替换成了十六进制的转义序列。">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript编码">
+<meta property="og:url" content="https://nightme.github.io/2017/02/14/JavaScript编码/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="escape()和unescape()函数escape()函数定义和用法: escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。 字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示. 返回值: 已编码的 string 的副本。其中某些字符被替换成了十六进制的转义序列。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-31T06:56:41.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript编码">
+<meta name="twitter:description" content="escape()和unescape()函数escape()函数定义和用法: escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。 字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示. 返回值: 已编码的 string 的副本。其中某些字符被替换成了十六进制的转义序列。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nightme.github.io/2017/02/14/JavaScript编码/"/>
+
+
+
+
+
+  <title>JavaScript编码 | 某人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?374338d51216f53380c0d05f1f67608f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">某人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">此前素未谋面、此后遥遥无期</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2017/02/14/JavaScript编码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript编码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-14T22:08:35+08:00">
+                2017-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/14/JavaScript编码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/14/JavaScript编码/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="escape-和unescape-函数"><a href="#escape-和unescape-函数" class="headerlink" title="escape()和unescape()函数"></a>escape()和unescape()函数</h2><h3 id="escape-函数"><a href="#escape-函数" class="headerlink" title="escape()函数"></a>escape()函数</h3><p><strong>定义和用法:</strong> escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。</p>
+<p>字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示.</p>
+<p><strong>返回值:</strong> 已编码的 string 的副本。其中某些字符被替换成了十六进制的转义序列。</p>
+<a id="more"></a>
+<p><strong>说明:</strong> 该函数不会对 ASCII 字母和数字进行编码，也不会对下面这些 ASCII 标点符号进行编码： * @ - _ + . / 。其他所有的字符都会被转义序列替换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">escape(string) <span class="comment">#string	必需。要被转义或编码的字符串。</span></span><br><span class="line"></span><br><span class="line">escape(<span class="string">"你好世界;hello word!"</span>) <span class="comment"># "%u4F60%u597D%u4E16%u754C%3Bhello%20word%21"</span></span><br><span class="line">escape(<span class="string">"* @ - _ + . / "</span>) <span class="comment"># "*%20@%20-%20_%20+%20.%20/%20"</span></span><br></pre></td></tr></table></figure>
+<p><strong>注释：</strong> 该特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性,ES3 反对使用该方法，应用使用 decodeURI() 和 decodeURIComponent() 替代它。</p>
+<h3 id="unescape-函数"><a href="#unescape-函数" class="headerlink" title="unescape()函数"></a>unescape()函数</h3><p><strong>定义用法:</strong> unescape() 函数可对通过 escape() 编码的字符串进行解码。</p>
+<p><strong>返回值:</strong> string 被解码后的一个副本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unescape(<span class="string">"hello%20world"</span>); <span class="comment"># "hello world"</span></span><br><span class="line">unescape(<span class="string">"%u60A8%u597D%uFF0C%u4E16%u754C"</span>) <span class="comment"># "您好，世界"</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong> 该函数的工作原理是这样的：通过找到形式为 %xx 和 %uxxxx 的字符序列（x 表示十六进制的数字），用 Unicode 字符 \u00xx 和 \uxxxx 替换这样的字符序列进行解码</p>
+<p><strong>注释：</strong>  该特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性,ES3 反对使用该方法，应用使用 decodeURI() 和 decodeURIComponent() 替代它。</p>
+<h2 id="encodeURI-和decodeURI-函数"><a href="#encodeURI-和decodeURI-函数" class="headerlink" title="encodeURI()和decodeURI()函数"></a>encodeURI()和decodeURI()函数</h2><h3 id="encodeURI-函数"><a href="#encodeURI-函数" class="headerlink" title="encodeURI()函数"></a>encodeURI()函数</h3><p><strong>定义和用法：</strong><br>encodeURI() 是对统一资源标识符（URI）进行编码的方法。它使用1到4个转义序列来表示每个字符的UTF-8编码（只有由两个代理字符区组成的字符才用四个转义字符编码）。</p>
+<p><strong>返回值：</strong> URIstring 的副本，其中的某些字符将被十六进制的转义序列进行替换。</p>
+<p><strong>说明：</strong> 假定一个URI是完整的URI，那么无需对那些保留的并且在URI中有特殊意思的字符进行编码。</p>
+<p>encodeURI 会替换所有的字符，但不包括以下字符，即使它们具有适当的UTF-8转义序列：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>包含</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保留字符</td>
+<td>; , / ? : @ &amp; = + $</td>
+</tr>
+<tr>
+<td>非转义的字符</td>
+<td>字母 数字 - _ . ! ~ * ‘ ( )</td>
+</tr>
+<tr>
+<td>数字符号</td>
+<td>#</td>
+</tr>
+</tbody>
+</table>
+<p>encodeURI 自身无法产生能适用于HTTP GET 或 POST 请求的URI，例如对于 XMLHTTPRequests, 因为 “&amp;”, “+”, 和 “=” 不会被编码，然而在 GET 和 POST 请求中它们是特殊字符。然而encodeURIComponent这个方法会对这些字符编码。</p>
+<p>如果试图编码一个非高-低位完整的代理字符，将会抛出一个 URIError 错误如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">编码高-低位完整字符 ok</span><br><span class="line">encodeURI(<span class="string">'\uD800\uDFFF'</span>) <span class="comment"># "%F0%90%8F%BF"</span></span><br><span class="line"></span><br><span class="line">编码单独的高位字符抛出 <span class="string">"Uncaught URIError: URI malformed"</span></span><br><span class="line">encodeURI(<span class="string">'\uD800'</span>)</span><br><span class="line"></span><br><span class="line">编码单独的低位字符抛出 <span class="string">"Uncaught URIError: URI malformed"</span></span><br><span class="line">encodeURI(<span class="string">'\uDFFF'</span>)</span><br></pre></td></tr></table></figure>
+<p>如果URL需要遵循较新的RFC3986标准,那么方括号是被保留的(给IPv6)，因此对于那些没有被编码的URL部分(例如主机)，可以使用下面的代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> fixedEncodeURI (str) &#123;</span><br><span class="line">    <span class="built_in">return</span> encodeURI(str).replace(/%5B/g, <span class="string">'['</span>).replace(/%5D/g, <span class="string">']'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="decodeURI-函数"><a href="#decodeURI-函数" class="headerlink" title="decodeURI()函数"></a>decodeURI()函数</h3><p><strong>定义和用法:</strong> decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。</p>
+<p><strong>返回值:</strong> URIstring 的副本，其中的十六进制转义序列将被它们表示的字符替换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">encodeURI(<span class="string">"http://www.baidu.com.cn/My first/"</span>) <span class="comment"># "http://www.baidu.com.cn/My%20first/"</span></span><br><span class="line"></span><br><span class="line">decodeURI(<span class="string">"http://www.baidu.com.cn/My%20first/"</span>); <span class="comment"># "http://www.baidu.com.cn/My first/"</span></span><br></pre></td></tr></table></figure>
+<h2 id="encodeURIComponent-函数和decodeURIComponent-函数"><a href="#encodeURIComponent-函数和decodeURIComponent-函数" class="headerlink" title="encodeURIComponent()函数和decodeURIComponent()函数"></a>encodeURIComponent()函数和decodeURIComponent()函数</h2><h3 id="encodeURIComponent-函数"><a href="#encodeURIComponent-函数" class="headerlink" title="encodeURIComponent()函数"></a>encodeURIComponent()函数</h3><p><strong>概述:</strong> encodeURIComponent()是对统一资源标识符（URI）的组成部分进行编码的方法。它使用一到四个转义序列来表示字符串中的每个字符的UTF-8编码（只有由两个Unicode代理区字符组成的字符才用四个转义字符编码）。</p>
+<p><strong>返回值:</strong> URIstring 的副本，其中的某些字符将被十六进制的转义序列进行替换。</p>
+<p><strong>说明:</strong> 该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ‘ ( ) 。<br>其他字符（比如 ：;/?: @&amp;=+$,# 这些用于分隔 URI 组件的标点符号），都是由一个或多个十六进制的转义序列替换的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">encodeURIComponent(<span class="string">"http://www.baidu.com"</span>) <span class="comment"># "http%3A%2F%2Fwww.baidu.com"</span></span><br><span class="line">encodeURIComponent(<span class="string">",/?:@&amp;=+<span class="variable">$#</span>"</span>) <span class="comment"># "%2C%2F%3F%3A%40%26%3D%2B%24%23"</span></span><br></pre></td></tr></table></figure>
+<p>如果试图编码一个非高-低位完整的代理字符，将会抛出一个 URIError 错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">高低位完整</span><br><span class="line">encodeURIComponent(<span class="string">'\uD800\uDFFF'</span>) <span class="comment"># "%F0%90%8F%BF"</span></span><br><span class="line"></span><br><span class="line">只有高位，将抛出<span class="string">"URIError: malformed URI sequence"</span></span><br><span class="line">encodeURIComponent(<span class="string">'\uD800'</span>)</span><br><span class="line"></span><br><span class="line">只有低位，将抛出<span class="string">"URIError: malformed URI sequence"</span></span><br><span class="line">encodeURIComponent(<span class="string">'\uDFFF'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>对于 application/x-www-form-urlencoded (POST) 这种数据方式，空格需要被替换成 ‘+’，所以通常使用 encodeURIComponent 的时候还会把 “%20” 替换为 “+”。</p>
+<p>为了更严格的遵循 RFC 3986（它保留 !, ‘, (, ), 和 *），即使这些字符并没有正式划定 URI 的用途，下面这种方式是比较安全的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> fixedEncodeURIComponent (str) &#123;</span><br><span class="line">  <span class="built_in">return</span> encodeURIComponent(str).replace(/[!<span class="string">'()]/g, escape).replace(/\*/g, "%2A");</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="decodeURIComponent-函数"><a href="#decodeURIComponent-函数" class="headerlink" title="decodeURIComponent()函数"></a>decodeURIComponent()函数</h3><p><strong>定义和用法：</strong> decodeURIComponent() 方法用于解码由 encodeURIComponent 方法或者其它类似方法编码的部分统一资源标识符（URI）。</p>
+<p><strong>返回值：</strong> URIstring 的副本，其中的十六进制转义序列将被它们表示的字符替换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">decodeURIComponent(<span class="string">"%2C%2F%3F%3A%40%26%3D%2B%24%23"</span>) <span class="comment"># ",/?:@&amp;=+$#"</span></span><br><span class="line">decodeURIComponent(<span class="string">"http%3A%2F%2Fwww.baidu.com"</span>) <span class="comment"># "http://www.baidu.com"</span></span><br></pre></td></tr></table></figure>
+<h2 id="atob-函数和btoa-函数"><a href="#atob-函数和btoa-函数" class="headerlink" title="atob()函数和btoa()函数"></a>atob()函数和btoa()函数</h2><p>Base64是一组相似的二进制到文本(binary-to-text)的编码规则，使得二进制数据在解释成radix-64的表现形式后能够用ASCII字符串的格式表示出来。Base64 这个词出自一种MIME数据传输编码。</p>
+<h3 id="atob-函数"><a href="#atob-函数" class="headerlink" title="atob()函数"></a>atob()函数</h3><p><strong>概述:</strong> 将ascii字符串或二进制数据转换成一个base64编码过的字符串,该方法不能直接作用于Unicode字符串.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(<span class="string">"Hello, world"</span>) <span class="comment"># "SGVsbG8sIHdvcmxk"</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong> 在各浏览器中,使用 window.btoa 对Unicode字符串进行编码都会触发一个字符越界的异常.</p>
+<p>先把Unicode字符串转换为UTF-8编码,可以解决这个问题,<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> utf8_to_b64( str ) &#123;</span><br><span class="line">    <span class="built_in">return</span> window.btoa(unescape(encodeURIComponent( str )));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> b64_to_utf8( str ) &#123;</span><br><span class="line">    <span class="built_in">return</span> decodeURIComponent(escape(window.atob( str )));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">utf8_to_b64(<span class="string">'? à la mode'</span>); <span class="comment"># "PyDDoCBsYSBtb2Rl"</span></span><br><span class="line">b64_to_utf8(<span class="string">'4pyTIMOgIGxhIG1vZGU='</span>); <span class="comment"># "✓ à la mode"</span></span><br><span class="line"></span><br><span class="line">在js引擎内部,encodeURIComponent(str)相当于escape(unicodeToUTF8(str))</span><br><span class="line">所以可以推导出unicodeToUTF8(str)等同于unescape(encodeURIComponent(str))</span><br></pre></td></tr></table></figure></p>
+<h3 id="btoa-函数"><a href="#btoa-函数" class="headerlink" title="btoa()函数"></a>btoa()函数</h3><p><strong>概述:</strong> atob() 函数用来解码一个已经被base-64编码过的数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.atob(<span class="string">"SGVsbG8sIHdvcmxk"</span>) <span class="comment"># "Hello, world"</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/27/cmder/" rel="next" title="cmder">
+                <i class="fa fa-chevron-left"></i> cmder
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/26/Wox/" rel="prev" title="Wox">
+                Wox <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2017/02/14/JavaScript编码/"
+           data-title="JavaScript编码" data-url="https://nightme.github.io/2017/02/14/JavaScript编码/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">某人</p>
+              <p class="site-description motion-element" itemprop="description">此前素未谋面、此后遥遥无期</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#escape-和unescape-函数"><span class="nav-number">1.</span> <span class="nav-text">escape()和unescape()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#escape-函数"><span class="nav-number">1.1.</span> <span class="nav-text">escape()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unescape-函数"><span class="nav-number">1.2.</span> <span class="nav-text">unescape()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#encodeURI-和decodeURI-函数"><span class="nav-number">2.</span> <span class="nav-text">encodeURI()和decodeURI()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encodeURI-函数"><span class="nav-number">2.1.</span> <span class="nav-text">encodeURI()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decodeURI-函数"><span class="nav-number">2.2.</span> <span class="nav-text">decodeURI()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#encodeURIComponent-函数和decodeURIComponent-函数"><span class="nav-number">3.</span> <span class="nav-text">encodeURIComponent()函数和decodeURIComponent()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encodeURIComponent-函数"><span class="nav-number">3.1.</span> <span class="nav-text">encodeURIComponent()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decodeURIComponent-函数"><span class="nav-number">3.2.</span> <span class="nav-text">decodeURIComponent()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atob-函数和btoa-函数"><span class="nav-number">4.</span> <span class="nav-text">atob()函数和btoa()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#atob-函数"><span class="nav-number">4.1.</span> <span class="nav-text">atob()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#btoa-函数"><span class="nav-number">4.2.</span> <span class="nav-text">btoa()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61613127";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nightme"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
