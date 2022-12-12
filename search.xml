@@ -2572,6 +2572,7 @@
 <li>构建 <code>monorepo</code></li>
 <li>配置远程缓存</li>
 </ul>
+<p>按照以上的步骤，你的项目基本已经配置完成。</p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>您现在已经启动并运行<code>Turborepo</code>，但仍有几件事要做:</p>
 <ul>
 <li>了解<code>Turborepo</code>缓存的工作原理</li>
