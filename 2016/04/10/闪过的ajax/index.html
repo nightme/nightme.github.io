@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="引出今天在看帖子的时候闪过，就想到了ajax，这个用原生js怎么写呢？以前也不会写，当时就学习，最后还查资料。反复练习了的，再之后就用了jQuery,然后就没用原生js写过了。 开始简单回忆AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）—w3school 百度一下，真多…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闪过的ajax">
+<meta property="og:url" content="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="引出今天在看帖子的时候闪过，就想到了ajax，这个用原生js怎么写呢？以前也不会写，当时就学习，最后还查资料。反复练习了的，再之后就用了jQuery,然后就没用原生js写过了。 开始简单回忆AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）—w3school 百度一下，真多…">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/way.png">
+<meta property="og:image" content="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/set_header.png">
+<meta property="article:published_time" content="2016-04-10T10:17:22.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.113Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/way.png">
+
+<link rel="canonical" href="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>闪过的ajax | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          闪过的ajax
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-10 18:17:22" itemprop="dateCreated datePublished" datetime="2016-04-10T18:17:22+08:00">2016-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="引出"><a href="#引出" class="headerlink" title="引出"></a>引出</h2><p>今天在看帖子的时候闪过，就想到了ajax，这个用原生js怎么写呢？<br>以前也不会写，当时就学习，最后还查资料。反复练习了的，再之后就用了jQuery,<br>然后就没用原生js写过了。</p>
+<h2 id="开始简单回忆"><a href="#开始简单回忆" class="headerlink" title="开始简单回忆"></a>开始简单回忆</h2><p>AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）—w3school</p>
+<p><strong>百度一下，真多…</strong></p>
+<span id="more"></span>
+
+<h2 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h2><p>所有现代浏览器（IE7+、Firefox、Chrome、Safari 以及 Opera）均内建 XMLHttpRequest 对象。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">createXHR</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(window.XMLHttpRequest)&#123;</span><br><span class="line">        <span class="built_in">return</span> new XMLHttpRequest();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(window.ActiveXObject)&#123;</span><br><span class="line">        //以前写还真没注意有这么多版本</span><br><span class="line">        var version = [</span><br><span class="line">            <span class="string">&quot;MSXML2.XMLHttp.6.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;MSXML2.XMLHttp.3.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;MSXML2.XMLHttp&quot;</span>,</span><br><span class="line">        ];</span><br><span class="line">        <span class="keyword">for</span>(var i=1;i&lt;version.length;i++)&#123;</span><br><span class="line">            try&#123;</span><br><span class="line">                <span class="built_in">return</span> new ActiveXObject(version[i]);</span><br><span class="line">            &#125;catch(e)&#123;</span><br><span class="line">                console.log(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        throw new Error(<span class="string">&quot;浏览器不支持XHR对象！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//有抄码嫌疑，重点是-理解与会，这是第一步，最后返回XHR</span><br></pre></td></tr></table></figure>
+
+<h2 id="注册回调函数"><a href="#注册回调函数" class="headerlink" title="注册回调函数"></a>注册回调函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = createXHR();</span><br><span class="line">xhr.onreadystatechange = callback;</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置和服务器交互的信息"><a href="#设置和服务器交互的信息" class="headerlink" title="设置和服务器交互的信息"></a>设置和服务器交互的信息</h2><p>先来看下边一张图</p>
+<img src="/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/way.png" class="" title="xhr方法">
+
+<p>默认是同步(false)；<br>jQuery中的默认异步(true)；</p>
+<h3 id="GET交互"><a href="#GET交互" class="headerlink" title="GET交互"></a>GET交互</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var username = document.getElementById(<span class="string">&quot;userName&quot;</span>).value;</span><br><span class="line">xhr.open(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;XMLHttpRequest.php?username=&quot;</span> + username, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="POST交互"><a href="#POST交互" class="headerlink" title="POST交互"></a>POST交互</h3><p>encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var username = document.getElementById(<span class="string">&quot;userName&quot;</span>).value;</span><br><span class="line">var args = <span class="string">&quot;username=&quot;</span> + encodeURIComponent(username);</span><br><span class="line">xhr.open(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;XMLHttpRequest.php&quot;</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送数据，开始和服务器端进行交互"><a href="#发送数据，开始和服务器端进行交互" class="headerlink" title="发送数据，开始和服务器端进行交互"></a>发送数据，开始和服务器端进行交互</h2><img src="/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/set_header.png" class="" title="设置请求头">
+
+<h3 id="GET方式"><a href="#GET方式" class="headerlink" title="GET方式"></a>GET方式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.send(null);</span><br></pre></td></tr></table></figure>
+
+<h3 id="post方式"><a href="#post方式" class="headerlink" title="post方式"></a>post方式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xhr.setRequestHeader(<span class="string">&quot;Content-type&quot;</span>,<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line">xhr.send(args);</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断和服务器交互是否完成，是否正确返回数据"><a href="#判断和服务器交互是否完成，是否正确返回数据" class="headerlink" title="判断和服务器交互是否完成，是否正确返回数据"></a>判断和服务器交互是否完成，是否正确返回数据</h2><p>readyState属性：</p>
+<p>0：请求未初始化，open还没有调用<br>1：请求连接已建立，open已经调用<br>2：请求已接收，也就是接收到头信息了<br>3：请求处理中，也就是接收到响应主体了<br>4：请求已完成，且响应已就绪。</p>
+<p>xhr.statusText：服务器返回的状态文本。<br>xhr.responseText：返回纯文本<br>xhr.responseXML： 返回XML</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">callback</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;  </span><br><span class="line">        console.log(xhr.responseText);    </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>写到这里了，清楚多了，再来一段POST代码,或许更清晰，共5个步骤。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var xhr = createXHR();//调用上边的方法</span><br><span class="line">xhr.open(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;/XMLHttpRequest.php&quot;</span>);</span><br><span class="line">var data = <span class="string">&quot;username=&quot;</span> + document.getElementById(<span class="string">&quot;username&quot;</span>).value</span><br><span class="line">            + <span class="string">&quot;&amp;code=&quot;</span> + document.getElementById(<span class="string">&quot;code&quot;</span>).value;</span><br><span class="line">xhr.setRequestHeader(<span class="string">&quot;Content-type&quot;</span>,<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line">xhr.send(data);</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;  </span><br><span class="line">        console.log(xhr.responseText);    </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/03/16/fis3/" rel="prev" title="认识fis3">
+      <i class="fa fa-chevron-left"></i> 认识fis3
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/04/19/c-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8E%E9%9B%86%E5%90%88/" rel="next" title="c#中的数组与集合">
+      c#中的数组与集合 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">引出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%AE%80%E5%8D%95%E5%9B%9E%E5%BF%86"><span class="nav-number">2.</span> <span class="nav-text">开始简单回忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAXMLHttpRequest%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">创建XMLHttpRequest对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">注册回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">设置和服务器交互的信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E4%BA%A4%E4%BA%92"><span class="nav-number">5.1.</span> <span class="nav-text">GET交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST%E4%BA%A4%E4%BA%92"><span class="nav-number">5.2.</span> <span class="nav-text">POST交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%BC%80%E5%A7%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="nav-number">6.</span> <span class="nav-text">发送数据，开始和服务器端进行交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E6%96%B9%E5%BC%8F"><span class="nav-number">6.1.</span> <span class="nav-text">GET方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post%E6%96%B9%E5%BC%8F"><span class="nav-number">6.2.</span> <span class="nav-text">post方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%E6%98%AF%E5%90%A6%E5%AE%8C%E6%88%90%EF%BC%8C%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE"><span class="nav-number">7.</span> <span class="nav-text">判断和服务器交互是否完成，是否正确返回数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">8.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

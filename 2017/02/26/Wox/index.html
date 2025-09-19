@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="wox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wox">
+<meta property="og:url" content="https://nightme.github.io/2017/02/26/Wox/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="wox">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/wox_preview.jpg">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225224749.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225230230.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225230640.png">
+<meta property="article:published_time" content="2017-02-26T14:56:30.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.071Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/wox_preview.jpg">
+
+<link rel="canonical" href="https://nightme.github.io/2017/02/26/Wox/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Wox | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2017/02/26/Wox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Wox
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-26 22:56:30" itemprop="dateCreated datePublished" datetime="2017-02-26T22:56:30+08:00">2017-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="wox"><a href="#wox" class="headerlink" title="wox"></a>wox</h2><p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/wox_preview.jpg" alt="image"></p>
+<span id="more"></span>
+
+<p>Wox - 开源免费强大的快捷启动器辅助工具，快速高效率打开软件&#x2F;搜索文件！</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="http://www.getwox.com/">http://www.getwox.com/</a></p>
+<p>gitHub地址：<a target="_blank" rel="noopener" href="https://github.com/Wox-launcher/Wox">https://github.com/Wox-launcher/Wox</a></p>
+<p>插件地址：<a target="_blank" rel="noopener" href="http://www.getwox.com/plugin">http://www.getwox.com/plugin</a></p>
+<p>中文文档：<a target="_blank" rel="noopener" href="http://doc.getwox.com/zh/">http://doc.getwox.com/zh/</a></p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>寻找一切应用程序、文件夹、文件和更多</li>
+<li>支持用拼音搜索程序，yyy &#x2F; wangyiyun→网易云音乐</li>
+<li>关键字搜索，搜索谷歌g search_term</li>
+<li>建立自定义主题<a target="_blank" rel="noopener" href="http://www.getwox.com/theme/builder">http://www.getwox.com/theme/builder</a></li>
+<li>安装插件</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><strong>启动：</strong> Alt+Space</li>
+<li><strong>安装和卸载插件：</strong> wpm install&#x2F;uninstall xxx</li>
+<li><strong>删除：</strong> delete %APPDATA%\Wox</li>
+<li><strong>已安装插件：</strong> wpm list</li>
+</ul>
+<h2 id="Wox搜索"><a href="#Wox搜索" class="headerlink" title="Wox搜索"></a>Wox搜索</h2><h3 id="开始菜单中的程序"><a href="#开始菜单中的程序" class="headerlink" title="开始菜单中的程序"></a>开始菜单中的程序</h3><p>Wox会自动收集开始菜单中的程序列表并索引之后供用户进行搜索。</p>
+<h3 id="用户自定义目录中的程序"><a href="#用户自定义目录中的程序" class="headerlink" title="用户自定义目录中的程序"></a>用户自定义目录中的程序</h3><p>通过setting命令（推荐）。如下图所示，直接输入setting然后选择第一项</p>
+<p>搜索的应用程序不再开始菜单中，用户自己将需要索引的文件夹添加进来，再右下角右键单击：Setting&#x3D;&gt;Plugin&#x3D;&gt;Programs</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225224749.png" alt="image"></p>
+<p>默认Wox会索引以lnk;exe;bat为结尾的程序。用户可以通过点击Index File suffixes按钮进行设置。</p>
+<h3 id="内置插件"><a href="#内置插件" class="headerlink" title="内置插件"></a>内置插件</h3><ul>
+<li><p><strong>颜色插件(Color):</strong> 当用户输入符合特定条件的颜色值的时候，Wox会告诉你这个颜色是什么。</p>
+</li>
+<li><p><strong>控制面板插件(Control Panel):</strong> Wox还支持控制面板的搜索。例如上图所示，输入防火墙的首拼音字母后，Wox会搜索出控制面板中的防火墙选项。</p>
+</li>
+<li><p><strong>计算器插件(Caculator):</strong> 插件。直接在Wox中搜索你想计算的公式，立马就能得到计算结果。</p>
+</li>
+<li><p><strong>网址插件(URL handler):</strong> 当你拷贝了一个网址想快速打开此网址的时候，打开Wox，粘贴，回车即可。</p>
+</li>
+<li><p><strong>文件夹插件(Folder)：</strong> Wox提供了文件夹书签的功能。如果你有经常需要访问的文件夹，那么你可以将它加入文件夹列表中。以后直接搜索文件夹的名字即可快速打开此文件夹了。添加的设置位于：Settings&#x3D;&gt;Plugin&#x3D;&gt;Folder当中。</p>
+</li>
+<li><p><strong>系统命令插件(System Commands):</strong> Wox集成了一些系统级别的命令。例如，注销，关机，锁定等等。具体的支持列表可以从Settings&#x3D;&gt;Plugin&#x3D;&gt;System Command中查看</p>
+</li>
+<li><p><strong>第三方插件提示插件(Third-party Indicator):</strong> 此插件用于提示其他插件的触发关键字。</p>
+</li>
+<li><p><strong>Web搜索插件(Web Searches):</strong><br>Wox还提供了名为Web搜索的系统插件。所谓Web搜索，就是Wox允许用户设置一个URL，然后替换其中搜索关键字部分，从而达到快速搜索的目的。最常见的莫过于谷歌，百度搜索了。Wox内置了谷歌的Web搜索。关键字是g。另外在添加自定的Web搜索的时候记得把需要替换的地方换成{q}占位符，此占位符会在正常搜索的时候替换为你的输入。</p>
+</li>
+</ul>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225230230.png" alt="image"></p>
+<h2 id="热键"><a href="#热键" class="headerlink" title="热键"></a>热键</h2><p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170225230640.png" alt="image"></p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><h3 id="使用wpm命令安装"><a href="#使用wpm命令安装" class="headerlink" title="使用wpm命令安装"></a>使用wpm命令安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wpm install &lt;插件名字&gt;</span><br><span class="line">删除插件: wpm uninstall &lt;插件名字&gt;</span><br><span class="line">已安装插件： wpm list</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载Wox插件包，手动安装"><a href="#下载Wox插件包，手动安装" class="headerlink" title="下载Wox插件包，手动安装"></a>下载Wox插件包，手动安装</h3><p>用户可以将插件安装包下载到本地（以.wox结尾），然后将插件安装包拖拽到Wox搜索框上即可开始安装。</p>
+<h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Wox.exe reloadplugin</span><br><span class="line"><span class="comment"># 这个参数会重新加载所有的插件。在你拷贝新的插件到插件目录的时候，如果你不想重新启动Wox来使插件生效的话可以使用此参数。</span></span><br><span class="line"></span><br><span class="line">Wox.exe query &lt;查询内容&gt;</span><br><span class="line">使用这个参数会自动打开Wox，并输入你想查询的内容进行查询。</span><br><span class="line"></span><br><span class="line">Wox.exe hidestart</span><br><span class="line">使用这个参数会打开Wox，但是不显示查询窗体。一般开机启动的时候用到。</span><br><span class="line"></span><br><span class="line">Wox.exe installplugin &lt;plugin路径&gt;</span><br><span class="line">使用这个参数进行插件的安装。</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/02/14/JavaScript%E7%BC%96%E7%A0%81/" rel="prev" title="JavaScript编码">
+      <i class="fa fa-chevron-left"></i> JavaScript编码
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/04/08/yarn/" rel="next" title="yarn">
+      yarn <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wox"><span class="nav-number">1.</span> <span class="nav-text">wox</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wox%E6%90%9C%E7%B4%A2"><span class="nav-number">2.</span> <span class="nav-text">Wox搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%8F%9C%E5%8D%95%E4%B8%AD%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">开始菜单中的程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9B%AE%E5%BD%95%E4%B8%AD%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">用户自定义目录中的程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">内置插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">热键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8wpm%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.</span> <span class="nav-text">使用wpm命令安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDWox%E6%8F%92%E4%BB%B6%E5%8C%85%EF%BC%8C%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">下载Wox插件包，手动安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">命令行参数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Turborepo 高性能构建系统Turborepo 是一个用于 JavaScript 和 TypeScript monorepos 的高性能构建系统。Turborepo 重新设计了 Facebook 和谷歌使用的构建系统技术，以消除维护负担和开销。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="turborepo">
+<meta property="og:url" content="https://nightme.github.io/2022/12/08/turborepo/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="Turborepo 高性能构建系统Turborepo 是一个用于 JavaScript 和 TypeScript monorepos 的高性能构建系统。Turborepo 重新设计了 Facebook 和谷歌使用的构建系统技术，以消除维护负担和开销。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202212091726.png">
+<meta property="article:published_time" content="2022-12-08T13:51:19.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.108Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202212091726.png">
+
+<link rel="canonical" href="https://nightme.github.io/2022/12/08/turborepo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>turborepo | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2022/12/08/turborepo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          turborepo
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-08 21:51:19" itemprop="dateCreated datePublished" datetime="2022-12-08T21:51:19+08:00">2022-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Turborepo-高性能构建系统"><a href="#Turborepo-高性能构建系统" class="headerlink" title="Turborepo 高性能构建系统"></a>Turborepo 高性能构建系统</h2><p><code>Turborepo</code> 是一个用于 <code>JavaScript</code> 和 <code>TypeScript monorepos</code> 的高性能构建系统。<code>Turborepo</code> 重新设计了 <code>Facebook</code> 和谷歌使用的构建系统技术，以消除维护负担和开销。</p>
+<span id="more"></span>
+
+<p><strong>特性：</strong></p>
+<ul>
+<li>增量构建: 构建一次已经足够痛苦了，<code>Turborepo</code>会记住您构建的内容，并跳过已经计算过的内容。</li>
+<li>内容<code>hash</code>：<code>Turborepo</code>查看您的文件内容，而不是时间戳来找出需要构建的内容。</li>
+<li>远程缓存：与您的团队和<code>CI/CD</code>共享远程构建缓存以获得更快的构建。</li>
+<li>并行执行：在不浪费空闲<code>cpu</code>的情况下，以最大的并行度使用每个核执行构建。</li>
+<li>零运行时开销：<code>Turborepo</code>不会干扰您的运行时代码或触及您的源代码映射。</li>
+<li>删减子集：通过生成一个只需要构建特定目标的 <code>monorepo</code> 的子集来加快 <code>PaaS</code> 的部署速度</li>
+<li>任务管道：定义任务之间的关系，然后让<code>Turborepo</code>优化要构建的内容和时间。</li>
+<li>基于约定的配置：通过约定来降低配置的复杂度，只需要几行简单的 <code>JSON</code> 就能完成配置</li>
+<li>浏览器中的配置文件：生成构建配置文件并在 <code>Chrome</code> 或 <code>Edge</code> 中导入，以了解哪些任务花费的时间最长</li>
+</ul>
+<h2 id="缓存任务"><a href="#缓存任务" class="headerlink" title="缓存任务"></a>缓存任务</h2><p>每个<code>JavaScript</code>或<code>TypeScript</code>代码库都需要运行<code>package.json</code>脚本，如<code>build</code>, <code>test</code>和<code>lint</code>。在<code>Turborepo</code>中，我们称之为任务。</p>
+<p><code>Turborepo</code>可以缓存任务的结果和日志-对于慢速任务可以极大地加速。</p>
+<h3 id="丢失缓存"><a href="#丢失缓存" class="headerlink" title="丢失缓存"></a>丢失缓存</h3><p>假设你在<code>Turborepo</code>中使用<code>turbo run build</code>运行一个构建任务:</p>
+<p><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202212091726.png" alt="image"></p>
+<ol>
+<li><code>Turborepo</code>将计算任务的输入(默认是工作区文件夹中的所有非<code>git</code>忽略文件)并将它们转换为哈希值(例如<code>78awdk123</code>)。</li>
+<li>检查本地文件系统缓存中以散列命名的文件夹(例如<code>../node_modules/.cache/turbo/78awdk123</code>)。</li>
+<li>如果<code>Turborepo</code>没有为计算的散列找到任何匹配的工件，那么<code>Turborepo</code>将执行该任务。</li>
+<li>任务结束后，<code>Turborepo</code>将所有输出(包括文件和日志)保存到哈希下的缓存中。</li>
+</ol>
+<h3 id="命中缓存"><a href="#命中缓存" class="headerlink" title="命中缓存"></a>命中缓存</h3><p>假设你在不改变任何输入的情况下再次运行任务:</p>
+<ol>
+<li>散列将是相同的，因为输入没有改变(例如<code>78awdk123</code>)</li>
+<li><code>Turborepo</code>将在其缓存中找到带有计算散列的文件夹(例如:<code>/node_modules/.cache/turbo/78awdk123</code>)</li>
+<li><code>Turborepo</code>不运行任务，而是重播输出——将保存的日志打印到标准输出，并将保存的输出文件恢复到文件系统中各自的位置。</li>
+</ol>
+<p>从缓存中恢复文件和日志几乎是瞬间发生的。这可以将构建时间从几分钟或几小时缩短到几秒或几毫秒。尽管具体的结果会根据代码库依赖关系图的形状和粒度而有所不同，但大多数团队发现，使用<code>Turborepo</code>的缓存，他们可以将每月的总体构建时间缩短约<code>40-85%</code>。</p>
+<h3 id="配置缓存输出"><a href="#配置缓存输出" class="headerlink" title="配置缓存输出"></a>配置缓存输出</h3><p>使用管道，您可以在<code>Turborepo</code>中配置缓存约定。</p>
+<p>要覆盖默认的缓存输出行为，将一个<code>glob</code>数组传递给管道。输出数组。任何满足任务<code>glob</code>模式的文件都将被视为工件。</p>
+<p>如果你的任务不产生任何文件(例如使用<code>jest</code>进行单元测试)，将输出设置为空数组(即<code>[]</code>)，<code>Turborepo</code>将为你缓存日志。</p>
+<p>当您运行<code>turbo</code>运行构建测试时，<code>Turborepo</code>将执行您的构建和测试脚本，并将其输出缓存到<code>./node_modules/.cache/turbo</code>中。</p>
+<h3 id="配置缓存输入"><a href="#配置缓存输入" class="headerlink" title="配置缓存输入"></a>配置缓存输入</h3><p>当工作空间中的任何文件发生更改时，就认为该工作空间已经更新。但是，对于某些任务，我们只希望在相关文件发生更改时重新运行该任务。指定输入可以让我们定义哪些文件与特定任务相关。例如，下面的测试配置声明，测试任务只需要<br>在<code>src/</code>和<code>test/</code>子目录中的<code>.tsx</code>或<code>.ts</code>文件自上次执行以来发生更改时才需要执行。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ... omitted for brevity</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A workspace&#x27;s `test` task depends on that workspace&#x27;s</span></span><br><span class="line">      <span class="comment">// own `build` task being completed first.</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// A workspace&#x27;s `test` task should only be rerun when</span></span><br><span class="line">      <span class="comment">// either a `.tsx` or `.ts` file has changed.</span></span><br><span class="line">      <span class="attr">&quot;inputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*.tsx&quot;</span><span class="punctuation">,</span> <span class="string">&quot;src/**/*.ts&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test/**/*.ts&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭高速缓存"><a href="#关闭高速缓存" class="headerlink" title="关闭高速缓存"></a>关闭高速缓存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">turbo run dev --parallel --no-cache</span><br><span class="line"><span class="comment"># 注意`--no-cache`禁用缓存写，但不禁用缓存读。如果你想禁用缓存读取，使用`--force`标志。</span></span><br><span class="line"><span class="comment"># 在所有工作区中并行运行“dev”npm脚本</span></span><br><span class="line"><span class="comment"># 但不缓存输出</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;cache&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基于文件更改缓存"><a href="#基于文件更改缓存" class="headerlink" title="基于文件更改缓存"></a>基于文件更改缓存</h3><p>对于某些任务，如果不相关的文件发生更改，您可能不希望缓存丢失。例如，更新<code>README.md</code>可能不需要为测试任务触发缓存缺失。您可以使用输入来限制<code>turbo</code>为特定任务考虑的文件集。</p>
+<p>在这种情况下，只考虑与确定测试任务上的缓存命中相关的<code>.ts</code>和<code>.tsx</code>文件:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ...other tasks</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="comment">// leave empty to only cache logs</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;inputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*.tsx&quot;</span><span class="punctuation">,</span> <span class="string">&quot;src/**/*.ts&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test/**/*.ts&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基于环境变量修改缓存"><a href="#基于环境变量修改缓存" class="headerlink" title="基于环境变量修改缓存"></a>基于环境变量修改缓存</h3><p>你可以根据环境变量的值来控制<code>turbo</code>的缓存行为:</p>
+<p>在管道定义中的<code>env</code>键中包含环境变量将影响每个任务或每个工作空间任务的缓存指纹。</p>
+<p>任何在其名称中包含<code>THASH</code>的环境变量的值都会影响所有任务的缓存指纹。</p>
+<h3 id="强制覆盖缓存"><a href="#强制覆盖缓存" class="headerlink" title="强制覆盖缓存"></a>强制覆盖缓存</h3><p>相反，如果你想禁止读取缓存并强制<code>turbo</code>重新执行之前缓存的任务，添加<code>--force</code>标志:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run `build` npm script in all workspaces,</span></span><br><span class="line"><span class="comment"># ignoring cache hits.</span></span><br><span class="line">turbo run build --force</span><br></pre></td></tr></table></figure>
+
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p><code>turbo</code>不仅缓存任务的输出，它还记录终端输出(即结合<code>stdout</code>和<code>stderr</code>)到(<code>&lt;package&gt;/.turbo/run-&lt;command&gt;.log</code>)。当<code>turbo</code>遇到一个缓存的任务时，它会重新播放输出，就像它再次发生一样，但是是即时的，包的名称略微暗淡。</p>
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>您可能想知道<code>turbo</code>如何决定给定任务的缓存命中和未命中。</p>
+<ol>
+<li>首先，<code>turbo</code>构造了代码库当前全局状态的哈希值</li>
+<li>然后它添加了更多与给定工作空间任务相关的因素</li>
+</ol>
+<p>一旦<code>turbo</code>在执行过程中遇到给定工作区的任务，它就会检查缓存(本地和远程)以查找匹配的散列。如果匹配，则跳过执行该任务，将缓存的输出移动或下载到合适的位置，并立即重放先前记录的日志。如果缓存(本地或远程)中没有任何与计算的哈希匹配的内容，<code>turbo</code>将在本地执行任务，然后使用哈希作为索引缓存指定的输出。</p>
+<p>给定任务的哈希值在执行时作为环境变量<code>TURBO_HASH</code>注入。这个值在打印输出或标记<code>Dockerfile</code>等方面很有用。</p>
+<h2 id="远程缓存"><a href="#远程缓存" class="headerlink" title="远程缓存"></a>远程缓存</h2><p><code>Turborepo</code>的任务缓存可以节省大量时间，因为它不会重复同样的工作。</p>
+<p>但是有一个问题-缓存是本地的。当您使用<code>CI</code>时，这可能会导致大量重复工作</p>
+<p>因为默认情况下<code>Turborepo</code>只缓存到本地文件系统，所以相同的任务(<code>Turbo</code>运行构建)必须在每台机器上(由您、您的队友、您的<code>CI</code>、您的<code>PaaS</code>等)重新执行，即使所有的任务输入都是相同的–这浪费了时间和资源。</p>
+<blockquote>
+<p>远程缓存是<code>Turborepo</code>的一个强大特性，但是能力越大责任越大。首先要确保缓存正确，并仔细检查环境变量的处理情况。还请记住，<code>Turborepo</code>将日志视为工件，因此要注意打印到控制台的内容。</p>
+</blockquote>
+<h3 id="一个单一的共享缓存"><a href="#一个单一的共享缓存" class="headerlink" title="一个单一的共享缓存"></a>一个单一的共享缓存</h3><p>通过与<code>Vercel</code>等提供商合作，<code>Turborepo</code>可以安全地与远程缓存(存储任务结果的云服务器)通信。</p>
+<p>这可以通过防止整个组织中的重复工作来节省大量的时间。</p>
+<h3 id="Vercel"><a href="#Vercel" class="headerlink" title="Vercel"></a>Vercel</h3><p>本地开发，如果您想将本地<code>turborepo</code>链接到远程缓存，请先使用您的<code>Vercel</code>帐户验证<code>turborepo CLI</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx turbo login</span><br></pre></td></tr></table></figure>
+
+<p>启用后，对当前正在缓存的工作空间进行一些更改，并使用<code>turbo run</code>对其运行任务。您的缓存工件现在将存储在本地和远程缓存中。</p>
+<p>为了验证，删除您的本地<code>Turborepo</code>缓存:</p>
+<p>然后再次运行相同的构建。如果一切正常，<code>turbo</code>不应该在本地执行任务，而是从远程缓存下载日志和工件，并将它们重放给您。</p>
+<h3 id="自定义远程缓存"><a href="#自定义远程缓存" class="headerlink" title="自定义远程缓存"></a>自定义远程缓存</h3><p>您可以自行托管自己的远程缓存或使用其他远程缓存服务提供商，只要他们符合<code>Turborepo</code>的远程缓存服务器<code>API</code>。</p>
+<p>您可以通过指定<code>--api</code>和<code>--token</code>标志来设置远程缓存域，其中<code>--api</code>是主机名，<code>--token</code>是承载令牌。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turbo run build --api=<span class="string">&quot;https://my-server.example.com&quot;</span> --token=<span class="string">&quot;xxxxxxxxxxxxxxxxx&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>您可以在这里看到所需的端点&#x2F;请求<a target="_blank" rel="noopener" href="https://github.com/vercel/turbo/blob/main/cli/internal/client/client.go">在一个新选项卡中打开</a>。</p>
+<h2 id="拓扑"><a href="#拓扑" class="headerlink" title="拓扑"></a>拓扑</h2><p>拓扑排序通常用来“排序”具有依赖关系的任务， 如果 <code>A</code> 依赖于 <code>B</code>，<code>B</code> 依赖于 <code>C</code>，则拓扑顺序为 <code>C、B、A</code>。</p>
+<h2 id="配置文件turbo-json"><a href="#配置文件turbo-json" class="headerlink" title="配置文件turbo.json"></a>配置文件<code>turbo.json</code></h2><p>在<code>monorepo</code>的根目录中，创建一个名为<code>turbo.json</code>的空文件。这将保持<code>Turborepo</code>的配置。</p>
+<p>要定义<code>monorepo</code>的任务依赖关系图，请使用<code>turbo</code>中的<code>pipeline</code>键。<code>Turbo</code>解释这个配置，以优化调度、执行和缓存每个包的输出。在工作空间中定义的<code>Json</code>脚本。</p>
+<p><code>./turbo.json：</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A package&#x27;s `build` script depends on that package&#x27;s</span></span><br><span class="line">      <span class="comment">// dependencies and devDependencies</span></span><br><span class="line">      <span class="comment">// `build` tasks  being completed first</span></span><br><span class="line">      <span class="comment">// (the `^` symbol signifies `upstream`).</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// note: output globs are relative to each package&#x27;s `package.json`</span></span><br><span class="line">      <span class="comment">// (and not the monorepo root)</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;.next/**&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A package&#x27;s `test` script depends on that package&#x27;s</span></span><br><span class="line">      <span class="comment">// own `build` script being completed first.</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// A package&#x27;s `test` script should only be rerun when</span></span><br><span class="line">      <span class="comment">// either a `.tsx` or `.ts` file has changed in `src` or `test` folders.</span></span><br><span class="line">      <span class="attr">&quot;inputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*.tsx&quot;</span><span class="punctuation">,</span> <span class="string">&quot;src/**/*.ts&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test/**/*.ts&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test/**/*.tsx&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lint&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A package&#x27;s `lint` script has no dependencies and</span></span><br><span class="line">      <span class="comment">// can be run whenever. It also has no filesystem outputs.</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A package&#x27;s `deploy` script depends on the `build`,</span></span><br><span class="line">      <span class="comment">// `test`, and `lint` scripts of the same package</span></span><br><span class="line">      <span class="comment">// being completed. It also has no filesystem outputs.</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test&quot;</span><span class="punctuation">,</span> <span class="string">&quot;lint&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="全局依赖-globalDependencies"><a href="#全局依赖-globalDependencies" class="headerlink" title="全局依赖(globalDependencies)"></a>全局依赖(<code>globalDependencies</code>)</h3><p>用于隐式全局哈希依赖的文件<code>glob</code>列表。这些文件的内容将包含在全局哈希算法中，并影响所有任务的哈希。</p>
+<p>这对于基于<code>.env</code>文件(不在<code>Git</code>中)或任何影响工作空间任务的根级文件(但在传统的依赖关系图中没有表示)破坏缓存非常有用(例如根<code>tsconfig</code>)。<code>Json, jest.config.js， .eslintrc</code>等))。</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ... omitted for brevity</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">  <span class="attr">&quot;globalDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;.env&quot;</span><span class="punctuation">,</span> <span class="comment">// contents will impact hashes of all tasks</span></span><br><span class="line">    <span class="string">&quot;tsconfig.json&quot;</span> <span class="comment">// contents will impact hashes of all tasks</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="全局环境-globalEnv"><a href="#全局环境-globalEnv" class="headerlink" title="全局环境(globalEnv)"></a>全局环境(<code>globalEnv</code>)</h3><p>用于隐式全局哈希依赖关系的环境变量列表。这些环境变量的内容将包含在全局哈希算法中，并影响所有任务的哈希值。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ... omitted for brevity</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">  <span class="attr">&quot;globalEnv&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;GITHUB_TOKEN&quot;</span><span class="punctuation">]</span> <span class="comment">// value will impact the hashes of all tasks</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="管道-pipeline"><a href="#管道-pipeline" class="headerlink" title="管道(pipeline)"></a>管道(<code>pipeline</code>)</h3><p>表示项目的任务依赖关系图的对象。<code>Turbo</code>解释这些约定，以正确地调度、执行和缓存项目中任务的输出。</p>
+<p>管道对象中的每个键都是<code>turbo</code>运行可以执行的任务的名称。如果<code>turbo</code>找到一个带有包的工作空间。对象，它将在执行期间将管道任务配置应用到该NPM脚本。这允许您使用管道在整个<code>Turborepo</code>中设置约定。</p>
+<h4 id="依赖于-DependsOn"><a href="#依赖于-DependsOn" class="headerlink" title="依赖于(DependsOn)"></a>依赖于(<code>DependsOn</code>)</h4><p>在<code>dependsOn</code>中的一个项目前面加上<code>^</code>，告诉<code>turbo</code>这个管道任务依赖于工作空间的拓扑依赖关系，首先用<code>^</code>前缀完成任务(例如:“一个工作空间的构建任务应该只在它的所有依赖项和<code>devDependencies</code>完成了它们自己的构建命令后运行”)。</p>
+<p><code>dependsOn</code>中没有<code>^</code>前缀的项表示工作空间级别任务之间的关系(例如:“工作区的<code>test</code>和<code>lint</code>命令依赖于<code>build</code>首先完成”)。</p>
+<p>在<code>dependsOn</code>中的项前面加上<code>$</code>可以告诉<code>turbo</code>这个管道任务依赖于该环境变量的值。</p>
+<blockquote>
+<p>不建议在<code>dependsOn</code>配置中使用<code>$</code>声明环境变量。请使用<code>env</code>键。</p>
+</blockquote>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;A workspace&#x27;s `build` command depends on its dependencies&#x27;</span></span><br><span class="line">      <span class="comment">// or devDependencies&#x27; `build` command being completed first&quot;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;A workspace&#x27;s `test` command depends on its own `lint` and</span></span><br><span class="line">      <span class="comment">// `build` commands first being completed&quot;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;lint&quot;</span><span class="punctuation">,</span> <span class="string">&quot;build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;A workspace&#x27;s `deploy` command, depends on its own `build`</span></span><br><span class="line">      <span class="comment">// and `test` commands first being completed&quot;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">// A workspace&#x27;s `lint` command has no dependencies</span></span><br><span class="line">    <span class="attr">&quot;lint&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>空依赖: 如果一个任务的<code>dependsOn</code>为<code>[]</code> 或者不声明这个属性，那么表明这个任务可以在任意时间被执行</li>
+</ul>
+<h4 id="env"><a href="#env" class="headerlink" title="env"></a>env</h4><p>类型：<code>string []</code></p>
+<p>任务所依赖的环境变量列表。</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;SOMETHING_ELSE&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="comment">// value will impact the hashes of all build tasks</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;dist/**&quot;</span><span class="punctuation">,</span> <span class="string">&quot;.next/**&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;web#build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;STRIPE_SECRET_KEY&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="comment">// value will impact hash of only web&#x27;s build task</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;.next/**&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;globalEnv&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;GITHUB_TOKEN&quot;</span> <span class="comment">// value will impact the hashes of all tasks</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="outputs"><a href="#outputs" class="headerlink" title="outputs"></a>outputs</h4><p>类型：<code>string []</code></p>
+<p>默认为<code>[&quot;dist/**&quot;， &quot;build/**&quot;]</code>。任务的可缓存文件系统输出的<code>glob</code>模式集。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;Cache all files emitted to workspace&#x27;s dist/** or .next</span></span><br><span class="line">      <span class="comment">// directories by a `build` task&quot;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;dist/**&quot;</span><span class="punctuation">,</span> <span class="string">&quot;.next/**&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;Don&#x27;t cache any artifacts of `test` tasks (aside from</span></span><br><span class="line">      <span class="comment">// logs)&quot;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test:ci&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// &quot;Cache the coverage report of a `test:ci` command&quot;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;coverage/**&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// Never cache anything (including logs) emitted by a</span></span><br><span class="line">      <span class="comment">// `dev` task</span></span><br><span class="line">      <span class="attr">&quot;cache&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h4><p>默认为<code>true</code>。是否缓存任务输出。将缓存设置为<code>false</code>对于不希望缓存的守护进程或长时间运行的“监视”或开发模式任务非常有用。</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;cache&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="inputs"><a href="#inputs" class="headerlink" title="inputs"></a>inputs</h4><p>默认为<code>[]</code>。告诉<code>turbo</code>在确定工作空间是否为特定任务更改时要考虑的文件集。将此设置为一个<code>glob</code>列表将导致仅当匹配这些<code>glob</code>的文件发生更改时才重新运行任务。例如，如果您希望跳过运行测试，除非源文件发生了更改，那么这将很有帮助。</p>
+<p>指定<code>[]</code>将导致在工作区中的任何文件更改时重新运行任务</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ... omitted for brevity</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// A workspace&#x27;s `test` task depends on that workspace&#x27;s</span></span><br><span class="line">      <span class="comment">// own `build` task being completed first.</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// A workspace&#x27;s `test` task should only be rerun when</span></span><br><span class="line">      <span class="comment">// either a `.tsx` or `.ts` file has changed.</span></span><br><span class="line">      <span class="attr">&quot;inputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*.tsx&quot;</span><span class="punctuation">,</span> <span class="string">&quot;src/**/*.ts&quot;</span><span class="punctuation">,</span> <span class="string">&quot;test/**/*.ts&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="outputMode"><a href="#outputMode" class="headerlink" title="outputMode"></a>outputMode</h4><p><code>outputMode</code>代表输出的模式类型是字符串</p>
+<ul>
+<li><code>full：</code>默认值。显示所有输出</li>
+<li><code>hash-only：</code>只显示任务的哈希值</li>
+<li><code>new-only：</code>只显示缓存未命中的输出</li>
+<li><code>none：</code>隐藏所有任务输出</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;pipeline&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;^build&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;new-only&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;outputs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;build&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><p>在安装<code>turbo</code>包(或克隆一个启动器)之后，您可以开始使用<code>Turborepo</code>的命令行界面(CLI) <code>turbo</code>在您的<code>monorepo</code>中做各种事情。</p>
+<h3 id="全局参数"><a href="#全局参数" class="headerlink" title="全局参数"></a>全局参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">turbo run build --color</span><br><span class="line"><span class="comment"># 为CI运行器启用turbo的颜色输出，这些运行器支持在日志输出中呈现颜色。</span></span><br><span class="line"></span><br><span class="line">turbo run build --no-color</span><br><span class="line"><span class="comment"># 禁止在输出中使用颜色</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="任务参数"><a href="#任务参数" class="headerlink" title="任务参数"></a>任务参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">turbo run build --cache-dir=<span class="string">&quot;./my-cache&quot;</span></span><br><span class="line"><span class="comment"># 默认为。/node_modules/.cache/turbo。指定本地文件系统缓存目录。如果更改默认值，请确保将此文件夹添加到.gitignore中</span></span><br><span class="line"></span><br><span class="line">turbo run build --concurrency=50%</span><br><span class="line"><span class="comment"># 默认值为10。设置/限制任务执行的最大并发数。这必须是大于等于1的整数或百分比值，如50%,如果还传递了--parallel标志，则忽略此选项。</span></span><br><span class="line"></span><br><span class="line">turbo run build --<span class="built_in">continue</span></span><br><span class="line"><span class="comment"># 默认为false。这个标志告诉turbo在出现错误(即任务的非零退出码)时是否继续执行。默认情况下，指定--parallel标志将自动设置--continue为true，除非显式设置为false。当--continue为true时，turbo将以执行期间遇到的最高退出码值退出。</span></span><br><span class="line"></span><br><span class="line">turbo run build --cwd=./somewhere/else</span><br><span class="line"><span class="comment"># 设置命令的工作目录。</span></span><br><span class="line"></span><br><span class="line">turbo run build --filter=my-pkg --filter=my-app</span><br><span class="line"><span class="comment"># 你可以通过给命令传递多个--filter标志来指定多个过滤器</span></span><br><span class="line"></span><br><span class="line">turbo run build --filter=admin-*</span><br><span class="line"><span class="comment"># 构建所有以“admin-”开头的工作区，让turbo推断任务</span></span><br><span class="line"></span><br><span class="line">turbo run <span class="built_in">test</span> --filter=...my-lib</span><br><span class="line"><span class="comment"># 测试&#x27;my-lib&#x27;和所有依赖于&#x27;my-lib&#x27;的东西</span></span><br><span class="line"></span><br><span class="line">turbo run <span class="built_in">test</span> --filter=...^my-lib</span><br><span class="line"><span class="comment"># 测试所有依赖于&#x27;my-lib&#x27;的东西，而不是&#x27;my-lib&#x27;本身</span></span><br><span class="line"></span><br><span class="line">turbo run build --filter=./apps/*</span><br><span class="line"><span class="comment"># 在&quot;apps&quot;目录下构建所有的工作空间</span></span><br><span class="line"></span><br><span class="line">turbo run build --graph</span><br><span class="line"><span class="comment"># 该命令将生成当前任务图的svg、png、jpg、pdf、json、html或其他支持的输出格式(在新选项卡中打开)。输出文件格式默认为jpg，但可以通过指定文件名的扩展名来控制。</span></span><br><span class="line"></span><br><span class="line">turbo run build --force</span><br><span class="line"><span class="comment"># 忽略现有的缓存工件并强制重新执行所有任务</span></span><br><span class="line"></span><br><span class="line">turbo run build --global-deps=<span class="string">&quot;.env.*&quot;</span> --global-deps=<span class="string">&quot;.eslintrc&quot;</span> --global-deps=<span class="string">&quot;jest.config.js&quot;</span></span><br><span class="line"><span class="comment"># 指定要散列的全局文件系统依赖项的`glob`。适用于`.env`和根目录下影响多个包/应用程序的文件。可以多次指定。</span></span><br><span class="line"></span><br><span class="line">turbo run build --ignore=<span class="string">&quot;apps/**/*&quot;</span></span><br><span class="line"><span class="comment"># 忽略影响作用域的文件或目录。在盖下使用glob模式</span></span><br><span class="line"></span><br><span class="line">turbo run build --no-cache</span><br><span class="line"><span class="comment"># 默认的错误。不要缓存任务的结果。这对于监视命令(如next dev或react-scripts start)非常有用。</span></span><br><span class="line"></span><br><span class="line">turbo run build --output-logs=full</span><br><span class="line"><span class="comment"># full默认值。显示所有输出；hash-only只显示任务的哈希值；new-only只显示缓存未命中的输出；none隐藏所有任务输出</span></span><br><span class="line"></span><br><span class="line">turbo run <span class="built_in">test</span> --only</span><br><span class="line"><span class="comment"># 默认的错误。限制执行只包括指定的任务。这与lerna和pnpm默认运行任务的方式非常相似。</span></span><br><span class="line"></span><br><span class="line">turbo run lint --parallel --no-cache</span><br><span class="line"><span class="comment"># 默认的错误。跨工作空间并行运行命令并忽略依赖关系图。这对于实时重载开发非常有用。</span></span><br><span class="line"></span><br><span class="line">turbo run build --remote-only</span><br><span class="line"><span class="comment"># 默认的错误。忽略所有任务的本地文件系统缓存。只允许读取和缓存使用远程缓存的工件。</span></span><br><span class="line"></span><br><span class="line">turbo run build --team=my-team --token=xxxxxxxxxxxxxxxxx</span><br><span class="line"><span class="comment"># 用于远程缓存的承载令牌。用于在非交互式shell(例如CI/CD)中结合——team标志运行。</span></span><br><span class="line"></span><br><span class="line">turbo run build --team=my-team</span><br><span class="line"><span class="comment"># 远程缓存团队的蛞蝓。与--token和--team标志结合在非交互式shell中运行时非常有用。</span></span><br><span class="line"></span><br><span class="line">turbo run build --preflight</span><br><span class="line"><span class="comment"># 仅适用于配置远程工件缓存时。允许在每个缓存工件和分析请求之前发送预飞行请求。后续的上传和下载将遵循重定向。</span></span><br><span class="line"></span><br><span class="line">turbo run build --trace=<span class="string">&quot;&lt;trace-file-name&gt;&quot;</span></span><br><span class="line"><span class="comment"># 要查看CPU跟踪，输出跟踪到给定的文件，使用go工具trace [file]。</span></span><br><span class="line"></span><br><span class="line">turbo run build --heap=<span class="string">&quot;&lt;heap-file-name&gt;&quot;</span></span><br><span class="line"><span class="comment"># 要查看堆跟踪，将跟踪输出到给定文件，使用go工具pprof [file]并输入top。你也可以将它放入speedscope(在一个新选项卡中打开)，并使用左重视图或三明治视图模式。</span></span><br><span class="line"></span><br><span class="line">turbo run build --cpuprofile=<span class="string">&quot;&lt;cpu-profile-file-name&gt;&quot;</span></span><br><span class="line"><span class="comment"># 要查看CPU配置文件，将配置文件输出到给定文件中，将文件放入speedscope</span></span><br><span class="line"></span><br><span class="line">turbo run build -v</span><br><span class="line">turbo run build -vv</span><br><span class="line">turbo run build -vvv</span><br><span class="line"><span class="comment"># 要指定日志级别，使用-v表示信息，-vv表示调试，-vvv表示跟踪标志</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="创建新的monorepo"><a href="#创建新的monorepo" class="headerlink" title="创建新的monorepo"></a>创建新的<code>monorepo</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">$ npx create-turbo@latest</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; TURBOREPO</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; Welcome to Turborepo! Let<span class="string">&#x27;s get you set up with a new codebase.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">? Where would you like to create your turborepo? ./my-turborepo</span></span><br><span class="line"><span class="string">? Which package manager do you want to use? pnpm</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; Created a new turborepo with the following:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> - apps/web: Next.js with TypeScript</span></span><br><span class="line"><span class="string"> - apps/docs: Next.js with TypeScript</span></span><br><span class="line"><span class="string"> - packages/ui: Shared React component library</span></span><br><span class="line"><span class="string"> - packages/eslint-config-custom: Shared configuration (ESLint)</span></span><br><span class="line"><span class="string"> - packages/tsconfig: Shared TypeScript `tsconfig.json`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; Success! Created a new Turborepo at &quot;my-turborepo&quot;.</span></span><br><span class="line"><span class="string">Inside that directory, you can run several commands:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  pnpm run build</span></span><br><span class="line"><span class="string">     Build all apps and packages</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  pnpm run dev</span></span><br><span class="line"><span class="string">     Develop all apps and packages</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Turborepo will cache locally by default. For an additional</span></span><br><span class="line"><span class="string">speed boost, enable Remote Caching with Vercel by</span></span><br><span class="line"><span class="string">entering the following command:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  pnpm dlx turbo login</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">We suggest that you begin by typing:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  cd my-turborepo</span></span><br><span class="line"><span class="string">  pnpm dlx turbo login</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建我们的工程名</li>
+<li>推荐使用<code>pnpm</code> 构建</li>
+</ul>
+<p><code>turbo</code> 会自动根据我们选择的包管理器为我们创建相对应的项目 然后我们进入项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pnpm run dev</span><br><span class="line"><span class="comment"># 只会执行两个脚本——docs:dev和web:dev。这是仅有的两个指定dev的工作空间。</span></span><br><span class="line"><span class="comment"># 两个开发脚本同时运行，在端口3000和3001上启动Next.js应用程序。</span></span><br><span class="line"><span class="comment"># 在终端中，您将看到缓存绕过，强制执行。</span></span><br><span class="line"></span><br><span class="line">pnpm run dev --filter docs</span><br><span class="line"><span class="comment"># 你会注意到它现在只运行docs:dev</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加到现有的monorepo"><a href="#添加到现有的monorepo" class="headerlink" title="添加到现有的monorepo"></a>添加到现有的<code>monorepo</code></h3><p>安装<code>turbo</code>，添加<code>turbo</code>作为<code>monorepo</code>根目录的开发依赖项。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add turbo -Dw</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-turbo-json"><a href="#创建-turbo-json" class="headerlink" title="创建 turbo.json"></a>创建 <code>turbo.json</code></h3><p>在<code>monorepo</code>的根目录中，创建一个名为<code>turbo.json</code>的空文件。这将保存<code>Turborepo</code>的配置。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://turbo.build/schema.json&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>创建管道</li>
+<li>编辑<code>.gitignore</code></li>
+<li>创建<code>package. json</code>脚本</li>
+<li>构建 <code>monorepo</code></li>
+<li>配置远程缓存</li>
+</ul>
+<p>按照以上的步骤，你的项目基本已经配置完成。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>您现在已经启动并运行<code>Turborepo</code>，但仍有几件事要做:</p>
+<ul>
+<li>了解<code>Turborepo</code>缓存的工作原理</li>
+<li>正确处理环境变量</li>
+<li>学会用管道编排任务运行</li>
+<li>高效筛选包任务</li>
+<li>使用<code>CI</code>提供商配置<code>Turborepo</code></li>
+</ul>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://turbo.build/">turbo官网</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/19/vue%E4%B9%8BkeepAlive/" rel="prev" title="vue之keepAlive">
+      <i class="fa fa-chevron-left"></i> vue之keepAlive
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/09/19/%E6%B3%A8%E5%86%8C%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85/" rel="next" title="注册苹果开发者">
+      注册苹果开发者 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Turborepo-%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">Turborepo 高性能构建系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">缓存任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A2%E5%A4%B1%E7%BC%93%E5%AD%98"><span class="nav-number">2.1.</span> <span class="nav-text">丢失缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%B8%AD%E7%BC%93%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">命中缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%93%E5%AD%98%E8%BE%93%E5%87%BA"><span class="nav-number">2.3.</span> <span class="nav-text">配置缓存输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%93%E5%AD%98%E8%BE%93%E5%85%A5"><span class="nav-number">2.4.</span> <span class="nav-text">配置缓存输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="nav-number">2.5.</span> <span class="nav-text">关闭高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%96%87%E4%BB%B6%E6%9B%B4%E6%94%B9%E7%BC%93%E5%AD%98"><span class="nav-number">2.6.</span> <span class="nav-text">基于文件更改缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BF%AE%E6%94%B9%E7%BC%93%E5%AD%98"><span class="nav-number">2.7.</span> <span class="nav-text">基于环境变量修改缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E7%BC%93%E5%AD%98"><span class="nav-number">2.8.</span> <span class="nav-text">强制覆盖缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">2.9.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C"><span class="nav-number">2.10.</span> <span class="nav-text">哈希</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%BC%93%E5%AD%98"><span class="nav-number">3.</span> <span class="nav-text">远程缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%8D%95%E4%B8%80%E7%9A%84%E5%85%B1%E4%BA%AB%E7%BC%93%E5%AD%98"><span class="nav-number">3.1.</span> <span class="nav-text">一个单一的共享缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vercel"><span class="nav-number">3.2.</span> <span class="nav-text">Vercel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%9C%E7%A8%8B%E7%BC%93%E5%AD%98"><span class="nav-number">3.3.</span> <span class="nav-text">自定义远程缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E6%89%91"><span class="nav-number">4.</span> <span class="nav-text">拓扑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6turbo-json"><span class="nav-number">5.</span> <span class="nav-text">配置文件turbo.json</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%BE%9D%E8%B5%96-globalDependencies"><span class="nav-number">5.1.</span> <span class="nav-text">全局依赖(globalDependencies)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83-globalEnv"><span class="nav-number">5.2.</span> <span class="nav-text">全局环境(globalEnv)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93-pipeline"><span class="nav-number">5.3.</span> <span class="nav-text">管道(pipeline)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E4%BA%8E-DependsOn"><span class="nav-number">5.3.1.</span> <span class="nav-text">依赖于(DependsOn)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#env"><span class="nav-number">5.3.2.</span> <span class="nav-text">env</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputs"><span class="nav-number">5.3.3.</span> <span class="nav-text">outputs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">5.3.4.</span> <span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inputs"><span class="nav-number">5.3.5.</span> <span class="nav-text">inputs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputMode"><span class="nav-number">5.3.6.</span> <span class="nav-text">outputMode</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-number">6.</span> <span class="nav-text">命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%82%E6%95%B0"><span class="nav-number">6.1.</span> <span class="nav-text">全局参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%8F%82%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">任务参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">7.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84monorepo"><span class="nav-number">7.1.</span> <span class="nav-text">创建新的monorepo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%8E%B0%E6%9C%89%E7%9A%84monorepo"><span class="nav-number">7.2.</span> <span class="nav-text">添加到现有的monorepo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-turbo-json"><span class="nav-number">7.3.</span> <span class="nav-text">创建 turbo.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">7.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.5.</span> <span class="nav-text">最后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

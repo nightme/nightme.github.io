@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言类选择符允许以一种独立于文档元素的方式来指定样式，该选择符可以单独使用，也可以与其他元素结合使用。像id、class、标签等选择符我们平时都很常用，可是css选择符有好多种，许多选择符我们不常用的话，就会忽略它。 css选择符参考图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css选择符">
+<meta property="og:url" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="前言类选择符允许以一种独立于文档元素的方式来指定样式，该选择符可以单独使用，也可以与其他元素结合使用。像id、class、标签等选择符我们平时都很常用，可是css选择符有好多种，许多选择符我们不常用的话，就会忽略它。 css选择符参考图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/w3school.png">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css_select.png">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css1.png">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css2.png">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css3.png">
+<meta property="og:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/cssie.png">
+<meta property="article:published_time" content="2015-11-10T08:45:29.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.078Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/w3school.png">
+
+<link rel="canonical" href="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>css选择符 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css选择符
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-10 16:45:29" itemprop="dateCreated datePublished" datetime="2015-11-10T16:45:29+08:00">2015-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>类选择符允许以一种独立于文档元素的方式来指定样式，该选择符可以单独使用，也可以与其他元素结合使用。像id、class、标签等选择符我们平时都很常用，可是css选择符有好多种，许多选择符我们不常用的话，就会忽略它。</p>
+<h2 id="css选择符参考图"><a href="#css选择符参考图" class="headerlink" title="css选择符参考图"></a>css选择符参考图</h2><img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/w3school.png" class="" title="css选择符参考图">
+
+<span id="more"></span>
+
+<h2 id="元素选择符"><a href="#元素选择符" class="headerlink" title="元素选择符"></a>元素选择符</h2><h3 id="通用选择符"><a href="#通用选择符" class="headerlink" title="通用选择符 *"></a>通用选择符 *</h3><p>通用选择符*****会选中页面中所有的元素。可以发现许多网页用来重置浏览符样式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* &#123;margin:0;padding:0;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#container * &#123;</span></span><br><span class="line"> border: 1px solid black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ID选择符"><a href="#ID选择符" class="headerlink" title="ID选择符(#)"></a>ID选择符(#)</h3><p>在选择符中使用“#”可以用id来定位某个元素。在使用的时候得注意的是ID选择符<br>一个文档里不能重复使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#content &#123;width:1000px;margin:0 auto;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="class类选择符"><a href="#class类选择符" class="headerlink" title=".class类选择符"></a>.class类选择符</h3><p>class类选择符和id选择符的不同是，它可以无限复用，当页面中有很多元素需要用到相同的样式属性时，你可以通过.class来定义。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.old&#123;color:<span class="comment">#565656;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="标签选择符"><a href="#标签选择符" class="headerlink" title="标签选择符"></a>标签选择符</h3><p>使用标签选择符作用于作用域范围内的所有对应标签。优先级仅仅比*高。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a &#123;color:red;text-decoration:none;&#125;</span><br><span class="line">ul &#123;padding:0;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关系选择符"><a href="#关系选择符" class="headerlink" title="关系选择符"></a>关系选择符</h2><h3 id="后代选择符"><a href="#后代选择符" class="headerlink" title="后代选择符"></a>后代选择符</h3><p>当你需要更精确地定位时，可以使用后代选择符。例如，假如说你只想选择无序列表里的链接，而不是所有的链接？这种情况下你就应该使用后代选择符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">li a &#123;text-decoration: none;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="子选择符"><a href="#子选择符" class="headerlink" title="子选择符"></a>子选择符</h3><p>有些时候后代选择器的功能过于强大，与我们想要的结果相比他匹配的更多。有时我们只需要选择父元素的直接子元素而不是一个祖先元素内部嵌套的所有元素。这时候子选择器闪亮登场，可以使用＞代替空白符号来放在父元素与子元素之间，就可以创建一个子选择器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">article &gt; p &#123;font-size:16px;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="相邻选择符"><a href="#相邻选择符" class="headerlink" title="相邻选择符"></a>相邻选择符</h3><p>选择第一个元素后紧跟的元素,两者拥有相同的父元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h2 + p &#123;color:red;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兄弟选择符"><a href="#兄弟选择符" class="headerlink" title="兄弟选择符"></a>兄弟选择符</h3><p>选择第一个元素后的兄弟元素,两者拥有相同的父元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h2 ~ p&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="属性选择符"><a href="#属性选择符" class="headerlink" title="属性选择符"></a>属性选择符</h2><h3 id="E-att"><a href="#E-att" class="headerlink" title="E[att]"></a>E[att]</h3><p>选择具有att属性的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[title]&#123;color: green;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”"><a href="#E-att-x3D-”val”" class="headerlink" title="E[att&#x3D;”val”]"></a>E[att&#x3D;”val”]</h3><p>选择具有att属性且属性值等于val的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input[<span class="built_in">type</span>=<span class="string">&quot;text&quot;</span>]&#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”-1"><a href="#E-att-x3D-”val”-1" class="headerlink" title="E[att~&#x3D;”val”]"></a>E[att~&#x3D;”val”]</h3><p>选择具有att属性且属性值为一用空格分隔的字词列表，其中一个等于val的E元素（包含只有一个值且该值等于val的情况）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div[class~=<span class="string">&quot;col&quot;</span>]&#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”-2"><a href="#E-att-x3D-”val”-2" class="headerlink" title="E[att^&#x3D;”val”]"></a>E[att^&#x3D;”val”]</h3><p>选择具有att属性且属性值为以val开头的字符串的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div[class^=<span class="string">&quot;abc&quot;</span>] &#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”-3"><a href="#E-att-x3D-”val”-3" class="headerlink" title="E[att$&#x3D;”val”]"></a>E[att$&#x3D;”val”]</h3><p>选择具有att属性且属性值为以val结尾的字符串的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div[class$=<span class="string">&quot;ccc&quot;</span>] &#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”-4"><a href="#E-att-x3D-”val”-4" class="headerlink" title="E[att*&#x3D;”val”]"></a>E[att*&#x3D;”val”]</h3><p>选择具有att属性且属性值为包含val的字符串的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div[class*=<span class="string">&quot;bb&quot;</span>] &#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-att-x3D-”val”-5"><a href="#E-att-x3D-”val”-5" class="headerlink" title="E[att|&#x3D;”val”]"></a>E[att|&#x3D;”val”]</h3><p>选择具有att属性且属性值为以val开头并用连接符”-“分隔的字符串的E元素，如果属性值仅为val，也将被选择。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">div[class|=<span class="string">&quot;a&quot;</span>] &#123;border: 2px solid <span class="comment">#000;&#125;</span></span><br><span class="line"></span><br><span class="line">&lt;div class=<span class="string">&quot;a-test&quot;</span>&gt;1&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="伪类选择符"><a href="#伪类选择符" class="headerlink" title="伪类选择符"></a>伪类选择符</h2><h3 id="E-link"><a href="#E-link" class="headerlink" title="E:link"></a>E:link</h3><p>指示未访问过的链接的样式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:<span class="built_in">link</span> &#123;color:red;&#125;   </span><br></pre></td></tr></table></figure>
+
+<h3 id="E-visited"><a href="#E-visited" class="headerlink" title="E:visited"></a>E:visited</h3><p>设置超链接a在其链接地址已被访问过时的样式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:visited&#123;color: <span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-hover"><a href="#E-hover" class="headerlink" title="E:hover"></a>E:hover</h3><p>设置元素在其鼠标悬停时的样式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a:hover&#123;background:red;color:<span class="comment">#f00;&#125;</span></span><br><span class="line">div:hover&#123;background: <span class="comment">#ddd;color:#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-active"><a href="#E-active" class="headerlink" title="E:active"></a>E:active</h3><p>设置元素在被用户激活（在鼠标点击与释放之间发生的事件）时的样式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a:active,</span><br><span class="line">div:active &#123;background:<span class="comment">#ddd;color:#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-focus"><a href="#E-focus" class="headerlink" title="E:focus"></a>E:focus</h3><p>设置元素在成为输入焦点（该元素的onfocus事件发生）时的样式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input:focus &#123;background: <span class="comment">#f6f6f6;color: #f60;border: 1px solid #f60;outline: none;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-lang-fr"><a href="#E-lang-fr" class="headerlink" title="E:lang(fr)"></a>E:lang(fr)</h3><p>匹配使用特殊语言的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p:lang(zh-cmn-Hans) &#123;color: <span class="comment">#f00;&#125;</span></span><br><span class="line">p:lang(en) &#123;color: <span class="comment">#090;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-not-s"><a href="#E-not-s" class="headerlink" title="E:not(s)"></a>E:not(s)</h3><p>匹配不含有s选择符的元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.demo li:not(:last-child) &#123;border-bottom: 1px solid <span class="comment">#ddd;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-root"><a href="#E-root" class="headerlink" title="E:root"></a>E:root</h3><p>匹配E元素在文档的根元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="built_in">test</span>&#123;color:black; color: yellow\0; *color: blue; _color: red;&#125; html:root .<span class="built_in">test</span> &#123; color: purple\0; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="E-first-child"><a href="#E-first-child" class="headerlink" title="E:first-child"></a>E:first-child</h3><p>匹配父元素的第一个子元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:first-child&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-last-child"><a href="#E-last-child" class="headerlink" title="E:last-child"></a>E:last-child</h3><p>匹配父元素的最后一个子元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:last-child&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-only-child"><a href="#E-only-child" class="headerlink" title="E:only-child"></a>E:only-child</h3><p>匹配父元素仅有的一个子元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">li:only-child &#123;color: <span class="comment">#f00;&#125;</span></span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;伪类选择符 E:only-child&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">	&lt;li&gt;伪类选择符 E:only-child&lt;/li&gt;</span><br><span class="line">	&lt;li&gt;伪类选择符 E:only-child&lt;/li&gt;</span><br><span class="line">	&lt;li&gt;伪类选择符 E:only-child&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="E-nth-child-n"><a href="#E-nth-child-n" class="headerlink" title="E:nth-child(n)"></a>E:nth-child(n)</h3><p>匹配父元素的第n个子元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">li:nth-child(2n)&#123;color:<span class="comment">#f00;&#125; // 偶数</span></span><br><span class="line">li:nth-child(2n+1)&#123;color:<span class="comment">#000;&#125; //奇数</span></span><br><span class="line"></span><br><span class="line">li:nth-child(even)&#123;color:<span class="comment">#f00;&#125;// 偶数</span></span><br><span class="line">li:nth-child(odd)&#123;color:<span class="comment">#000;&#125; //奇数</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>因为(n)代表一个乘法因子，可以是0, 1, 2, 3, …, 所以(2n)换算出来会是偶数，而(2n+1)换算出来会是奇数</strong></p>
+<h3 id="E-nth-last-child-n"><a href="#E-nth-last-child-n" class="headerlink" title="E:nth-last-child(n)"></a>E:nth-last-child(n)</h3><p>匹配父元素的倒数第n个子元素E,要使该属性生效，E元素必须是某个元素的子元素，E的父元素最高是body，即E可以是body的子元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:nth-last-child(2)&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-first-of-type"><a href="#E-first-of-type" class="headerlink" title="E:first-of-type"></a>E:first-of-type</h3><p>匹配同类型中的第一个同级兄弟元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:first-of-type&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-last-of-type"><a href="#E-last-of-type" class="headerlink" title="E:last-of-type"></a>E:last-of-type</h3><p>匹配同类型中的最后一个同级兄弟元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:last-of-type&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-only-of-type"><a href="#E-only-of-type" class="headerlink" title="E:only-of-type"></a>E:only-of-type</h3><p>匹配同类型中的唯一的一个同级兄弟元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:only-of-type&#123;color: <span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-nth-of-type-n"><a href="#E-nth-of-type-n" class="headerlink" title="E:nth-of-type(n)"></a>E:nth-of-type(n)</h3><p>匹配同类型中的第n个同级兄弟元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">span:nth-of-type(1)&#123;color:<span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-nth-last-of-type-n"><a href="#E-nth-last-of-type-n" class="headerlink" title="E:nth-last-of-type(n)"></a>E:nth-last-of-type(n)</h3><p>匹配同类型中的倒数第n个同级兄弟元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:nth-last-of-type(1) &#123;color: <span class="comment">#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-empty"><a href="#E-empty" class="headerlink" title="E:empty"></a>E:empty</h3><p>匹配没有任何子元素（包括text节点）的元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:empty &#123;height:25px;border: 1px solid <span class="comment">#ddd;background:#eee;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-checked"><a href="#E-checked" class="headerlink" title="E:checked"></a>E:checked</h3><p>匹配用户界面上处于选中状态的元素E。(用于input type为radio与checkbox时)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input:checked + span &#123;background: <span class="comment">#f00;&#125;</span></span><br><span class="line">input:checked + span:after &#123;content: <span class="string">&quot; 我被选中了&quot;</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="E-enabled"><a href="#E-enabled" class="headerlink" title="E:enabled"></a>E:enabled</h3><p>匹配用户界面上处于可用状态的元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input[<span class="built_in">type</span>=<span class="string">&quot;text&quot;</span>]:enabled &#123;border: 1px solid <span class="comment">#090;background: #fff;color: #000;&#125;</span></span><br><span class="line">input[<span class="built_in">type</span>=<span class="string">&quot;text&quot;</span>]:disabled &#123;border: 1px solid <span class="comment">#ccc;background: #eee;color: #ccc;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-disabled"><a href="#E-disabled" class="headerlink" title="E:disabled"></a>E:disabled</h3><p>匹配用户界面上处于禁用状态的元素E。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input[<span class="built_in">type</span>=<span class="string">&quot;text&quot;</span>]:enabled &#123;border: 1px solid <span class="comment">#090;background: #fff;color: #000;&#125;</span></span><br><span class="line">input[<span class="built_in">type</span>=<span class="string">&quot;text&quot;</span>]:disabled &#123;border: 1px solid <span class="comment">#ccc;background: #eee;color: #ccc;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-target"><a href="#E-target" class="headerlink" title="E:target"></a>E:target</h3><p>匹配相关URL指向的E元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#demo:target&#123;color:#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="page-first"><a href="#page-first" class="headerlink" title="@page:first"></a>@page:first</h3><p>设置在打印时页面容器第一页使用的样式。仅用于@page规则。该伪类选择符只允许定义margin, orphans, widows 和 page breaks相关属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@page:first&#123;margin:100px 200px;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="page-left"><a href="#page-left" class="headerlink" title="@page:left"></a>@page:left</h3><p>设置页面容器位于装订线左边的所有页面使用的样式。仅用于@page规则。该伪类选择符只允许定义margin, padding, border 和 background属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@page :left &#123;margin-left: 300px;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="page-right"><a href="#page-right" class="headerlink" title="@page:right"></a>@page:right</h3><p>设置页面容器位于装订线右边的所有页面使用的样式。仅用于@page规则。该伪类选择符只允许定义margin, padding, border 和 background属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@page:right&#123;margin-right:300px;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="伪对象选择符"><a href="#伪对象选择符" class="headerlink" title="伪对象选择符"></a>伪对象选择符</h2><h3 id="E-first-letter-x2F-E-first-letter"><a href="#E-first-letter-x2F-E-first-letter" class="headerlink" title="E:first-letter&#x2F;E::first-letter"></a>E:first-letter&#x2F;E::first-letter</h3><p>设置对象内的第一个字符的样式。此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。该伪类常被用来配合font-size属性和float属性制作首字下沉效果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p:first-letter &#123;<span class="built_in">float</span>:left;font-size:40px;font-weight:bold;line-height:1;&#125;</span><br><span class="line">p::first-letter &#123;<span class="built_in">float</span>:left;font-size:40px;font-weight:bold;line-height:1;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="E-first-line-x2F-E-first-line"><a href="#E-first-line-x2F-E-first-line" class="headerlink" title="E:first-line&#x2F;E::first-line"></a>E:first-line&#x2F;E::first-line</h3><p>设置对象内的第一行的样式。此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p:first-line &#123;color:<span class="comment">#090;&#125;</span></span><br><span class="line">p::first-line &#123;color:<span class="comment">#090;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-before-x2F-E-before"><a href="#E-before-x2F-E-before" class="headerlink" title="E:before&#x2F;E::before"></a>E:before&#x2F;E::before</h3><p>设置在对象前（依据对象树的逻辑结构）发生的内容。用来和content属性一起使用，并且必须定义content属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p:before&#123;position:absolute;background:<span class="comment">#fff;color:#000;content:&quot;如果你的能看到这段文字，说明你的浏览器只支持E:before&quot;;font-size:14px;&#125;</span></span><br><span class="line">p::before&#123;position:absolute;background:<span class="comment">#fff;color:#000;content:&quot;如果你的能看到这段文字，说明你的浏览器支持E:before和E::before&quot;;font-size:14px;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-after-x2F-E-after"><a href="#E-after-x2F-E-after" class="headerlink" title="E:after&#x2F;E::after"></a>E:after&#x2F;E::after</h3><p>设置在对象后（依据对象树的逻辑结构）发生的内容。用来和content属性一起使用，并且必须定义content属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p:after&#123;position:absolute;left:0;background:<span class="comment">#fff;color:#000;content:&quot;如果你的能看到这段文字，说明你的浏览器只支持E:after&quot;;font-size:14px;&#125;</span></span><br><span class="line">p::after&#123;position:absolute;left:0;background:<span class="comment">#fff;color:#000;content:&quot;如果你的能看到这段文字，说明你的浏览器支持E:after和E::after&quot;;font-size:14px;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-placeholder"><a href="#E-placeholder" class="headerlink" title="E::placeholder"></a>E::placeholder</h3><p>设置对象文字占位符的样式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> placeholder=<span class="string">&quot;占位符&quot;</span> /&gt;</span><br><span class="line">input::-webkit-input-placeholder &#123; color:<span class="comment">#999; &#125;</span></span><br><span class="line">input:-ms-input-placeholder &#123; // IE10+ color:<span class="comment">#9999; &#125;</span></span><br><span class="line">input:-moz-placeholder &#123; // Firefox4-18 color:<span class="comment">#999; &#125;</span></span><br><span class="line">input::-moz-placeholder &#123; // Firefox19+ color:<span class="comment">#999; &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="E-selection"><a href="#E-selection" class="headerlink" title="E::selection"></a>E::selection</h3><p>设置对象被选择时的样式。<br>需要注意的是，::selection只能定义被选择时的background-color，color及text-shadow(IE11尚不支持定义该属性)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p::-moz-selection&#123;background:<span class="comment">#000;color:#f00;&#125;</span></span><br><span class="line">p::selection&#123;background:<span class="comment">#000;color:#f00;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="css选择符的分类"><a href="#css选择符的分类" class="headerlink" title="css选择符的分类"></a>css选择符的分类</h2><p>其实看了那么多选择符，其实有点晕，还是有点多，看一遍，复习一遍，分分类，有元素选择符、关系选择符 、属性选择符、伪类选择符、伪对象选择符，目前基本就这5种了。下边在看看这张表理理思路：</p>
+<img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css_select.png" class="" title="基本的css选择符">
+
+<h2 id="选择符浏览器兼容"><a href="#选择符浏览器兼容" class="headerlink" title="选择符浏览器兼容"></a>选择符浏览器兼容</h2><p>这么多选择符，有的都毁在浏览器兼容性的手里了，这是从<strong>前端观察</strong>找的一些兼容数据，但是基本够用了，下边看图：</p>
+<h3 id="css1兼容"><a href="#css1兼容" class="headerlink" title="css1兼容"></a>css1兼容</h3><img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css1.png" class="" title="css1兼容">
+
+<h3 id="css2兼容"><a href="#css2兼容" class="headerlink" title="css2兼容"></a>css2兼容</h3><img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css2.png" class="" title="css2兼容">
+
+<h3 id="css3兼容"><a href="#css3兼容" class="headerlink" title="css3兼容"></a>css3兼容</h3><img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/css3.png" class="" title="css3兼容">
+
+<h3 id="引自前端观察"><a href="#引自前端观察" class="headerlink" title="引自前端观察"></a>引自前端观察</h3><h4 id="基本问题"><a href="#基本问题" class="headerlink" title="基本问题"></a>基本问题</h4><ol>
+<li>:hover 在IE6中只有a元素可用。</li>
+<li>E:empty 貌似在webkit核心浏览器中有些小bug。</li>
+<li>如果这个bug依然存在，不太确定如何测试。</li>
+<li>IE6不支持.class1{}.class2{}双类选择器。</li>
+</ol>
+<h4 id="IE8注意事项："><a href="#IE8注意事项：" class="headerlink" title="IE8注意事项："></a>IE8注意事项：</h4><ul>
+<li>E[attr]选择器在值为空的时候或者写错的时候，将不会生效；</li>
+<li>IE8支持CSS2.1的所有属性，支持伪类，但是不支持伪元素。</li>
+</ul>
+<h4 id="IE8中的IE7兼容模式"><a href="#IE8中的IE7兼容模式" class="headerlink" title="IE8中的IE7兼容模式"></a>IE8中的IE7兼容模式</h4><ul>
+<li>E[attr] 和IE8一样，值为空或写错的时候，无效；</li>
+<li>E[attr~&#x3D;val]这里唯一需要注意的是，属性的值，区分大小写；</li>
+<li>E[attr|&#x3D;val]IE7有一些大小写敏感的问题，但是通常可以正常使用；</li>
+<li>:first-child IE7 会将一个注释或者文字节点当成first-child，而不是只有元素才是“子”元素。所以，如果在第一个子元素前有注释或文字，IE7会匹配之而不是去匹配第一个子元素。</li>
+</ul>
+<h4 id="Safari-x2F-Chrome"><a href="#Safari-x2F-Chrome" class="headerlink" title="Safari&#x2F;Chrome"></a>Safari&#x2F;Chrome</h4><ul>
+<li>Safari3.2(事实上可以追溯到3.1)以上的版本已经完全的支持所有CSS选择器了。</li>
+<li>Safari3.0基本上对CSS 2的选择器支持很好，但不支持CSS3大部分新增的选择器，而且对属性选择器的支持不是很完整。</li>
+<li>iPhone中的Safari有3.0和3.2两个版本，对CSS的支持情况与PC&#x2F;Mac版的支持情况一致。</li>
+<li>Android系统自带的浏览器基本上也是基于webkit核心的，其对于CSS选择器的支持情况待测。</li>
+</ul>
+<h2 id="CSS兼容性和Internet-Explorer"><a href="#CSS兼容性和Internet-Explorer" class="headerlink" title="CSS兼容性和Internet Explorer"></a>CSS兼容性和Internet Explorer</h2><p>好多人都死在了IE手里，或者说会产生疑惑，而第三方资料，难免会有误差，IE版本比较低，我们还得处理，所以这里有个网站可以查查，它可以查到css选择符对IE5的支出程度：</p>
+<p>链接地址：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/cc351024%28v=vs.85%29.aspx">CSS兼容性和Internet Explorer</a></p>
+<h3 id="部分内容"><a href="#部分内容" class="headerlink" title="部分内容"></a>部分内容</h3><img src="/2015/11/10/css%E9%80%89%E6%8B%A9%E5%99%A8/cssie.png" class="" title="css选择符与IE">
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048">The 30 CSS Selectors you Must Memorize</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/cssref/css_selectors.asp">CSS 选择器参考手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Child_selectors">MDN选择符</a></li>
+<li><a target="_blank" rel="noopener" href="http://labs.qianduan.net/css-selector/">CSS选择器的浏览器支持</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/cc351024%28v=vs.85%29.aspx">CSS兼容性和Internet Explorer</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Comparison_of_layout_engines_(Cascading_Style_Sheets)">Comparison of layout engines</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/10/19/EDM%E5%88%B6%E4%BD%9C/" rel="prev" title="EDM制作">
+      <i class="fa fa-chevron-left"></i> EDM制作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/11/20/http%E7%8A%B6%E6%80%81%E7%A0%81%E7%9F%A5%E5%A4%9A%E5%B0%91/" rel="next" title="http状态码知多少">
+      http状态码知多少 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css%E9%80%89%E6%8B%A9%E7%AC%A6%E5%8F%82%E8%80%83%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">css选择符参考图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">元素选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">3.1.</span> <span class="nav-text">通用选择符 *</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ID%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">3.2.</span> <span class="nav-text">ID选择符(#)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class%E7%B1%BB%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">3.3.</span> <span class="nav-text">.class类选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">3.4.</span> <span class="nav-text">标签选择符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">关系选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">后代选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">4.2.</span> <span class="nav-text">子选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E9%82%BB%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">4.3.</span> <span class="nav-text">相邻选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">4.4.</span> <span class="nav-text">兄弟选择符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">属性选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att"><span class="nav-number">5.1.</span> <span class="nav-text">E[att]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D"><span class="nav-number">5.2.</span> <span class="nav-text">E[att&#x3D;”val”]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D-1"><span class="nav-number">5.3.</span> <span class="nav-text">E[att~&#x3D;”val”]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D-2"><span class="nav-number">5.4.</span> <span class="nav-text">E[att^&#x3D;”val”]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D-3"><span class="nav-number">5.5.</span> <span class="nav-text">E[att$&#x3D;”val”]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D-4"><span class="nav-number">5.6.</span> <span class="nav-text">E[att*&#x3D;”val”]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-att-x3D-%E2%80%9Dval%E2%80%9D-5"><span class="nav-number">5.7.</span> <span class="nav-text">E[att|&#x3D;”val”]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">6.</span> <span class="nav-text">伪类选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-link"><span class="nav-number">6.1.</span> <span class="nav-text">E:link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-visited"><span class="nav-number">6.2.</span> <span class="nav-text">E:visited</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-hover"><span class="nav-number">6.3.</span> <span class="nav-text">E:hover</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-active"><span class="nav-number">6.4.</span> <span class="nav-text">E:active</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-focus"><span class="nav-number">6.5.</span> <span class="nav-text">E:focus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-lang-fr"><span class="nav-number">6.6.</span> <span class="nav-text">E:lang(fr)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-not-s"><span class="nav-number">6.7.</span> <span class="nav-text">E:not(s)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-root"><span class="nav-number">6.8.</span> <span class="nav-text">E:root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-first-child"><span class="nav-number">6.9.</span> <span class="nav-text">E:first-child</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-last-child"><span class="nav-number">6.10.</span> <span class="nav-text">E:last-child</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-only-child"><span class="nav-number">6.11.</span> <span class="nav-text">E:only-child</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-nth-child-n"><span class="nav-number">6.12.</span> <span class="nav-text">E:nth-child(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-nth-last-child-n"><span class="nav-number">6.13.</span> <span class="nav-text">E:nth-last-child(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-first-of-type"><span class="nav-number">6.14.</span> <span class="nav-text">E:first-of-type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-last-of-type"><span class="nav-number">6.15.</span> <span class="nav-text">E:last-of-type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-only-of-type"><span class="nav-number">6.16.</span> <span class="nav-text">E:only-of-type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-nth-of-type-n"><span class="nav-number">6.17.</span> <span class="nav-text">E:nth-of-type(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-nth-last-of-type-n"><span class="nav-number">6.18.</span> <span class="nav-text">E:nth-last-of-type(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-empty"><span class="nav-number">6.19.</span> <span class="nav-text">E:empty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-checked"><span class="nav-number">6.20.</span> <span class="nav-text">E:checked</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-enabled"><span class="nav-number">6.21.</span> <span class="nav-text">E:enabled</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-disabled"><span class="nav-number">6.22.</span> <span class="nav-text">E:disabled</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-target"><span class="nav-number">6.23.</span> <span class="nav-text">E:target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#page-first"><span class="nav-number">6.24.</span> <span class="nav-text">@page:first</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#page-left"><span class="nav-number">6.25.</span> <span class="nav-text">@page:left</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#page-right"><span class="nav-number">6.26.</span> <span class="nav-text">@page:right</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%AA%E5%AF%B9%E8%B1%A1%E9%80%89%E6%8B%A9%E7%AC%A6"><span class="nav-number">7.</span> <span class="nav-text">伪对象选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-first-letter-x2F-E-first-letter"><span class="nav-number">7.1.</span> <span class="nav-text">E:first-letter&#x2F;E::first-letter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-first-line-x2F-E-first-line"><span class="nav-number">7.2.</span> <span class="nav-text">E:first-line&#x2F;E::first-line</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-before-x2F-E-before"><span class="nav-number">7.3.</span> <span class="nav-text">E:before&#x2F;E::before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-after-x2F-E-after"><span class="nav-number">7.4.</span> <span class="nav-text">E:after&#x2F;E::after</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-placeholder"><span class="nav-number">7.5.</span> <span class="nav-text">E::placeholder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-selection"><span class="nav-number">7.6.</span> <span class="nav-text">E::selection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css%E9%80%89%E6%8B%A9%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">8.</span> <span class="nav-text">css选择符的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%AC%A6%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9"><span class="nav-number">9.</span> <span class="nav-text">选择符浏览器兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#css1%E5%85%BC%E5%AE%B9"><span class="nav-number">9.1.</span> <span class="nav-text">css1兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css2%E5%85%BC%E5%AE%B9"><span class="nav-number">9.2.</span> <span class="nav-text">css2兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css3%E5%85%BC%E5%AE%B9"><span class="nav-number">9.3.</span> <span class="nav-text">css3兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%87%AA%E5%89%8D%E7%AB%AF%E8%A7%82%E5%AF%9F"><span class="nav-number">9.4.</span> <span class="nav-text">引自前端观察</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">9.4.1.</span> <span class="nav-text">基本问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IE8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="nav-number">9.4.2.</span> <span class="nav-text">IE8注意事项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IE8%E4%B8%AD%E7%9A%84IE7%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.4.3.</span> <span class="nav-text">IE8中的IE7兼容模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Safari-x2F-Chrome"><span class="nav-number">9.4.4.</span> <span class="nav-text">Safari&#x2F;Chrome</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS%E5%85%BC%E5%AE%B9%E6%80%A7%E5%92%8CInternet-Explorer"><span class="nav-number">10.</span> <span class="nav-text">CSS兼容性和Internet Explorer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9"><span class="nav-number">10.1.</span> <span class="nav-text">部分内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">11.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

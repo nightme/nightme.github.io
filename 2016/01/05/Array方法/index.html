@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基本描述Array时javaScript的内置对象，同时也是一个构造函数。用它可以创建数组。 123var arr &#x3D; [&amp;#x27;a&amp;#x27;,&amp;#x27;b&amp;#x27;,&amp;#x27;c&amp;#x27;];    &#x2F;&#x2F; 返回：[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]new Array(&amp;#x27;abc&amp;#x27;);           &#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Array对象">
+<meta property="og:url" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="基本描述Array时javaScript的内置对象，同时也是一个构造函数。用它可以创建数组。 123var arr &#x3D; [&amp;#x27;a&amp;#x27;,&amp;#x27;b&amp;#x27;,&amp;#x27;c&amp;#x27;];    &#x2F;&#x2F; 返回：[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]new Array(&amp;#x27;abc&amp;#x27;);           &#x2F;&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_2.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_3.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_4.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_5.png">
+<meta property="og:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_6.png">
+<meta property="article:published_time" content="2016-01-05T03:09:35.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.066Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_1.png">
+
+<link rel="canonical" href="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Array对象 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/01/05/Array%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Array对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-05 11:09:35" itemprop="dateCreated datePublished" datetime="2016-01-05T11:09:35+08:00">2016-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本描述"><a href="#基本描述" class="headerlink" title="基本描述"></a>基本描述</h2><p>Array时javaScript的内置对象，同时也是一个构造函数。用它可以创建数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];    // 返回：[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br><span class="line">new Array(<span class="string">&#x27;abc&#x27;</span>);           // 返回：[<span class="string">&quot;abc&quot;</span>]</span><br><span class="line">new Array([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>])    // 返回：Array[3]</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="Array对象属性"><a href="#Array对象属性" class="headerlink" title="Array对象属性"></a>Array对象属性</h2><img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_1.png" class="" title="Array对象属性">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = new Array();</span><br><span class="line"></span><br><span class="line">arr.constructor              // 返回：<span class="keyword">function</span> <span class="function"><span class="title">Array</span></span>() &#123; [native code] &#125;</span><br><span class="line">arr.constructor == Array     // 返回：<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="静态方法isArray"><a href="#静态方法isArray" class="headerlink" title="静态方法isArray"></a>静态方法isArray</h2><p>Array.isArray() 方法用来判断某个值是否为数组。如果是，则返回 true，否则返回 false。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">Array.isArray(arr);         // 返回：<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">//兼容老浏览器如：IE 8及以前版本，代码运行之前添加以下代码</span><br><span class="line"><span class="keyword">if</span> (!Array.isArray) &#123;</span><br><span class="line">  Array.isArray = <span class="keyword">function</span>(arg) &#123;</span><br><span class="line">    <span class="built_in">return</span> Object.prototype.toString.call(arg) === <span class="string">&#x27;[object Array]&#x27;</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ECMAScript3的函数方法"><a href="#ECMAScript3的函数方法" class="headerlink" title="ECMAScript3的函数方法"></a>ECMAScript3的函数方法</h2><p>ECMAScript3在Array.prototype中定义了一些函数，这些函数作为任何数组的方法都是可用的。</p>
+<img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_2.png" class="" title="Array对象方法">
+
+<h3 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h3><p>join() 方法将数组中的所有元素连接成一个字符串。<br>参数：可选，用于指定连接每个数组元素的分隔符，默认逗号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">a.join();             // 返回：<span class="string">&quot;a,b,c&quot;</span></span><br><span class="line">a.join(<span class="string">&#x27;-&#x27;</span>);          // 返回：<span class="string">&quot;a-b-c&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="push-和pop"><a href="#push-和pop" class="headerlink" title="push()和pop()"></a>push()和pop()</h3><p>push方法用于在数组的末端添加一个或多个元素，并返回添加后的数组的长度。<br>pop方法用于删除数组的最后一个元素，并返回该元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr.push(<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;g&#x27;</span>);  // 返回：6</span><br><span class="line"></span><br><span class="line">arr.pop();              // 返回：<span class="string">&quot;c&quot;</span></span><br><span class="line">[].pop();               // 返回：undefined</span><br></pre></td></tr></table></figure>
+
+<h3 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h3><p>reverse方法用于颠倒数组中元素的顺序,返回改变后的原数组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr.reverse();      // 返回：[<span class="string">&quot;c&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h3><p>将传入的数组或非数组值与原数组合并,组成一个新的数组并返回<br>语法：array.concat(value1, value2, …, valueN)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr.concat(<span class="string">&#x27;e&#x27;</span>,[<span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;g&#x27;</span>]);      返回：[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;e&quot;</span>, <span class="string">&quot;f&quot;</span>, <span class="string">&quot;g&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="shift-和unshift"><a href="#shift-和unshift" class="headerlink" title="shift()和unshift()"></a>shift()和unshift()</h3><p>shift方法用于删除数组的第一个元素，并返回该元素。<br>unshift方法用于在数组的第一个位置添加元素，并返回添加新元素后的数组长度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr.shift();        // 返回：<span class="string">&quot;a&quot;</span></span><br><span class="line"></span><br><span class="line">arr.unshift(<span class="string">&#x27;-a&#x27;</span>,<span class="string">&#x27;-b&#x27;</span>); // 返回：5; arr is [<span class="string">&quot;-a&quot;</span>, <span class="string">&quot;-b&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="slice-和splice"><a href="#slice-和splice" class="headerlink" title="slice()和splice()"></a>slice()和splice()</h3><p>slice方法用于提取原数组的一部分，返回一个新数组。<br>语法：array.slice(begin [,end])<br>参数：begin,索引处开始，省略，则默认0； end,索引处结束，省略，则取到数组末尾</p>
+<p>splice方法用于删除原数组的一部分成员，并可以在被删除的位置添加入新的数组成员。它的返回值是被删除的元素<br>语法：array.splice(start, deleteCount[, item1[, item2[, …]]])<br>参数：start索引处开始，超出了数组的长度，则从数组末尾开始，如是负值，则表示从数组末位开始的第几位；deleteCount，整数，移除的数组元素的个数，deleteCount大于start之后的元素的总数，则从 start 后面的元素都将被删除（含第 start 位）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">//数组未改变</span><br><span class="line">arr.slice();                    // 返回：[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br><span class="line">arr.slice(0,1);                 // 返回：[<span class="string">&quot;a&quot;</span>]</span><br><span class="line"></span><br><span class="line">//数组已改变</span><br><span class="line">arr.splice(0,1)                 // 返回：[<span class="string">&quot;a&quot;</span>]</span><br><span class="line">arr.splice(0,2,<span class="string">&#x27;-a&#x27;</span>,<span class="string">&#x27;-b&#x27;</span>);      // 返回：[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>]；arr is [<span class="string">&quot;-a&quot;</span>, <span class="string">&quot;-b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="sort-方法"><a href="#sort-方法" class="headerlink" title="sort()方法"></a>sort()方法</h3><p>sort默认按照字典顺序排序，原数组将被改变。<br>语法：arr.sort([compareFunction])<br>参数：可选。用来指定按某种顺序进行排列的函数。如果省略，元素按照字典顺序进行排序。<br>补充： compareFunction(a, b)，小于0，那么a会被排列到b之前；等于 0，a 和 b 的相对位置不变；大于0， b会被排列到a之前</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//Eg1:</span><br><span class="line">var arr = [<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">arr.sort()               // 返回：[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br><span class="line"></span><br><span class="line">//Eg2:</span><br><span class="line">var arr = [</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪1&#x27;</span>,money:500&#125;,</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪2&#x27;</span>,money:1000&#125;,</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪3&#x27;</span>,money:500&#125;,</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪4&#x27;</span>,money:1&#125;</span><br><span class="line">]</span><br><span class="line">arr.sort(<span class="keyword">function</span>(a,b)&#123;</span><br><span class="line">  <span class="keyword">if</span>(a.money &gt; b.money )&#123; <span class="built_in">return</span> 1;&#125;</span><br><span class="line">  <span class="keyword">if</span>(a.money &lt; b.money )&#123; <span class="built_in">return</span> -1;&#125;</span><br><span class="line">  <span class="built_in">return</span> 0;</span><br><span class="line">&#125;);</span><br><span class="line">排序结果arr是这样的：</span><br><span class="line">var arr = [</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪4&#x27;</span>,money:1&#125;</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪1&#x27;</span>,money:500&#125;,</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪3&#x27;</span>,money:500&#125;,</span><br><span class="line">  &#123;name:<span class="string">&#x27;土豪2&#x27;</span>,money:1000&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="toString-和toLocaleString"><a href="#toString-和toLocaleString" class="headerlink" title="toString()和toLocaleString()"></a>toString()和toLocaleString()</h3><p>toString 把数组转换为字符串，并返回结果。<br>toLocaleString把数组转换为本地数组，并返回结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr.toString();         // 返回：<span class="string">&quot;a,b,c&quot;</span></span><br><span class="line">arr.toLocaleString();   // 返回：<span class="string">&quot;a,b,c&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ECMAScript5中的数组方法"><a href="#ECMAScript5中的数组方法" class="headerlink" title="ECMAScript5中的数组方法"></a>ECMAScript5中的数组方法</h2><p>ECMAScript 5 定义了9个新的数组方法，分别是map、forEach、filter、every、some、reduce、reduceRight、indexOf和lastIndexOf；<br>这些方法可在数组、字符串、类数组上使用；<br>参数：(callback[, thisArg])<br>callback:currentValue当前项（指遍历时正在被处理那个数组项）的值;index当前项的索引（或下标）;array数组本身。<br>thisArg：可选参数，用来当作callback 函数内this的值的对象</p>
+<h3 id="forEach方法"><a href="#forEach方法" class="headerlink" title="forEach方法"></a>forEach方法</h3><p>forEach() 方法让数组的每一项都执行一次给定的函数。<br>语法：array.forEach(callback[, thisArg])</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var arr = [],</span><br><span class="line">    num = [1,2,3,4,5];</span><br><span class="line">num.forEach(<span class="keyword">function</span>(currentValue)&#123;</span><br><span class="line">  arr.push(currentValue+1);</span><br><span class="line">&#125;,arr);</span><br><span class="line"></span><br><span class="line">arr is : [2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<h3 id="map方法"><a href="#map方法" class="headerlink" title="map方法"></a>map方法</h3><p>map方法对数组的所有成员依次调用一个函数，根据函数结果返回一个新数组。<br>语法：array.map(callback[, thisArg])</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.map(<span class="keyword">function</span>(currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> currentValue+1;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">结果：[2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<h3 id="filter方法"><a href="#filter方法" class="headerlink" title="filter方法"></a>filter方法</h3><p>语法：arr.filter(callback[, thisArg])</p>
+<p>filter() 方法使用指定的函数测试所有元素，并创建一个包含所有通过测试的元素的新数组<br>语法：arr.filter(callback[, thisArg])</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.filter(<span class="keyword">function</span>(currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> currentValue % 2 == 0;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">结果：[2, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="every和some方法"><a href="#every和some方法" class="headerlink" title="every和some方法"></a>every和some方法</h3><p>every() 方法测试数组的所有元素是否都通过了指定函数的测试。所有通过返回true，否则false<br>语法：arr.every(callback[, thisArg])</p>
+<p>some() 方法测试数组中的某些元素是否通过了指定函数的测试。一有通过就返回true,否则false<br>语法：arr.some(callback[, thisArg])</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.every(<span class="keyword">function</span>(currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> currentValue&gt;4;</span><br><span class="line">&#125;)</span><br><span class="line">结果：fasle;</span><br><span class="line"></span><br><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.some(<span class="keyword">function</span>(currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> currentValue&gt;4;</span><br><span class="line">&#125;)</span><br><span class="line">结果:<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="reduce和reduceRight方法"><a href="#reduce和reduceRight方法" class="headerlink" title="reduce和reduceRight方法"></a>reduce和reduceRight方法</h3><p>reduce方法和reduceRight方法的作用，是依次处理数组的每个元素，最终累计为一个值，reduce对数组元素的处理顺序是从左到右，reduceRight则是从右到左。<br>语法：arr.reduce(callback,[initialValue])<br>callback参数有：<br>previousValue：上一次调用回调返回的值，或者是提供的初始值（initialValue）<br>currentValue：数组中当前被处理的元素<br>index：下标<br>array：调用 reduce 的数组<br>initialValue：作为第一次调用 callback 的第一个参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.reduce(<span class="keyword">function</span>(previousValue,currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> previousValue + currentValue;</span><br><span class="line">&#125;);</span><br><span class="line">结果是：15</span><br><span class="line"></span><br><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.reduce(<span class="keyword">function</span>(previousValue,currentValue)&#123;</span><br><span class="line">  <span class="built_in">return</span> previousValue + currentValue;</span><br><span class="line">&#125;,10)</span><br><span class="line">结果是：25</span><br></pre></td></tr></table></figure>
+
+<h3 id="indexOf和lastIndexOf方法"><a href="#indexOf和lastIndexOf方法" class="headerlink" title="indexOf和lastIndexOf方法"></a>indexOf和lastIndexOf方法</h3><p>indexOf返回给定元素在数组中第一次出现的下标，如果没有出现则返回-1<br>语法：arr.indexOf(searchElement[, fromIndex &#x3D; 0])</p>
+<p>lastIndexOf返回给定元素在数组中最后一次出现的下标，如果没有出现则返回-1，从数组的后面向前查找，从 fromIndex 处开始<br>语法：arr.lastIndexOf(searchElement[, fromIndex &#x3D; arr.length - 1])</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var num = [1,2,3,4,5];</span><br><span class="line">num.indexOf(3,1)            // 返回：2</span><br><span class="line">num.lastIndexOf(3,4)        // 返回：2</span><br></pre></td></tr></table></figure>
+
+<h2 id="兼容旧环境-Polyfill"><a href="#兼容旧环境-Polyfill" class="headerlink" title="兼容旧环境(Polyfill)"></a>兼容旧环境(Polyfill)</h2><p>ECMAScript 5这些方法，一些旧浏览器不支持，主要是IE 8及以前版本，我们就要在使用之前对它进行处理，然而Mozilla网络开发者(Mozilla Developer Network,简称MDN)就对此进行了处理：</p>
+<h3 id="兼容forEach"><a href="#兼容forEach" class="headerlink" title="兼容forEach"></a>兼容forEach</h3><p>这是我对MDN的forEach方法，加的一点注释。并保留了原来的英文注释。</p>
+<p><strong>看着似乎有点长，但是把注释去掉只有几行代码</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.forEach) &#123;</span><br><span class="line"></span><br><span class="line">    Array.prototype.forEach = <span class="keyword">function</span> forEach(callback, thisArg) &#123;</span><br><span class="line">        var T, k;</span><br><span class="line">        <span class="keyword">if</span> (this == null) &#123;</span><br><span class="line">            throw new TypeError(<span class="string">&quot;this is null or not defined&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 1. Let O be the result of calling ToObject passing the |this| value as the argument.</span><br><span class="line">        // 将当前this对象作为参数传递给Obejct对象，返回一个与给定值对应类型的对象。该对象包装了给定的参数。</span><br><span class="line">        var O = Object(this);</span><br><span class="line"></span><br><span class="line">        // 2. Let lenValue be the result of calling the Get internal method of O with the argument <span class="string">&quot;length&quot;</span>.</span><br><span class="line">        // 3. Let len be ToUint32(lenValue).</span><br><span class="line">        // 进行无符号位移运算符，将所有非数值转换成0，所有大于等于0数取整数部分，并赋值变量len</span><br><span class="line">        var len = O.length &gt;&gt;&gt; 0;</span><br><span class="line"></span><br><span class="line">        // 4. If IsCallable(callback) is <span class="literal">false</span>, throw a TypeError exception.</span><br><span class="line">        // See: http://es5.github.com/<span class="comment">#x9.11</span></span><br><span class="line">        <span class="keyword">if</span> (typeof callback !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">            throw new TypeError(callback + <span class="string">&quot; is not a function&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 5. If thisArg was supplied, <span class="built_in">let</span> T be thisArg; <span class="keyword">else</span> <span class="built_in">let</span> T be undefined.</span><br><span class="line">        // 检查arguments对象是否有第二个参数，如果有则进行操作。</span><br><span class="line">        <span class="keyword">if</span> (arguments.length &gt; 1) &#123;</span><br><span class="line">            T = thisArg;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 6. Let k be 0</span><br><span class="line">        k = 0;</span><br><span class="line"></span><br><span class="line">        // 7. Repeat, <span class="keyword">while</span> k &lt; len</span><br><span class="line">        // 循环每一项,调用指定函数</span><br><span class="line">        <span class="keyword">while</span> (k &lt; len) &#123;</span><br><span class="line"></span><br><span class="line">            var kValue;</span><br><span class="line"></span><br><span class="line">            // a. Let Pk be ToString(k).</span><br><span class="line">            //   This is implicit <span class="keyword">for</span> LHS operands of the <span class="keyword">in</span> operator</span><br><span class="line">            // b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.</span><br><span class="line">            //   This step can be combined with c</span><br><span class="line">            // c. If kPresent is <span class="literal">true</span>, <span class="keyword">then</span></span><br><span class="line">            /*</span><br><span class="line">             * a. <span class="keyword">in</span>运算符希望它的左操作数是一个字符串或可以转换为字符串；</span><br><span class="line">             *    希望他的右操作数是一个对象；</span><br><span class="line">             *    如果右侧对象拥有一个名为左操作数值的属性名，那么表达式返回<span class="literal">true</span></span><br><span class="line">             * b. 对于数组属性需要指定数字形式的索引值来表示数组的属性名称（固有属性除外，如length）</span><br><span class="line">             * var arr =[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">             * 0 <span class="keyword">in</span> arr; =&gt; 返回：<span class="literal">true</span></span><br><span class="line">             * 3 <span class="keyword">in</span> arr; =&gt; 返回：<span class="literal">false</span></span><br><span class="line">             */</span><br><span class="line">            <span class="keyword">if</span> (k <span class="keyword">in</span> O) &#123;</span><br><span class="line"></span><br><span class="line">                // i. Let kValue be the result of calling the Get internal method of O with argument Pk.</span><br><span class="line">                // 获取值对应赋给给变量kValue</span><br><span class="line">                kValue = O[k];</span><br><span class="line"></span><br><span class="line">                // ii. Call the Call internal method of callback with T as the this value and</span><br><span class="line">                // argument list containing kValue, k, and O.</span><br><span class="line">                // 使用call方法，T(传进的对象),kValue(当前值),k(索引),O(理解为使用的数组)</span><br><span class="line">                callback.call(T, kValue, k, O);</span><br><span class="line">            &#125;</span><br><span class="line">            // d. Increase k by 1.</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        // 8. <span class="built_in">return</span> undefined</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容map"><a href="#兼容map" class="headerlink" title="兼容map"></a>兼容map</h3><p>MDN上已经有中文注释了，很好理解</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.map) &#123;</span><br><span class="line">    Array.prototype.map = <span class="keyword">function</span>(callback, thisArg) &#123;</span><br><span class="line"></span><br><span class="line">        var T, A, k;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (this == null) &#123;</span><br><span class="line">            throw new TypeError(<span class="string">&quot; this is null or not defined&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 1. 将O赋值为调用map方法的数组.</span><br><span class="line">        var O = Object(this);</span><br><span class="line"></span><br><span class="line">        // 2.将len赋值为数组O的长度.</span><br><span class="line">        var len = O.length &gt;&gt;&gt; 0;</span><br><span class="line"></span><br><span class="line">        // 3.如果callback不是函数,则抛出TypeError异常.</span><br><span class="line">        <span class="keyword">if</span> (Object.prototype.toString.call(callback) != <span class="string">&quot;[object Function]&quot;</span>) &#123;</span><br><span class="line">            throw new TypeError(callback + <span class="string">&quot; is not a function&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 4. 如果参数thisArg有值,则将T赋值为thisArg;否则T为undefined.</span><br><span class="line">        <span class="keyword">if</span> (thisArg) &#123;</span><br><span class="line">            T = thisArg;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 5. 创建新数组A,长度为原数组O长度len</span><br><span class="line">        A = new Array(len);</span><br><span class="line"></span><br><span class="line">        // 6. 将k赋值为0</span><br><span class="line">        k = 0;</span><br><span class="line"></span><br><span class="line">        // 7. 当 k &lt; len 时,执行循环.</span><br><span class="line">        <span class="keyword">while</span> (k &lt; len) &#123;</span><br><span class="line"></span><br><span class="line">            var kValue, mappedValue;</span><br><span class="line"></span><br><span class="line">            //遍历O,k为原数组索引</span><br><span class="line">            <span class="keyword">if</span> (k <span class="keyword">in</span> O) &#123;</span><br><span class="line"></span><br><span class="line">                //kValue为索引k对应的值.</span><br><span class="line">                kValue = O[k];</span><br><span class="line"></span><br><span class="line">                // 执行callback,this指向T,参数有三个.分别是kValue:值,k:索引,O:原数组.</span><br><span class="line">                mappedValue = callback.call(T, kValue, k, O);</span><br><span class="line"></span><br><span class="line">                // 返回值添加到新数组A中.</span><br><span class="line">                A[k] = mappedValue;</span><br><span class="line">            &#125;</span><br><span class="line">            // k自增1</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 8. 返回新数组A</span><br><span class="line">        <span class="built_in">return</span> A;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容filter"><a href="#兼容filter" class="headerlink" title="兼容filter"></a>兼容filter</h3><p>方法中的void 0：</p>
+<ol>
+<li>void 0 &#x3D;&#x3D;&#x3D; undefined &#x3D;&gt; 返回：true</li>
+<li>undefined在JavaScript中并不属于保留字&#x2F;关键字</li>
+<li>undefined在IE5.5~8中可将当变量赋值(IE9+及其他现代浏览器中赋值给undefined将无效)</li>
+<li>无论void后的运算数是什么，只返回纯正的undefined</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.filter) &#123;</span><br><span class="line">    Array.prototype.filter = <span class="keyword">function</span>(fun /*, thisArg */ ) &#123;</span><br><span class="line">        <span class="string">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (this === void 0 || this === null)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var t = Object(this);</span><br><span class="line">        var len = t.length &gt;&gt;&gt; 0;</span><br><span class="line">        <span class="keyword">if</span> (typeof fun !== <span class="string">&quot;function&quot;</span>)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var res = [];</span><br><span class="line">        var thisArg = arguments.length &gt;= 2 ? arguments[1] : void 0;</span><br><span class="line">        <span class="keyword">for</span> (var i = 0; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i <span class="keyword">in</span> t) &#123;</span><br><span class="line">                var val = t[i];</span><br><span class="line"></span><br><span class="line">                // NOTE: Technically this should Object.defineProperty at</span><br><span class="line">                //       the next index, as push can be affected by</span><br><span class="line">                //       properties on Object.prototype and Array.prototype.</span><br><span class="line">                //       But that method<span class="string">&#x27;s new, and collisions should be</span></span><br><span class="line"><span class="string">                //       rare, so use the more-compatible alternative.</span></span><br><span class="line"><span class="string">                if (fun.call(thisArg, val, i, t))</span></span><br><span class="line"><span class="string">                    res.push(val);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return res;</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容reduce"><a href="#兼容reduce" class="headerlink" title="兼容reduce"></a>兼容reduce</h3><p>hasOwnProperty：是用来判断一个对象是否有你给出名称的属性或对象。不过需要注意的是，此方法无法检查该对象的原型链中是否具有该属性，该属性必须是对象本身的一个成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;function&#x27;</span> !== typeof Array.prototype.reduce) &#123;</span><br><span class="line">    Array.prototype.reduce = <span class="keyword">function</span>(callback, opt_initialValue) &#123;</span><br><span class="line">        <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (null === this || <span class="string">&#x27;undefined&#x27;</span> === typeof this) &#123;</span><br><span class="line">            // At the moment all modern browsers, that support strict mode, have</span><br><span class="line">            // native implementation of Array.prototype.reduce. For instance, IE8</span><br><span class="line">            // does not support strict mode, so this check is actually useless.</span><br><span class="line">            throw new TypeError(</span><br><span class="line">                <span class="string">&#x27;Array.prototype.reduce called on null or undefined&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&#x27;function&#x27;</span> !== typeof callback) &#123;</span><br><span class="line">            throw new TypeError(callback + <span class="string">&#x27; is not a function&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        var index, value,</span><br><span class="line">            length = this.length &gt;&gt;&gt; 0,</span><br><span class="line">            isValueSet = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (1 &lt; arguments.length) &#123;</span><br><span class="line">            value = opt_initialValue;</span><br><span class="line">            isValueSet = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (index = 0; length &gt; index; ++index) &#123;</span><br><span class="line">            <span class="keyword">if</span> (this.hasOwnProperty(index)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (isValueSet) &#123;</span><br><span class="line">                    value = callback(value, this[index], index, this);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    value = this[index];</span><br><span class="line">                    isValueSet = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!isValueSet) &#123;</span><br><span class="line">            throw new TypeError(<span class="string">&#x27;Reduce of empty array with no initial value&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容reduceRight"><a href="#兼容reduceRight" class="headerlink" title="兼容reduceRight"></a>兼容reduceRight</h3><p>与reduce的执行顺序相反，reduceRight则是从右到左。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;function&#x27;</span> !== typeof Array.prototype.reduceRight) &#123;</span><br><span class="line">    Array.prototype.reduceRight = <span class="keyword">function</span>(callback /*, initialValue*/ ) &#123;</span><br><span class="line">        <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (null === this || <span class="string">&#x27;undefined&#x27;</span> === typeof this) &#123;</span><br><span class="line">            throw new TypeError(</span><br><span class="line">                <span class="string">&#x27;Array.prototype.reduce called on null or undefined&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&#x27;function&#x27;</span> !== typeof callback) &#123;</span><br><span class="line">            throw new TypeError(callback + <span class="string">&#x27; is not a function&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        var t = Object(this),</span><br><span class="line">            len = t.length &gt;&gt;&gt; 0,</span><br><span class="line">            k = len - 1,</span><br><span class="line">            value;</span><br><span class="line">        <span class="keyword">if</span> (arguments.length &gt;= 2) &#123;</span><br><span class="line">            value = arguments[1];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (k &gt;= 0 &amp;&amp; !k <span class="keyword">in</span> t) k--;</span><br><span class="line">            <span class="keyword">if</span> (k &lt; 0)</span><br><span class="line">                throw new TypeError(<span class="string">&#x27;Reduce of empty array with no initial value&#x27;</span>);</span><br><span class="line">            value = t[k--];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (; k &gt;= 0; k--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k <span class="keyword">in</span> t) &#123;</span><br><span class="line">                value = callback(value, t[k], k, t);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容some"><a href="#兼容some" class="headerlink" title="兼容some"></a>兼容some</h3><p>some() 方法测试数组中的某些元素是否通过了指定函数的测试。一有通过就返回true,否则false</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.some) &#123;</span><br><span class="line">    Array.prototype.some = <span class="keyword">function</span>(fun /*, thisArg */ ) &#123;</span><br><span class="line">        <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (this === void 0 || this === null)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var t = Object(this);</span><br><span class="line">        var len = t.length &gt;&gt;&gt; 0;</span><br><span class="line">        <span class="keyword">if</span> (typeof fun !== <span class="string">&#x27;function&#x27;</span>)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var thisArg = arguments.length &gt;= 2 ? arguments[1] : void 0;</span><br><span class="line">        <span class="keyword">for</span> (var i = 0; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i <span class="keyword">in</span> t &amp;&amp; fun.call(thisArg, t[i], i, t))</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容every"><a href="#兼容every" class="headerlink" title="兼容every"></a>兼容every</h3><p>every() 方法测试数组的所有元素是否都通过了指定函数的测试。全部通过，返回true</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.every) &#123;</span><br><span class="line">    Array.prototype.every = <span class="keyword">function</span>(fun /*, thisArg */ ) &#123;</span><br><span class="line">        <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (this === void 0 || this === null)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var t = Object(this);</span><br><span class="line">        var len = t.length &gt;&gt;&gt; 0;</span><br><span class="line">        <span class="keyword">if</span> (typeof fun !== <span class="string">&#x27;function&#x27;</span>)</span><br><span class="line">            throw new TypeError();</span><br><span class="line"></span><br><span class="line">        var thisArg = arguments.length &gt;= 2 ? arguments[1] : void 0;</span><br><span class="line">        <span class="keyword">for</span> (var i = 0; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i <span class="keyword">in</span> t &amp;&amp; !fun.call(thisArg, t[i], i, t))</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容indexOf"><a href="#兼容indexOf" class="headerlink" title="兼容indexOf"></a>兼容indexOf</h3><p>indexOf()方法返回给定元素能找在数组中找到的第一个索引值，否则返回-1<br>语法：arr.indexOf(searchElement[, fromIndex &#x3D; 0])<br>MDN的注释已全部去掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.indexOf) &#123;</span><br><span class="line">    Array.prototype.indexOf = <span class="keyword">function</span>(searchElement, fromIndex) &#123;</span><br><span class="line">        var k;</span><br><span class="line">        <span class="keyword">if</span> (this == null) &#123;</span><br><span class="line">            throw new TypeError(<span class="string">&#x27;&quot;this&quot; is null or not defined&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        var O = Object(this);</span><br><span class="line">        var len = O.length &gt;&gt;&gt; 0;</span><br><span class="line">        <span class="keyword">if</span> (len === 0) &#123;</span><br><span class="line">            <span class="built_in">return</span> -1;</span><br><span class="line">        &#125;</span><br><span class="line">        var n = +fromIndex || 0;</span><br><span class="line">        <span class="keyword">if</span> (Math.abs(n) === Infinity) &#123;</span><br><span class="line">            n = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &gt;= len) &#123;</span><br><span class="line">            <span class="built_in">return</span> -1;</span><br><span class="line">        &#125;</span><br><span class="line">        k = Math.max(n &gt;= 0 ? n : len - Math.abs(n), 0);</span><br><span class="line">        <span class="keyword">while</span> (k &lt; len) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k <span class="keyword">in</span> O &amp;&amp; O[k] === searchElement) &#123;</span><br><span class="line">                <span class="built_in">return</span> k;</span><br><span class="line">            &#125;</span><br><span class="line">            k++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> -1;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="兼容lastIndexOf"><a href="#兼容lastIndexOf" class="headerlink" title="兼容lastIndexOf"></a>兼容lastIndexOf</h3><p>从数组的后面向前查找，从 fromIndex 处开始<br>语法：arr.lastIndexOf(searchElement[, fromIndex &#x3D; arr.length - 1])</p>
+<p>floor() 方法可对一个数进行下舍入 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Array.prototype.lastIndexOf) &#123;</span><br><span class="line">    Array.prototype.lastIndexOf = <span class="keyword">function</span>(searchElement /*, fromIndex*/ ) &#123;</span><br><span class="line">        <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (this === void 0 || this === null) &#123;</span><br><span class="line">            throw new TypeError();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        var n, k,</span><br><span class="line">            t = Object(this),</span><br><span class="line">            len = t.length &gt;&gt;&gt; 0;</span><br><span class="line">        <span class="keyword">if</span> (len === 0) &#123;</span><br><span class="line">            <span class="built_in">return</span> -1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        n = len - 1;</span><br><span class="line">        <span class="keyword">if</span> (arguments.length &gt; 1) &#123;</span><br><span class="line">            n = Number(arguments[1]);</span><br><span class="line">            <span class="keyword">if</span> (n != n) &#123;</span><br><span class="line">                n = 0;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n != 0 &amp;&amp; n != (1 / 0) &amp;&amp; n != -(1 / 0)) &#123;</span><br><span class="line">                n = (n &gt; 0 || -1) * Math.floor(Math.abs(n));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (k = n &gt;= 0 ? Math.min(n, len - 1) : len - Math.abs(n); k &gt;= 0; k--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k <span class="keyword">in</span> t &amp;&amp; t[k] === searchElement) &#123;</span><br><span class="line">                <span class="built_in">return</span> k;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> -1;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ECMAScript5兼容"><a href="#ECMAScript5兼容" class="headerlink" title="ECMAScript5兼容"></a>ECMAScript5兼容</h2><p>ECMAScript3的方法我们可以放心的使用，不担心兼容问题，但是ECMAScript5就得考虑了，但是上面这么多我还得自己一个个弄，太麻烦了，于是前辈们就造了es5-shim.js库</p>
+<img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_3.png" class="" title="es5-shim参考图">
+
+<p>es5-shim里面通过测试的方法有：</p>
+<img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_4.png" class="" title="方法">
+
+
+<p>在使用新方法前引用它，就可以了。</p>
+<h2 id="其他途径"><a href="#其他途径" class="headerlink" title="其他途径"></a>其他途径</h2><h3 id="1、jquery"><a href="#1、jquery" class="headerlink" title="1、jquery"></a>1、jquery</h3><p>jquery之强大，毋庸置疑，里面就有了这些方法。只要你引用了jquery，你就可以放心的使用。详情参考jquery API</p>
+<h3 id="2、Underscore"><a href="#2、Underscore" class="headerlink" title="2、Underscore"></a>2、Underscore</h3><p>Underscore JavaScript 工具库，里面提供了100多个函数。</p>
+<img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_5.png" class="" title="一部分函数">
+
+<h3 id="3、lodash"><a href="#3、lodash" class="headerlink" title="3、lodash"></a>3、lodash</h3><p>lodash一个JavaScript工具库</p>
+<img src="/2016/01/05/Array%E6%96%B9%E6%B3%95/arr_pic_6.png" class="" title="兼容性测试">
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">MDN-array文档</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/js/js_obj_array.asp">JavaScript Array数组对象-w3school</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.css88.com/doc/underscore/">Underscore-中文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://lodash.com/">lodash-文档</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/04/javascript-Date%E6%97%A5%E6%9C%9F%E5%AF%B9%E8%B1%A1/" rel="prev" title="javascript-Date日期对象">
+      <i class="fa fa-chevron-left"></i> javascript-Date日期对象
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/02/24/getComputedStyle%E4%B8%8EcurrentStyle/" rel="next" title="getComputedStyle与currentStyle">
+      getComputedStyle与currentStyle <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">基本描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">Array对象属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95isArray"><span class="nav-number">3.</span> <span class="nav-text">静态方法isArray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMAScript3%E7%9A%84%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">ECMAScript3的函数方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">4.1.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-%E5%92%8Cpop"><span class="nav-number">4.2.</span> <span class="nav-text">push()和pop()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse"><span class="nav-number">4.3.</span> <span class="nav-text">reverse()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">4.4.</span> <span class="nav-text">concat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shift-%E5%92%8Cunshift"><span class="nav-number">4.5.</span> <span class="nav-text">shift()和unshift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice-%E5%92%8Csplice"><span class="nav-number">4.6.</span> <span class="nav-text">slice()和splice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95"><span class="nav-number">4.7.</span> <span class="nav-text">sort()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-%E5%92%8CtoLocaleString"><span class="nav-number">4.8.</span> <span class="nav-text">toString()和toLocaleString()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMAScript5%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">ECMAScript5中的数组方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">forEach方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E6%96%B9%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">map方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter%E6%96%B9%E6%B3%95"><span class="nav-number">5.3.</span> <span class="nav-text">filter方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every%E5%92%8Csome%E6%96%B9%E6%B3%95"><span class="nav-number">5.4.</span> <span class="nav-text">every和some方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce%E5%92%8CreduceRight%E6%96%B9%E6%B3%95"><span class="nav-number">5.5.</span> <span class="nav-text">reduce和reduceRight方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf%E5%92%8ClastIndexOf%E6%96%B9%E6%B3%95"><span class="nav-number">5.6.</span> <span class="nav-text">indexOf和lastIndexOf方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%97%A7%E7%8E%AF%E5%A2%83-Polyfill"><span class="nav-number">6.</span> <span class="nav-text">兼容旧环境(Polyfill)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9forEach"><span class="nav-number">6.1.</span> <span class="nav-text">兼容forEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9map"><span class="nav-number">6.2.</span> <span class="nav-text">兼容map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9filter"><span class="nav-number">6.3.</span> <span class="nav-text">兼容filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9reduce"><span class="nav-number">6.4.</span> <span class="nav-text">兼容reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9reduceRight"><span class="nav-number">6.5.</span> <span class="nav-text">兼容reduceRight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9some"><span class="nav-number">6.6.</span> <span class="nav-text">兼容some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9every"><span class="nav-number">6.7.</span> <span class="nav-text">兼容every</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9indexOf"><span class="nav-number">6.8.</span> <span class="nav-text">兼容indexOf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9lastIndexOf"><span class="nav-number">6.9.</span> <span class="nav-text">兼容lastIndexOf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMAScript5%E5%85%BC%E5%AE%B9"><span class="nav-number">7.</span> <span class="nav-text">ECMAScript5兼容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%80%94%E5%BE%84"><span class="nav-number">8.</span> <span class="nav-text">其他途径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81jquery"><span class="nav-number">8.1.</span> <span class="nav-text">1、jquery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Underscore"><span class="nav-number">8.2.</span> <span class="nav-text">2、Underscore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81lodash"><span class="nav-number">8.3.</span> <span class="nav-text">3、lodash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

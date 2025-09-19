@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Apple Developer Program个人如果你是个人或独资企业&#x2F;一人公司，那么你个人的法定姓名将作为供应商列示在 App Store 上。请勿输入别名、昵称或公司名称作为你的姓氏或名字，因为错误地输入你的法定姓名将导致注册审批延误。 组织如果你是公司、非营利组织、合资企业、合伙企业或政府组织的员工，那么法人实体名称将作为供应商列示在 App Store 上。在验证过程中，我们会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注册苹果开发者">
+<meta property="og:url" content="https://nightme.github.io/2025/09/19/%E6%B3%A8%E5%86%8C%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="Apple Developer Program个人如果你是个人或独资企业&#x2F;一人公司，那么你个人的法定姓名将作为供应商列示在 App Store 上。请勿输入别名、昵称或公司名称作为你的姓氏或名字，因为错误地输入你的法定姓名将导致注册审批延误。 组织如果你是公司、非营利组织、合资企业、合伙企业或政府组织的员工，那么法人实体名称将作为供应商列示在 App Store 上。在验证过程中，我们会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202509181134.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918142754.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918143135.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918183254_32_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918183837_33_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184059_34_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184322_35_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184522_36_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184925_37_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918185543_38_148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202509181436409148.jpg">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918144943492.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814454711148.jpg">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814454712148.jpg">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918150411931.jpg">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091815012415148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814595514148.png">
+<meta property="og:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814584413148.png">
+<meta property="article:published_time" content="2025-09-19T06:23:57.000Z">
+<meta property="article:modified_time" content="2025-09-19T06:31:41.890Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="ios">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202509181134.png">
+
+<link rel="canonical" href="https://nightme.github.io/2025/09/19/%E6%B3%A8%E5%86%8C%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>注册苹果开发者 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2025/09/19/%E6%B3%A8%E5%86%8C%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注册苹果开发者
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-09-19 14:23:57 / 修改时间：14:31:41" itemprop="dateCreated datePublished" datetime="2025-09-19T14:23:57+08:00">2025-09-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index"><span itemprop="name">ios</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Apple-Developer-Program"><a href="#Apple-Developer-Program" class="headerlink" title="Apple Developer Program"></a><code>Apple Developer Program</code></h2><h3 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h3><p>如果你是个人或独资企业&#x2F;一人公司，那么你个人的法定姓名将作为供应商列示在 <code>App Store</code> 上。请勿输入别名、昵称或公司名称作为你的姓氏或名字，因为错误地输入你的法定姓名将导致注册审批延误。</p>
+<h3 id="组织"><a href="#组织" class="headerlink" title="组织"></a>组织</h3><p>如果你是公司、非营利组织、合资企业、合伙企业或政府组织的员工，那么法人实体名称将作为供应商列示在 <code>App Store</code> 上。在验证过程中，我们会要求你提供法人实体名称和 <code>D‑U‑N‑S®</code> 编号。成为会员后，你可以选择将更多成员添加到自己的团队中。</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ol>
+<li>注册一个邮箱账号（推荐<code>163</code>邮箱，注册过程中基本都是英文，163邮箱自带翻译会节省很多时间）</li>
+<li>再准备一个企业邮箱带域名的，后边会用到</li>
+<li>一部苹果手机以及一个手机号（用于绑定<code>AppleID</code>和填写注册信息）</li>
+<li>注册地址：<a target="_blank" rel="noopener" href="https://account.apple.com/account">https://account.apple.com/account</a></li>
+<li>填写信息<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202509181134.png" alt="注册"></li>
+<li>登录注册账号<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918142754.png" alt="加入苹果开发者"><br>6.手机下载<code>Apple Developer App</code>进行注册<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918143135.png" alt="手机下载Apple Developer App进行注册"></li>
+</ol>
+<h2 id="申请公司邓白氏码-D-U-N-S"><a href="#申请公司邓白氏码-D-U-N-S" class="headerlink" title="申请公司邓白氏码(D-U-N-S)"></a>申请公司邓白氏码(D-U-N-S)</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/cn/help/account/membership/D-U-N-S/">查看文档DUNS</a></li>
+<li>查找你的 D-U-N-S 编号，填写组织信息，注意需使用英文（工作电子邮件填写以域名为后缀的邮箱）<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918183254_32_148.png" alt="image"></li>
+<li>如果组织有编号则可以查询到，没有的话会提示未找到你的组织，按提示填写信息正常提交申请流程即可，注册时平台如果报错，提示如下，和支持团队反馈了情况以后他们给我发送了一封邮件，让我提交材料，他们帮我提交给邓白氏。<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918183837_33_148.png" alt="image"></li>
+<li>需要提供以下信息，通过邮件发送给苹果技术支持（有问题就联系技术平台，不要乱填）<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184059_34_148.png" alt="image"></li>
+<li>提交信息以后，邓白氏会给你的邮箱发送一封邮件，按照提示操作，时间比较短，最好提前准备好相关材料<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184322_35_148.png" alt="image"></li>
+<li>登录邓白氏网<a target="_blank" rel="noopener" href="https://sso.dnbportal.cn/">https://sso.dnbportal.cn/</a><br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184522_36_148.png" alt="image"></li>
+<li>登录后完成实名认证和企业核验，按照指引填就好了，需要什么材料会给你发邮件，多看自己邮箱，官网核验不通过，去微信小程序上操作。<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918184925_37_148.png" alt="image"></li>
+<li>待企业核验通过后点击首页-申请邓白氏编码-选择苹果开发者-下一步-填写订单号和验证码，提交申请。</li>
+<li>提交申请以后等待邓白氏官方给你发邮件就可以。<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918185543_38_148.png" alt="image"></li>
+</ol>
+<h2 id="申请加入开发者"><a href="#申请加入开发者" class="headerlink" title="申请加入开发者"></a>申请加入开发者</h2><blockquote>
+<p>以下过程需要<code>DUNS</code>编码</p>
+</blockquote>
+<ol>
+<li><p>在苹果商店下载 <code>Apple Developer</code><br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/202509181436409148.jpg" alt="image"></p>
+</li>
+<li><p>登录<code>Apple ID</code>账号, 点击立即注册，我同意<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918144943492.png" alt="image"></p>
+</li>
+<li><p>点击同意，按照要求填写身份证信息<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814454711148.jpg" alt="同意"><br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814454712148.jpg" alt="填写"></p>
+</li>
+<li><p>进行人脸核验</p>
+</li>
+<li><p>选择对应的实体类型<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20250918150411931.jpg" alt="image"></p>
+</li>
+<li><p>填写<code>DUNS</code>编号，法人实体名称 （如果没有的话需要去申请）<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091815012415148.png" alt="image"></p>
+</li>
+<li><p>按照提示填写企业信息</p>
+</li>
+</ol>
+<blockquote>
+<p>电子邮件必须填企业邮箱，邮箱必须是以域名为后缀的；否则会提示：无效的电子邮箱；<br>填写的网站必须能打开，且域名必须与组织相关联，否则会审核不通过</p>
+</blockquote>
+<p><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814595514148.png" alt="image"><br>8. 提交信息以后会收到一个注册ID，等待审核，审核通过后就会收到申请成功的邮件<br><img src="https://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/2025091814584413148.png" alt="image"></p>
+<ol start="9">
+<li>登录<code>Apple Developer</code>，成功付款以后账号就申请成功啦。</li>
+</ol>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/4591209458">2024年注册苹果开发者（公司）账号流程 图文教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/4617165705">公司邓白氏码（D-U-N-S 编号）申请流程</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ios/" rel="tag"># ios</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/08/turborepo/" rel="prev" title="turborepo">
+      <i class="fa fa-chevron-left"></i> turborepo
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/09/19/IOS%E6%94%AF%E4%BB%98/" rel="next" title="IOS支付">
+      IOS支付 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apple-Developer-Program"><span class="nav-number">1.</span> <span class="nav-text">Apple Developer Program</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA"><span class="nav-number">1.1.</span> <span class="nav-text">个人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E7%BB%87"><span class="nav-number">1.2.</span> <span class="nav-text">组织</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E5%85%AC%E5%8F%B8%E9%82%93%E7%99%BD%E6%B0%8F%E7%A0%81-D-U-N-S"><span class="nav-number">3.</span> <span class="nav-text">申请公司邓白氏码(D-U-N-S)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E5%8A%A0%E5%85%A5%E5%BC%80%E5%8F%91%E8%80%85"><span class="nav-number">4.</span> <span class="nav-text">申请加入开发者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

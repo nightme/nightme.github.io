@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="angularjs双向绑定双向绑定：界面的操作能实时反映到数据，数据的改变能实时反映界面，如下图：文本框的操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angularjs1.x双向绑定">
+<meta property="og:url" content="https://nightme.github.io/2017/05/06/angularjs%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="angularjs双向绑定双向绑定：界面的操作能实时反映到数据，数据的改变能实时反映界面，如下图：文本框的操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803223248.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803231613.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803232852.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803232946.png">
+<meta property="og:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170804011447.png">
+<meta property="article:published_time" content="2017-05-06T12:34:47.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.071Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="angular">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803223248.png">
+
+<link rel="canonical" href="https://nightme.github.io/2017/05/06/angularjs%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>angularjs1.x双向绑定 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2017/05/06/angularjs%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          angularjs1.x双向绑定
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-05-06 20:34:47" itemprop="dateCreated datePublished" datetime="2017-05-06T20:34:47+08:00">2017-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index"><span itemprop="name">angular</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="angularjs双向绑定"><a href="#angularjs双向绑定" class="headerlink" title="angularjs双向绑定"></a>angularjs双向绑定</h2><p>双向绑定：界面的操作能实时反映到数据，数据的改变能实时反映界面，如下图：文本框的操作</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803223248.png" alt="image"></p>
+<span id="more"></span>
+
+<h2 id="双向绑定实现"><a href="#双向绑定实现" class="headerlink" title="双向绑定实现"></a>双向绑定实现</h2><ul>
+<li>脏值检测 例如AngularJS1.x</li>
+<li>Getter&#x2F;Setter：重定义model的getter与setter方法，在数据变动的时候重新渲染页面，例如Vue.js</li>
+</ul>
+<p>使用Getter&#x2F;Setter的时候,数据的每次修改都会激活刷新模版的方法，</p>
+<p>脏值检测，可以在完成所有数值变动后，统一刷新到Dom，当监听元素变多的时候 watcher 列表会变得很长，查询变动的数据元素将耗费更多的资源。</p>
+<h2 id="脏检查"><a href="#脏检查" class="headerlink" title="脏检查"></a>脏检查</h2><p>angular 必须去挨个检查一定作用域上(如 ,<code>$scope</code>)的这些元素对应绑定表达式的值是否有被改变。这就是脏数据检查的由来.</p>
+<ul>
+<li>脏检查是一种模型到视图的数据映射机制，由 $apply 或 $digest 触发。</li>
+<li>脏检查的范围是整个页面，不受区域或组件划分影响</li>
+<li>使用尽量简单的绑定表达式提升脏检查执行速度</li>
+<li>尽量减少页面上绑定表达式的个数（单次绑定和ng-if）</li>
+<li>给 ng-repeat 添加 track by 让 angular 复用已有元素</li>
+</ul>
+<h2 id="构造函数Scope"><a href="#构造函数Scope" class="headerlink" title="构造函数Scope"></a>构造函数Scope</h2><p>在angular框架中，缀$$表示这个变量被当作私有的来考虑，不应当在外部代码中调用</p>
+<p>在写angularjs时到处都能遇到<code>$scope</code>,而<code>$scope</code> 就是 <code>Scope</code> 的实例</p>
+<p>源码：<code>angular@1.5.0</code>:</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803231613.png" alt="image"></p>
+<p>在Scope的原型(Scope.prototype)中共定义了大概14个函数，如下图：</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803232852.png" alt="image"><br><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170803232946.png" alt="image"></p>
+<p>其中有3个函数起者至关重要的作用域(译的不准)：</p>
+<ul>
+<li><code>$watch</code>(译:监听、监视)</li>
+<li><code>$digest</code>(译:迭代、循环、遍历)</li>
+<li><code>$apply</code>(译：传播、应用)</li>
+</ul>
+<p><code>$watch</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">$watch</span>: <span class="keyword">function</span>(<span class="params">watchExp, listener, objectEquality, prettyPrintExpression</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> get = $parse(watchExp);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (get.<span class="property">$$watchDelegate</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> get.$$watchDelegate(<span class="variable language_">this</span>, listener, objectEquality, get, watchExp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> scope = <span class="variable language_">this</span>,</span><br><span class="line">      array = scope.<span class="property">$$watchers</span>,</span><br><span class="line">      watcher = &#123;</span><br><span class="line">        <span class="attr">fn</span>: listener,</span><br><span class="line">        <span class="attr">last</span>: initWatchVal,</span><br><span class="line">        <span class="attr">get</span>: get,</span><br><span class="line">        <span class="attr">exp</span>: prettyPrintExpression || watchExp,</span><br><span class="line">        <span class="attr">eq</span>: !!objectEquality</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">  lastDirtyWatch = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!<span class="title function_">isFunction</span>(listener)) &#123;</span><br><span class="line">    watcher.<span class="property">fn</span> = noop;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!array) &#123;</span><br><span class="line">    array = scope.<span class="property">$$watchers</span> = [];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// we use unshift since we use a while loop in $digest for speed.</span></span><br><span class="line">  <span class="comment">// the while loop reads in reverse order.</span></span><br><span class="line">  array.<span class="title function_">unshift</span>(watcher);</span><br><span class="line">  <span class="title function_">incrementWatchersCount</span>(<span class="variable language_">this</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">deregisterWatch</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">arrayRemove</span>(array, watcher) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="title function_">incrementWatchersCount</span>(scope, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    lastDirtyWatch = <span class="literal">null</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><code>$digest</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">$digest</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> watch, value, last, fn, get,</span><br><span class="line">      watchers,</span><br><span class="line">      length,</span><br><span class="line">      dirty, ttl = <span class="variable constant_">TTL</span>,</span><br><span class="line">      next, current, target = <span class="variable language_">this</span>,</span><br><span class="line">      watchLog = [],</span><br><span class="line">      logIdx, logMsg, asyncTask;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">beginPhase</span>(<span class="string">&#x27;$digest&#x27;</span>);</span><br><span class="line">  <span class="comment">// Check for changes to browser url that happened in sync before the call to $digest</span></span><br><span class="line">  $browser.$$checkUrlChange();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">this</span> === $rootScope &amp;&amp; applyAsyncId !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// If this is the root scope, and $applyAsync has scheduled a deferred $apply(), then</span></span><br><span class="line">    <span class="comment">// cancel the scheduled $apply and flush the queue of expressions to be evaluated.</span></span><br><span class="line">    $browser.<span class="property">defer</span>.<span class="title function_">cancel</span>(applyAsyncId);</span><br><span class="line">    <span class="title function_">flushApplyAsync</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  lastDirtyWatch = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">do</span> &#123; <span class="comment">// &quot;while dirty&quot; loop</span></span><br><span class="line">    dirty = <span class="literal">false</span>;</span><br><span class="line">    current = target;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (asyncQueue.<span class="property">length</span>) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        asyncTask = asyncQueue.<span class="title function_">shift</span>();</span><br><span class="line">        asyncTask.<span class="property">scope</span>.$eval(asyncTask.<span class="property">expression</span>, asyncTask.<span class="property">locals</span>);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        $exceptionHandler(e);</span><br><span class="line">      &#125;</span><br><span class="line">      lastDirtyWatch = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attr">traverseScopesLoop</span>:</span><br><span class="line">    <span class="keyword">do</span> &#123; <span class="comment">// &quot;traverse the scopes&quot; loop</span></span><br><span class="line">      <span class="keyword">if</span> ((watchers = current.<span class="property">$$watchers</span>)) &#123;</span><br><span class="line">        <span class="comment">// process our watches</span></span><br><span class="line">        length = watchers.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">while</span> (length--) &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            watch = watchers[length];</span><br><span class="line">            <span class="comment">// Most common watches are on primitives, in which case we can short</span></span><br><span class="line">            <span class="comment">// circuit it with === operator, only when === fails do we use .equals</span></span><br><span class="line">            <span class="keyword">if</span> (watch) &#123;</span><br><span class="line">              get = watch.<span class="property">get</span>;</span><br><span class="line">              <span class="keyword">if</span> ((value = <span class="title function_">get</span>(current)) !== (last = watch.<span class="property">last</span>) &amp;&amp;</span><br><span class="line">                  !(watch.<span class="property">eq</span></span><br><span class="line">                      ? <span class="title function_">equals</span>(value, last)</span><br><span class="line">                      : (<span class="keyword">typeof</span> value === <span class="string">&#x27;number&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> last === <span class="string">&#x27;number&#x27;</span></span><br><span class="line">                         &amp;&amp; <span class="built_in">isNaN</span>(value) &amp;&amp; <span class="built_in">isNaN</span>(last)))) &#123;</span><br><span class="line">                dirty = <span class="literal">true</span>;</span><br><span class="line">                lastDirtyWatch = watch;</span><br><span class="line">                watch.<span class="property">last</span> = watch.<span class="property">eq</span> ? <span class="title function_">copy</span>(value, <span class="literal">null</span>) : value;</span><br><span class="line">                fn = watch.<span class="property">fn</span>;</span><br><span class="line">                <span class="title function_">fn</span>(value, ((last === initWatchVal) ? value : last), current);</span><br><span class="line">                <span class="keyword">if</span> (ttl &lt; <span class="number">5</span>) &#123;</span><br><span class="line">                  logIdx = <span class="number">4</span> - ttl;</span><br><span class="line">                  <span class="keyword">if</span> (!watchLog[logIdx]) watchLog[logIdx] = [];</span><br><span class="line">                  watchLog[logIdx].<span class="title function_">push</span>(&#123;</span><br><span class="line">                    <span class="attr">msg</span>: <span class="title function_">isFunction</span>(watch.<span class="property">exp</span>) ? <span class="string">&#x27;fn: &#x27;</span> + (watch.<span class="property">exp</span>.<span class="property">name</span> || watch.<span class="property">exp</span>.<span class="title function_">toString</span>()) : watch.<span class="property">exp</span>,</span><br><span class="line">                    <span class="attr">newVal</span>: value,</span><br><span class="line">                    <span class="attr">oldVal</span>: last</span><br><span class="line">                  &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> <span class="keyword">if</span> (watch === lastDirtyWatch) &#123;</span><br><span class="line">                <span class="comment">// If the most recently dirty watcher is now clean, short circuit since the remaining watchers</span></span><br><span class="line">                <span class="comment">// have already been tested.</span></span><br><span class="line">                dirty = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span> traverseScopesLoop;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            $exceptionHandler(e);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Insanity Warning: scope depth-first traversal</span></span><br><span class="line">      <span class="comment">// yes, this code is a bit crazy, but it works and we have tests to prove it!</span></span><br><span class="line">      <span class="comment">// this piece should be kept in sync with the traversal in $broadcast</span></span><br><span class="line">      <span class="keyword">if</span> (!(next = ((current.<span class="property">$$watchersCount</span> &amp;&amp; current.<span class="property">$$childHead</span>) ||</span><br><span class="line">          (current !== target &amp;&amp; current.<span class="property">$$nextSibling</span>)))) &#123;</span><br><span class="line">        <span class="keyword">while</span> (current !== target &amp;&amp; !(next = current.<span class="property">$$nextSibling</span>)) &#123;</span><br><span class="line">          current = current.<span class="property">$parent</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> ((current = next));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// `break traverseScopesLoop;` takes us to here</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((dirty || asyncQueue.<span class="property">length</span>) &amp;&amp; !(ttl--)) &#123;</span><br><span class="line">      <span class="title function_">clearPhase</span>();</span><br><span class="line">      <span class="keyword">throw</span> $rootScopeMinErr(<span class="string">&#x27;infdig&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;&#123;0&#125; $digest() iterations reached. Aborting!\n&#x27;</span> +</span><br><span class="line">          <span class="string">&#x27;Watchers fired in the last 5 iterations: &#123;1&#125;&#x27;</span>,</span><br><span class="line">          <span class="variable constant_">TTL</span>, watchLog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">while</span> (dirty || asyncQueue.<span class="property">length</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">clearPhase</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (postDigestQueue.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      postDigestQueue.<span class="title function_">shift</span>()();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      $exceptionHandler(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><code>$apply</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">$apply</span>: <span class="keyword">function</span>(<span class="params">expr</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="title function_">beginPhase</span>(<span class="string">&#x27;$apply&#x27;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.$eval(expr);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="title function_">clearPhase</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    $exceptionHandler(e);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      $rootScope.$digest();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      $exceptionHandler(e);</span><br><span class="line">      <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="脏检查的触发"><a href="#脏检查的触发" class="headerlink" title="脏检查的触发"></a>脏检查的触发</h2><p>angularjs 会在视图(view)或model(模型)发生变更的时候触发脏检查,即脏检查是<code>$digest</code>或<code>$apply</code>的执行。</p>
+<p>angularjs使用<code>$watch</code>函数为<code>scope</code>添加一个监视器。当这个<code>scope</code>中有变化发生时，监视器便会提醒你。<br>在<code>Scope</code>中有一个对象数组<code>$$watchers</code>，里面保存着我们定义的所有的监视器对象<code>watcher</code>。</p>
+<p>而<code>$apply</code>方法会触发 <code>$digest</code>,它将会在 <code>$rootScope</code>中运行digest循环,然后向下遍历每一个作用域并在每个作用域上运行循环.</p>
+<p>angular中的一些所有方法都 scope.apply()里面，像ng−click http的回调函数等：</p>
+<p><img src="http://imagesrc.oss-cn-shenzhen.aliyuncs.com/notes/20170804011447.png" alt="image"></p>
+<p>在这些情况下，我们不需要自己调用,实际上我们也不能自己调用，否则在apply()方法里面再调用apply()方法会抛出错误,仅当这个新的执行序列不是被angular JS的库的方法创建的，这个时候我们需要将代码用scope.apply()包起来,如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$scope.<span class="property">message</span> =<span class="string">&quot;等2000ms后更新&quot;</span>;</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">　　$scope.$apply(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   　　$scope.<span class="property">message</span> =<span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>而 <code>$digest</code> 方法的执行即是遍历 <code>scope</code> 上绑定的所有 <code>watcher</code>，并执行相应的 <code>watch</code>（指定想要监控的对象） 和 listener（当数据改变时触发的回调） 方法。<code>$watch</code>这个函数的前两个，它指明了要观察什么(watchExp)，在变化时要发生什么(listener)。第三个参数是否深度监听:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$watch(watchExpression, listener, objectEquality);</span><br></pre></td></tr></table></figure>
+<h2 id="循环进行脏值检查-脏值"><a href="#循环进行脏值检查-脏值" class="headerlink" title="循环进行脏值检查(脏值)"></a>循环进行脏值检查(脏值)</h2><p>当<code>digest</code>循环运行时，它将会遍历所有的监听器然后再次循环，只要这次循环发现了”脏值”，循环就会继续下去。如果watchExp的值和最新的值不相同，那么这次循环就会被认为发现了“脏值”。</p>
+<p>如果两个 <code>watcher</code> 之间互相影响彼此，则会导致无限循环的问题。把digest的运行控制在一个可接受的迭代数量内。如果这么多次之后，作用域还在变更，在这个点上，会抛出一个异常，因为不管作用域的状态变成怎样，它都不太可能是用户想要的结果。<br>迭代的最大值称为TTL（short for Time To Live）。这个值默认是10，可能有点小，但是记住这是一个性能敏感的地方，因为digest经常被执行，而且每个digest运行了所有的监听器。用户也不太可能创建10个以上链状的监听器。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>脏检查其实它像闪电般快，如果你在一个模版里有2000-3000个watch，它会开始变慢。</p>
+<p>Angular 1.x 的机制下，脏检查的执行范围过大以及频率过频繁</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://www.morphzhou.cn/?p=367">AngularJS源码分析之</a></li>
+<li><a target="_blank" rel="noopener" href="http://teropa.info/build-your-own-angular/build_your_own_angularjs_sample.pdf">Scopes and DirtyChecking</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.angularjs.cn/A0a6">理解$watch ，$apply 和 $digest — 理解数据绑定过程</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.angularjs.cn/A00q#scope">AngularJS开发指南04：核心概览</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.angularjs.cn/A00r">AngularJS开发指南05：指令</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.angularjs.cn/A00z">AngularJS开发指南14：依赖注入</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010374926">Angular 学习笔记：$digest 实现原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010433675#articleHeader3">Angular 1 深度解析：脏数据检查与 angular 性能优化</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jb51.net/article/111811.htm">AngularJS的脏检查深入分析</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/angular/" rel="tag"># angular</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/04/08/yarn/" rel="prev" title="yarn">
+      <i class="fa fa-chevron-left"></i> yarn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/18/%E5%87%BD%E6%95%B0apply-call-bind/" rel="next" title="函数apply-call-bind">
+      函数apply-call-bind <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#angularjs%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A"><span class="nav-number">1.</span> <span class="nav-text">angularjs双向绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">双向绑定实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%8F%E6%A3%80%E6%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">脏检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0Scope"><span class="nav-number">4.</span> <span class="nav-text">构造函数Scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%8F%E6%A3%80%E6%9F%A5%E7%9A%84%E8%A7%A6%E5%8F%91"><span class="nav-number">5.</span> <span class="nav-text">脏检查的触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%BF%9B%E8%A1%8C%E8%84%8F%E5%80%BC%E6%A3%80%E6%9F%A5-%E8%84%8F%E5%80%BC"><span class="nav-number">6.</span> <span class="nav-text">循环进行脏值检查(脏值)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

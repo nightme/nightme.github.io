@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言今天在用php做图片上传时，发现在ie上传失败，chrom和火狐正常，而ie报文件类型错误，于是就针对这个问题，就有了发现… 上传的MIME类型[Uploaded MIME Types]当上传文件从客户端到Web服务器，Windows Internet Explorer使用findmimefromdata确定MIME类型。在可能的情况下，findmimefromdata返回硬编码的值从已知的M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php图片上传type错误">
+<meta property="og:url" content="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="前言今天在用php做图片上传时，发现在ie上传失败，chrom和火狐正常，而ie报文件类型错误，于是就针对这个问题，就有了发现… 上传的MIME类型[Uploaded MIME Types]当上传文件从客户端到Web服务器，Windows Internet Explorer使用findmimefromdata确定MIME类型。在可能的情况下，findmimefromdata返回硬编码的值从已知的M">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/mime_type.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/ie_type.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/date_type.png">
+<meta property="article:published_time" content="2015-09-16T05:13:20.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.110Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/mime_type.png">
+
+<link rel="canonical" href="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>php图片上传type错误 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          php图片上传type错误
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-09-16 13:13:20" itemprop="dateCreated datePublished" datetime="2015-09-16T13:13:20+08:00">2015-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在用php做图片上传时，发现在ie上传失败，chrom和火狐正常，而ie报文件类型错误，于是就针对这个问题，就有了发现…</p>
+<h2 id="上传的MIME类型-Uploaded-MIME-Types"><a href="#上传的MIME类型-Uploaded-MIME-Types" class="headerlink" title="上传的MIME类型[Uploaded MIME Types]"></a>上传的MIME类型[Uploaded MIME Types]</h2><p>当上传文件从客户端到Web服务器，Windows Internet Explorer使用findmimefromdata确定MIME类型。在可能的情况下，findmimefromdata返回硬编码的值从已知的MIME类型，而不是依靠在系统注册表的文件扩展名关联的MIME类型值的列表。在某些情况下，检测到的MIME类型可以不同于一般公认为向后兼容的值，如下表所示：</p>
+<img src="/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/mime_type.png" class="" title="mine类型">
+
+<p>从上图可以看出前者才是标准的，符合常规的文件类型。</p>
+<span id="more"></span>
+<h2 id="ie-678-浏览器页面效果"><a href="#ie-678-浏览器页面效果" class="headerlink" title="ie[678]浏览器页面效果"></a>ie[678]浏览器页面效果</h2><p>下面是我在ie浏览器中测试的四种类型图片</p>
+<img src="/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/ie_type.png" class="" title="ie测试">
+
+<p>从图中不难看出，jpg和png的类型是有点问题的。而gif和bmp是比较正常的。</p>
+<h2 id="image-x2F-x-png"><a href="#image-x2F-x-png" class="headerlink" title="[image&#x2F;x-png]"></a>[image&#x2F;x-png]</h2><p>x前缀是给非标准MIME类型（即不在IANA注册），所以图像&#x2F;x-png在MIME类型标准化是PNG。</p>
+<blockquote>
+<p>新的内容传输编码<br>如果有必要，定义私有的内容传输编码值，但必须使用x-token，这是出了名的前缀“X”，表明其不规范的情况，例如，“内容传输编码：x-my-new-encoding”。附加的标准内容传输编码值必须用标准跟踪RFC指定。这样的规格必须符合要求，在RFC 2048。因此，所有的内容传输编码命名空间外，“X”是明确保留供将来使用的IETF开始。</p>
+</blockquote>
+<h2 id="image-x2F-pjpeg"><a href="#image-x2F-pjpeg" class="headerlink" title="[image&#x2F;pjpeg]"></a>[image&#x2F;pjpeg]</h2><blockquote>
+<p>pjpeg MIME类型指的是一种渐进式JPEG图像，这意味着它可以被传输和显示，而它正在加载。目标系统将提前知道它是显示一个渐进式JPEG而不是一个由MIME类型标准JPEG文件之前，甚至开始加载。它不是一个错误。只是一个功能不支持的浏览器。</p>
+</blockquote>
+<h2 id="Jpg-x2F-Jpeg-的区别"><a href="#Jpg-x2F-Jpeg-的区别" class="headerlink" title="[Jpg&#x2F;Jpeg]的区别"></a>[Jpg&#x2F;Jpeg]的区别</h2><blockquote>
+<p>JPEG的文件格式一般有两种文件扩展名：.jpg和.jpeg，这两种扩展名的实质是相同的，我们可以把*.jpg的文件改名为*.jpeg，而对文件本身不会有任何影响。严格来讲，JPEG的文件扩展名应该为.jpeg，但由于DOS时代的8.3文件名命名原则，PC机使用了.jpg的扩展名，而由于Mac并不限制扩展名的长度，因此当时苹果机上都使用了.jpeg的后缀名。虽然现在windows也可以支持任意长度的扩展名了，但大家已经习惯了.jpg的叫法，因此也就没有强制修正。这种情况类似于.htm和.html的区别。</p>
+</blockquote>
+<h2 id="数据结果图"><a href="#数据结果图" class="headerlink" title="数据结果图"></a>数据结果图</h2><img src="/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/date_type.png" class="" title="结果">
+
+<p>以上是ie678和其他浏览器的比较结果，通过以上从和结果图可以看出来chrom和火狐是符合我们的常规标准的。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>为了ie多增加两种文件类型image&#x2F;pjpeg 和 image&#x2F;x-png</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$allowMime</span>=array(<span class="string">&#x27;image/jpeg&#x27;</span>,<span class="string">&#x27;image/png&#x27;</span>,<span class="string">&#x27;image/gif&#x27;</span>,<span class="string">&#x27;image/pjpeg&#x27;</span>,<span class="string">&#x27;image/x-png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://svn.apache.org/viewvc/httpd/httpd/trunk/docs/conf/mime.types?view=markup">mine类型查询</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/2086374/what-is-the-difference-between-image-png-and-image-x-png">What is the difference between “image&#x2F;png” and “image&#x2F;x-png”?</a></li>
+<li><a target="_blank" rel="noopener" href="http://seewhatever.de/blog/?p=50">see whatever</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/ms775147%28v=VS.85%29.aspx">MIME Type Detection in Windows Internet Explorer (Windows)</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/php/" rel="tag"># php</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/09/07/%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="prev" title="页面性能优化">
+      <i class="fa fa-chevron-left"></i> 页面性能优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/09/29/matrix/" rel="next" title="Matrix矩阵">
+      Matrix矩阵 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E7%9A%84MIME%E7%B1%BB%E5%9E%8B-Uploaded-MIME-Types"><span class="nav-number">2.</span> <span class="nav-text">上传的MIME类型[Uploaded MIME Types]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ie-678-%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A1%B5%E9%9D%A2%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">ie[678]浏览器页面效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image-x2F-x-png"><span class="nav-number">4.</span> <span class="nav-text">[image&#x2F;x-png]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image-x2F-pjpeg"><span class="nav-number">5.</span> <span class="nav-text">[image&#x2F;pjpeg]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jpg-x2F-Jpeg-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">[Jpg&#x2F;Jpeg]的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%9C%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">数据结果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">8.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

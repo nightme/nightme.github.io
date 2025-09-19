@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="cmder简介Cmder是一个软件包，它被创建出来替代极不满没有漂亮的控制台模拟器的Windows上它是基于ConEmu与主要配置改革,附带了一个Monokai配色方案   它的官网：http:&#x2F;&#x2F;cmder.net&#x2F;它的github地址：https:&#x2F;&#x2F;github.com&#x2F;cmderdev&#x2F;cmder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmder">
+<meta property="og:url" content="https://nightme.github.io/2016/11/27/cmder/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="cmder简介Cmder是一个软件包，它被创建出来替代极不满没有漂亮的控制台模拟器的Windows上它是基于ConEmu与主要配置改革,附带了一个Monokai配色方案   它的官网：http:&#x2F;&#x2F;cmder.net&#x2F;它的github地址：https:&#x2F;&#x2F;github.com&#x2F;cmderdev&#x2F;cmder">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/cmder.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/cmder_download.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/git_forwindow.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/cmder_path.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/contentmenu.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/cmder_error.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_2.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_3.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_4.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_5.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/use_6.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/cmder_bg.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/set_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/27/cmder/set_2.png">
+<meta property="article:published_time" content="2016-11-27T07:18:41.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.073Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2016/11/27/cmder/cmder.png">
+
+<link rel="canonical" href="https://nightme.github.io/2016/11/27/cmder/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cmder | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/11/27/cmder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cmder
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-11-27 15:18:41" itemprop="dateCreated datePublished" datetime="2016-11-27T15:18:41+08:00">2016-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="cmder简介"><a href="#cmder简介" class="headerlink" title="cmder简介"></a>cmder简介</h2><p>Cmder是一个软件包，它被创建出来替代极不满没有漂亮的控制台模拟器的Windows上<br>它是基于ConEmu与主要配置改革,附带了一个Monokai配色方案</p>
+<img src="/2016/11/27/cmder/cmder.png" class="" title="cmder">
+
+<p>它的官网：<a target="_blank" rel="noopener" href="http://cmder.net/">http://cmder.net/</a><br>它的github地址：<a target="_blank" rel="noopener" href="https://github.com/cmderdev/cmder">https://github.com/cmderdev/cmder</a></p>
+<span id="more"></span>
+
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>同一个窗口可以含有多个tab选项卡，类似浏览器那样。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>从官网下载文件，如下图：</p>
+<img src="/2016/11/27/cmder/cmder_download.png" class="" title="cmder下载">
+<p>从图上看,它有两个版本，一个mini版，一个是full版(xx.zip&#x2F;xx.7z)。</p>
+<img src="/2016/11/27/cmder/git_forwindow.png" class="" title="git_for_window">
+<p>mini版文件少一些，full版集成git-for-windows</p>
+<p>这里下载mini版，下载完文件后解压到一个文件夹存储(文件夹名字自己起，如：cmder_mini)，<br>然后将这个文件夹放到你的某个目录下，运行方式有以下：</p>
+<ul>
+<li>文件里面有个Cmder.exe，点击直接运行。</li>
+<li>创建桌面快捷方式，点击运行</li>
+</ul>
+<h3 id="将cmder添加到右键菜单"><a href="#将cmder添加到右键菜单" class="headerlink" title="将cmder添加到右键菜单"></a>将cmder添加到右键菜单</h3><ol>
+<li>配置系统环境变量，将cmder安装路径添加到系统环境变量中，如下：</li>
+</ol>
+<img src="/2016/11/27/cmder/cmder_path.png" class="" title="配置cmder环境变量">
+
+<p>点击确定</p>
+<ol start="2">
+<li>打开windows命令窗口，切换到cmder的安装目录下：</li>
+</ol>
+<img src="/2016/11/27/cmder/contentmenu.png" class="" title="添加到右键菜单">
+
+<p>执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cmder.exe /REGISTER ALL</span><br></pre></td></tr></table></figure>
+<p>到此，ok,此时查看右键有没有cmder菜单</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>打开cmder,如果出现如下错误，可以不用管:</p>
+<img src="/2016/11/27/cmder/cmder_error.png" class="" title="错误">
+
+<h3 id="cmd的使用"><a href="#cmd的使用" class="headerlink" title="cmd的使用"></a>cmd的使用</h3><p>打开后，一般默认是cmd命令选项卡，此时你可以在这里使用cmd窗口的常用命令</p>
+<img src="/2016/11/27/cmder/use_1.png" class="" title="cmd使用">
+
+<h3 id="git-bash的使用"><a href="#git-bash的使用" class="headerlink" title="git bash的使用"></a>git bash的使用</h3><p>我们这里的cmder是mini版，里面没有集成git，此时，你要自己去下载git，并且安装它。<br>安装完成后，开始cmder配置git</p>
+<p><strong>自动添加git bash</strong></p>
+<img src="/2016/11/27/cmder/use_2.png" class="" title="配置">
+
+<p>鼠标点击右下的绿色加号旁，会出现如下菜单，其中有个bash,我们，选择其中的任一项，都会出现如上图的提示，…git-for-windows…<br>此时我们已经装了git，但是cmder没有找到，所以会报这个错。上图提示有个快捷键 <strong>win+alt+t</strong>，</p>
+<p>按下win+alt+t，出现如下界面，</p>
+<img src="/2016/11/27/cmder/use_3.png" class="" title="设置界面">
+
+<p>我们再点击下图中的 add default task,出现提示，然后击是，再点击save setting</p>
+<img src="/2016/11/27/cmder/use_4.png" class="" title="重写默认任务">
+
+<p>此时列表可能多了一些选项，此时没关闭设置窗口，再选择一次bash中的Git bash,就可以打开一个git bash的选项卡</p>
+<img src="/2016/11/27/cmder/use_5.png" class="" title="git bash">
+
+<p>到此你已经打开一个cmd 选项卡，和一个git bash选项卡了<br>我们这里使用了 add default task 的方式添加重写默认任务，这种方式快速简单</p>
+<p><strong>手动添加git bash</strong><br>打开设置面板，点击+号,输入git bash ,设置git安装路径，如下图，保存设置</p>
+<img src="/2016/11/27/cmder/use_6.png" class="" title="git bash">
+
+<p>此时+号旁会的列表多出一个选项git bash ，点击后，也可以打开一个git bash的选项卡</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span> <span class="comment">#查看当前shell</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Win + Alt + p <span class="comment">#打开设置面板</span></span><br><span class="line">Ctrl + w <span class="comment">#关闭选项卡</span></span><br><span class="line">Alt + Enter <span class="comment">#全屏切换</span></span><br><span class="line">Ctrl + n <span class="comment">#快速切换到第n个页签( n值无上限)</span></span><br><span class="line">Ctrl + Tab <span class="comment">#切换标签页</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>win + alt + p打开设置面板</p>
+<h3 id="设置背景"><a href="#设置背景" class="headerlink" title="设置背景"></a>设置背景</h3><img src="/2016/11/27/cmder/cmder_bg.png" class="" title="设置背景">
+
+<h3 id="设置主题"><a href="#设置主题" class="headerlink" title="设置主题"></a>设置主题</h3><img src="/2016/11/27/cmder/set_1.png" class="" title="设置主题">
+
+<h3 id="设置快捷键"><a href="#设置快捷键" class="headerlink" title="设置快捷键"></a>设置快捷键</h3><img src="/2016/11/27/cmder/set_2.png" class="" title="设置快捷键">
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/06/%E8%AF%AD%E4%B9%89%E5%8C%96%E7%89%88%E6%9C%AC/" rel="prev" title="语义化版本2.0.0">
+      <i class="fa fa-chevron-left"></i> 语义化版本2.0.0
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/14/JavaScript%E7%BC%96%E7%A0%81/" rel="next" title="JavaScript编码">
+      JavaScript编码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cmder%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">cmder简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86cmder%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95"><span class="nav-number">3.1.</span> <span class="nav-text">将cmder添加到右键菜单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cmd%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">cmd的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-bash%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">git bash的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">5.</span> <span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%83%8C%E6%99%AF"><span class="nav-number">6.1.</span> <span class="nav-text">设置背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A2%98"><span class="nav-number">6.2.</span> <span class="nav-text">设置主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">6.3.</span> <span class="nav-text">设置快捷键</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

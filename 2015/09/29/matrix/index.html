@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是Matrix？Matrix（矩阵）是一个有关数字，符号，表达式组合的有趣的数学词汇，广泛应用于数学和科技领域。物理学家们还将其纳入量子力学的学习范畴。在电脑图形方面，它们被用于线性变形和处理3D图像和2D映画。Matrix 函数中的matrix()可以用来创建线性变化，matrix3d()可以用css在二维画面里创建三维图像。（下图是一个matrix例子）   2D变换矩阵为3x3 ,3D变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matrix矩阵">
+<meta property="og:url" content="https://nightme.github.io/2015/09/29/matrix/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="什么是Matrix？Matrix（矩阵）是一个有关数字，符号，表达式组合的有趣的数学词汇，广泛应用于数学和科技领域。物理学家们还将其纳入量子力学的学习范畴。在电脑图形方面，它们被用于线性变形和处理3D图像和2D映画。Matrix 函数中的matrix()可以用来创建线性变化，matrix3d()可以用css在二维画面里创建三维图像。（下图是一个matrix例子）   2D变换矩阵为3x3 ,3D变">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/matrix.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/zb2d.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/zb3d.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/yufa.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/express.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/matrix.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/pianyi.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/results.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/matrix3d.png">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/tool1.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/tool2.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/plane.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/space.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/support2d.jpg">
+<meta property="og:image" content="https://nightme.github.io/2015/09/29/matrix/support3d.jpg">
+<meta property="article:published_time" content="2015-09-29T01:43:47.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.091Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2015/09/29/matrix/matrix.png">
+
+<link rel="canonical" href="https://nightme.github.io/2015/09/29/matrix/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Matrix矩阵 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/09/29/matrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Matrix矩阵
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-09-29 09:43:47" itemprop="dateCreated datePublished" datetime="2015-09-29T09:43:47+08:00">2015-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="什么是Matrix？"><a href="#什么是Matrix？" class="headerlink" title="什么是Matrix？"></a>什么是Matrix？</h2><p>Matrix（矩阵）是一个有关数字，符号，表达式组合的有趣的数学词汇，广泛应用于数学和科技领域。物理学家们还将其纳入量子力学的学习范畴。在电脑图形方面，它们被用于线性变形和处理3D图像和2D映画。Matrix 函数中的matrix()可以用来创建线性变化，matrix3d()可以用css在二维画面里创建三维图像。（下图是一个matrix例子）</p>
+<img src="/2015/09/29/matrix/matrix.png" class="" title="矩阵2D">
+
+<p>2D变换矩阵为3x3 ,3D变换则是4x4的矩阵；<br>矩阵(matrix)可以完成，斜拉(skew)，缩放(scale)，旋转(rotate)以及位移(translate);<br>变换矩阵基于一个特定坐标点相乘表示为一个向量。</p>
+<h2 id="坐标系统"><a href="#坐标系统" class="headerlink" title="坐标系统"></a>坐标系统</h2><blockquote>
+<p>坐标系统。每一个文档视图都是一个坐标系统，左上角为视图的原点，坐标(0,0)。数值沿着X轴向右，沿着Y轴向下而递增。3D transform里面的Z轴决定了观察者所能觉察到的距离。数值越大，距离越近物象越大，数值越小，距离越远物象越小。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>一个transform应用在一个对象上，就形成了一个当前坐标系统，坐标系的原点(0,0)默认位置在对象的中央。<br>2D坐标：</p>
+<img src="/2015/09/29/matrix/zb2d.png" class="" title="2D坐标">
+
+<p>3D坐标：</p>
+<img src="/2015/09/29/matrix/zb3d.png" class="" title="3D坐标">
+
+<h2 id="transform-语法"><a href="#transform-语法" class="headerlink" title="transform 语法"></a>transform 语法</h2><p>它的所有语法如下图：</p>
+<img src="/2015/09/29/matrix/yufa.png" class="" title="语法">
+
+<h2 id="2D变换"><a href="#2D变换" class="headerlink" title="2D变换"></a>2D变换</h2><h3 id="矩阵等价函数"><a href="#矩阵等价函数" class="headerlink" title="矩阵等价函数"></a>矩阵等价函数</h3><p>所有其他的CSS3变换函数等价的矩阵表示，看下图：</p>
+<img src="/2015/09/29/matrix/express.png" class="" title="矩阵等价函数">
+
+<h3 id="位移-translate-变换分解"><a href="#位移-translate-变换分解" class="headerlink" title="位移[translate]变换分解"></a>位移[translate]变换分解</h3><ol>
+<li><p>该函数写法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(a,b,c,d,e,f);</span><br></pre></td></tr></table></figure></li>
+<li><p>上面对应参数表示成矩阵是这样的:<img src="/2015/09/29/matrix/matrix.png" class="" title="矩阵2D"></p>
+</li>
+<li><p>现在我们让上边的矩阵变换一下，3x3矩阵每一行的第1个值与后面1x3矩阵的第1个值相乘，第2个值与第2个相乘，第3个与第3个，然后相加，过程如下:<img src="/2015/09/29/matrix/pianyi.png" class="" title="矩阵2D变换"></p>
+<blockquote>
+<p>当我们应用一个2D tansfrom的时候，浏览器会把矩阵和一个向量（[x, y, 1]）相乘。x和y的值是当前坐标空间中特定的坐标点;<br>我们将每一列中的实体与向量中的列相乘得到最终的transform坐标;<br>此时ax+cy+e为变换后的水平坐标，bx+dy+f表示变换后的垂直位置。</p>
+</blockquote>
+</li>
+<li><p>这样得出的一组数字和字符组合看起来毫无意义，但上文提到过，每一个transform都有一个矩阵：<img src="/2015/09/29/matrix/results.png" class="" title="矩阵变换结果"><br>tx和ty的值就是要变形的数值，我们也可以用向量来表示：[1 0 0 1 tx ty]。向量可以看做是matrix() 的参数。</p>
+</li>
+<li><p>把上面变换后的矩阵写成css代码就成了这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">    transform: matrix(1, 0, 0, 1, tx, ty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>从上边可以发，位移只要关心最后两个参数，公式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">    transform: matrix(与我无关, 与我无关,与我无关, 与我无关, 水平位移距离,垂直位移距离);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="缩放-scale"><a href="#缩放-scale" class="headerlink" title="缩放(scale)"></a>缩放(scale)</h3><blockquote>
+<p>从matrix中的参数可以看到有两个数字1，对，这就是缩放相关的参数。<br>其中，第一个缩放x轴，第二个缩放y轴。写成公式：matrix(s, 0, 0, s, 0, 0),再套用上边的公式，就有：<br>x’ &#x3D; ax+cy+e &#x3D; s<em>x+0</em>y+0 &#x3D; s<em>x;<br>y’ &#x3D; bx+dy+f &#x3D; 0</em>x+s<em>y+0 &#x3D; s</em>y;<br>最后就是matrix(sx, 0, 0, sy, 0, 0);，等同于scale(sx, sy);</p>
+</blockquote>
+<h3 id="旋转-rotate"><a href="#旋转-rotate" class="headerlink" title="旋转(rotate)"></a>旋转(rotate)</h3><p>旋转使用如下（假设角度为θ）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matrix(cosθ,sinθ,-sinθ,cosθ,0,0)</span><br></pre></td></tr></table></figure>
+<p>然后就有了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x<span class="string">&#x27; = x*cosθ-y*sinθ+0 = x*cosθ-y*sinθ</span></span><br><span class="line"><span class="string">y&#x27;</span> = x*sinθ+y*cosθ+0 = x*sinθ+y*cosθ</span><br></pre></td></tr></table></figure>
+<p>使用matrix表示则还要计算cos, sin值,最简单的写法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform:rotate(θ);</span><br></pre></td></tr></table></figure>
+
+<h3 id="拉伸-skew"><a href="#拉伸-skew" class="headerlink" title="拉伸(skew)"></a>拉伸(skew)</h3><p>使用如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matrix(1,tan(θy),tan(θx),1,0,0)</span><br></pre></td></tr></table></figure>
+
+<p>然后就有了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x<span class="string">&#x27; = x+y*tan(θx)+0 = x+y*tan(θx)</span></span><br><span class="line"><span class="string">y&#x27;</span> = x*tan(θy)+y+0 = x*tan(θy)+y</span><br></pre></td></tr></table></figure>
+<p>对应于skew(θx + “deg”，θy+ “deg”)这种写法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform:skew(θx + <span class="string">&quot;deg&quot;</span>，θy+ <span class="string">&quot;deg&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>注：其中，θx表示x轴倾斜的角度，θy表示y轴</p>
+<h2 id="3D矩阵变换"><a href="#3D矩阵变换" class="headerlink" title="3D矩阵变换"></a>3D矩阵变换</h2><p>matrix3d() 函数是一个3d变换函数是用来描述一个三维的序列 转换 在一个4×4的矩阵中。这是一个4x4的矩阵，sx , sy, sz代表了乘数的比例，如下：</p>
+<img src="/2015/09/29/matrix/matrix3d.png" class="" title="3D矩阵变换">
+
+<p>代码表示这样的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix3d(sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, 0, 0, 0, 0, 1)</span><br></pre></td></tr></table></figure>
+
+<p>从上可看出计算matrix3d()函数的值，不是很简单的，这要手工完成，那么也是很累的，也有人开发工具：</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="http://meyerweb.com/eric/tools/matrix/">Eric Meyer 和 Aaron Gustafson创造的工具</a></p>
+<img src="/2015/09/29/matrix/tool1.jpg" class="" title="matrix工具">
+
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://ds-overdesign.com/transform/matrix3d.html">transform工具</a></p>
+<img src="/2015/09/29/matrix/tool2.jpg" class="" title="matrix工具"></li>
+</ol>
+<h2 id="齐次坐标-homogeneous-coordinates"><a href="#齐次坐标-homogeneous-coordinates" class="headerlink" title="齐次坐标(homogeneous coordinates)"></a>齐次坐标(homogeneous coordinates)</h2><ul>
+<li><strong>齐次坐标</strong>：所谓齐次坐标就是将一个原本是n维的向量用一个n+1维向量来表示。</li>
+<li><strong>向量</strong>：既有方向又有大小的量叫做向量（物理学中叫做矢量）。</li>
+<li><strong>平面向量</strong>：平面向量是在二维平面内既有方向(direction)又有大小(magnitude)的量，物理学中也称作矢量，与之相对的是只有大小、没有方向的数量（标量）。平面向量用小写加粗的字母a，b，c表示，也可以用表示向量的有向线段的起点和终点字母表示。<img src="/2015/09/29/matrix/plane.jpg" class="" title="平面向量"></li>
+<li><strong>空间向量</strong>:空间中具有大小和方向的量叫做空间向量。向量的大小叫做向量的长度或模（moduius)。<img src="/2015/09/29/matrix/space.jpg" class="" title="空间向量"></li>
+</ul>
+<blockquote>
+<p>在上面的矩阵中，我们可以看到平移的矩阵是相加的，而旋转跟缩放的矩阵都是相乘的，这样计算起来多麻烦呀！于是为了方便计算，大家都统一用一种方式来进行计算，聪明的计算机图形科学家，它们就设计出这样一种坐标系，叫齐次坐标(homogeneous coordinates)，而它的目的只是为了更加方便地去用矩阵来计算图形的变换，没有其他。</p>
+</blockquote>
+<p>那什么是齐次坐标呢？<br>其实就是在原来2D的维度，再加上一个新的维度，多出来的维度的值永远是1，比如点的矩阵就变成:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    ┌   ┐</span><br><span class="line">    │ x │</span><br><span class="line">P = │ y │</span><br><span class="line">    │ 1 │</span><br><span class="line">    └   ┘</span><br></pre></td></tr></table></figure>
+<p>而Translation（平移）的矩阵表示就变成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    ┌         ┐</span><br><span class="line">    │ 1  0 tx │</span><br><span class="line">T = │ 0  1 ty │</span><br><span class="line">    │ 0  0  1 │</span><br><span class="line">    └         ┘</span><br></pre></td></tr></table></figure>
+<p>这样，平移变换的加法就可以变成乘法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">             ┌         ┐   ┌   ┐   ┌      ┐</span><br><span class="line">             │ 1  0 tx │   │ x │   │ x+tx │</span><br><span class="line">P<span class="string">&#x27; = T * P = │ 0  1 ty │ * │ y │ = │ y+ty │</span></span><br><span class="line"><span class="string">             │ 0  0  1 │   │ 1 │   │  1   │</span></span><br><span class="line"><span class="string">             └         ┘   └   ┘   └      ┘</span></span><br></pre></td></tr></table></figure>
+
+<p>Scale（缩放）跟Rotation（旋转）相对应的矩阵也就变成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    ┌          ┐         ┌                    ┐</span><br><span class="line">    │ sx  0  0 │         │  cos(α)  sin(α)  0 │</span><br><span class="line">S = │ 0  xy  0 │     R = │ -sin(α)  cos(α)  1 │</span><br><span class="line">    │ 0  0   1 │         │    0       0     1 │</span><br><span class="line">    └          ┘         └                    ┘</span><br></pre></td></tr></table></figure>
+
+<p>注：引入齐次坐标的目的主要是合并矩阵运算中的乘法和加法。</p>
+<h2 id="浏览器支持情况"><a href="#浏览器支持情况" class="headerlink" title="浏览器支持情况"></a>浏览器支持情况</h2><h3 id="2D支持"><a href="#2D支持" class="headerlink" title="2D支持:"></a><a target="_blank" rel="noopener" href="http://caniuse.com/transforms2d/embed/">2D支持</a>:</h3><img src="/2015/09/29/matrix/support2d.jpg" class="" title="2D支持">
+
+<h3 id="3D支持"><a href="#3D支持" class="headerlink" title="3D支持:"></a><a target="_blank" rel="noopener" href="http://caniuse.com/transforms3d/embed/">3D支持</a>:</h3><img src="/2015/09/29/matrix/support3d.jpg" class="" title="3D支持">
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/comment-page-2/">张鑫旭-理解CSS3 transform中的Matrix</a></li>
+<li>[<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/">张鑫旭-CSS3 3D transform变换，不过如此！</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.opera.com/articles/understanding-the-css-transforms-matrix/">Dev.Opera-CSS Transforms Matrix-英文</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.zuixiami.com/translation/71">最虾米-CSS3 Transform Matrix-中文</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.senocular.com/flash/tutorials/transformmatrix/">Flash 中的变换矩阵</a></li>
+<li><a target="_blank" rel="noopener" href="http://tympanus.net/codrops/css_reference/transform/">codrops-Transform</a></li>
+<li><a target="_blank" rel="noopener" href="http://tympanus.net/codrops/css_reference/matrix3d/">codrops-matrix3d</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function">MDN-transform</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/cssref/pr_transform.asp">w3school-CSS3 transform 属性</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matrix_%28mathematics%29">Matrix (mathematics) from Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.useragentman.com/blog/2011/01/07/css3-matrix-transform-for-the-mathematically-challenged/">The CSS3 matrix() Transform for the Mathematically Challenged</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/linmiansheng/article/details/18801947">2D平面中关于矩阵（Matrix）跟图形变换的讲解 </a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/simaQ/cssfun/issues/2">CSS3之3d transform</a></li>
+<li><a target="_blank" rel="noopener" href="http://callmenick.com/post/css-transitions-transforms-animations-perspective">CSS Transitions, Transforms &amp; Animations – Perspective</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.html-js.com/article/CSS-learning-CSS3-Transform">CSS3 Transform</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/09/16/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0type%E9%94%99%E8%AF%AF/" rel="prev" title="php图片上传type错误">
+      <i class="fa fa-chevron-left"></i> php图片上传type错误
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/10/10/%E5%9C%B0%E7%90%86%E5%AE%9A%E4%BD%8DH5/" rel="next" title="地理定位H5">
+      地理定位H5 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMatrix%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是Matrix？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">坐标系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transform-%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">transform 语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D%E5%8F%98%E6%8D%A2"><span class="nav-number">4.</span> <span class="nav-text">2D变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">矩阵等价函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%A7%BB-translate-%E5%8F%98%E6%8D%A2%E5%88%86%E8%A7%A3"><span class="nav-number">4.2.</span> <span class="nav-text">位移[translate]变换分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%A9%E6%94%BE-scale"><span class="nav-number">4.3.</span> <span class="nav-text">缩放(scale)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC-rotate"><span class="nav-number">4.4.</span> <span class="nav-text">旋转(rotate)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E4%BC%B8-skew"><span class="nav-number">4.5.</span> <span class="nav-text">拉伸(skew)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D%E7%9F%A9%E9%98%B5%E5%8F%98%E6%8D%A2"><span class="nav-number">5.</span> <span class="nav-text">3D矩阵变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87-homogeneous-coordinates"><span class="nav-number">6.</span> <span class="nav-text">齐次坐标(homogeneous coordinates)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81%E6%83%85%E5%86%B5"><span class="nav-number">7.</span> <span class="nav-text">浏览器支持情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2D%E6%94%AF%E6%8C%81"><span class="nav-number">7.1.</span> <span class="nav-text">2D支持:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3D%E6%94%AF%E6%8C%81"><span class="nav-number">7.2.</span> <span class="nav-text">3D支持:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

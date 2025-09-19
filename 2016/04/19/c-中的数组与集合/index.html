@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="得到想要的数据的简单与复杂，我已经无法理解了 在生活中经常处理数据，不管用什么方法，方式，我们都希望：容易、高效、简单，就是想方便，就是想做很少的事情，把我们的目的达到，得到我们想要的东西。 废话多了。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c#中的数组与集合">
+<meta property="og:url" content="https://nightme.github.io/2016/04/19/c-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8E%E9%9B%86%E5%90%88/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="得到想要的数据的简单与复杂，我已经无法理解了 在生活中经常处理数据，不管用什么方法，方式，我们都希望：容易、高效、简单，就是想方便，就是想做很少的事情，把我们的目的达到，得到我们想要的东西。 废话多了。。。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-19T13:32:29.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.073Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://nightme.github.io/2016/04/19/c-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8E%E9%9B%86%E5%90%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>c#中的数组与集合 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/04/19/c-%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E4%B8%8E%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          c#中的数组与集合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-19 21:32:29" itemprop="dateCreated datePublished" datetime="2016-04-19T21:32:29+08:00">2016-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="得到想要的"><a href="#得到想要的" class="headerlink" title="得到想要的"></a>得到想要的</h2><p>数据的简单与复杂，我已经无法理解了</p>
+<p>在生活中经常处理数据，不管用什么方法，方式，我们都希望：容易、高效、简单，就是想方便，就是想做很少的事情，把我们的目的达到，得到我们想要的东西。</p>
+<p>废话多了。。。</p>
+<span id="more"></span>
+
+<h2 id="数组-Array"><a href="#数组-Array" class="headerlink" title="数组(Array)"></a>数组(Array)</h2><p>数组是一个存储相同类型元素的固定大小的顺序集合。</p>
+<p>声明数组：type[] arrayName;</p>
+<p><strong>数组的特点：</strong></p>
+<ol>
+<li>数组大小固定，不能伸缩</li>
+<li>数值数组元素的默认值设置为零，而引用元素的默认值设置为 null</li>
+<li>数组的索引从零开始</li>
+<li>数组可读可写</li>
+<li>数组要声明元素的类型</li>
+</ol>
+<p>看一些简单的使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">eg:例子1</span><br><span class="line">int[] a = new int[20];定义int数组</span><br><span class="line">a [2] = 100;</span><br><span class="line">Debug.Log (a[2]);           //返回 100</span><br><span class="line">Debug.Log (a[5]);           //返回 0</span><br><span class="line"></span><br><span class="line">eg:例子2</span><br><span class="line">string[] numbers = new string[10];</span><br><span class="line">numbers[2] = <span class="string">&quot;a&quot;</span>;</span><br><span class="line">numbers[3] = <span class="string">&quot;b&quot;</span>;</span><br><span class="line">Debug.Log (numbers[0]);     //返回    null</span><br><span class="line">Debug.Log (numbers[2]);     //返回    a</span><br><span class="line">Debug.Log (numbers[5]);     //返回    null</span><br><span class="line"></span><br><span class="line">eg:例子3</span><br><span class="line">string[] numbers = new string[]&#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">Debug.Log (numbers[2]);     //返回    c</span><br><span class="line">Debug.Log (numbers[5]);     //返回    引起错误</span><br><span class="line"></span><br><span class="line">eg:例子4</span><br><span class="line">string[] numbers = new string[]&#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">Debug.Log (numbers[2]);     //返回    c</span><br><span class="line">Debug.Log (numbers[5]);     //返回    引起错误</span><br><span class="line"></span><br><span class="line">eg:例子5</span><br><span class="line">string[] numbers = &#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">Debug.Log (numbers[0]);     //返回    a</span><br></pre></td></tr></table></figure>
+
+<h2 id="集合（Collection）"><a href="#集合（Collection）" class="headerlink" title="集合（Collection）"></a>集合（Collection）</h2><p>集合（Collection）类是专门用于数据存储和检索的类。这些类有：<br>动态数组（ArrayList）、列表（List）、字典（Dictionary）、哈希表（Hashtable）、堆栈（Stack）、队列（Queue）、点阵列（BitArray）；</p>
+<h3 id="动态数组（ArrayList）"><a href="#动态数组（ArrayList）" class="headerlink" title="动态数组（ArrayList）"></a>动态数组（ArrayList）</h3><p>动态数组（ArrayList）代表了可被单独索引的对象的有序集合。<br>与数组不同的是，您可以使用索引在指定的位置添加和移除项目，动态数组会自动重新调整它的大小。它也允许在列表中进行动态内存分配、增加、搜索、排序各项。</p>
+<p>特点：可以根据需要进行扩充</p>
+<p><strong>注意：ArrayList存在不安全类型与装箱拆箱的缺点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">eg:例子1</span><br><span class="line">ArrayList numbers = new ArrayList();</span><br><span class="line"></span><br><span class="line">//新增数据</span><br><span class="line">numbers.Add(100);</span><br><span class="line">numbers.Add(<span class="string">&quot;AAA&quot;</span>);</span><br><span class="line">numbers.Add(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">//删除数据</span><br><span class="line">numbers.Remove(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">//修改数据</span><br><span class="line">numbers[1] = <span class="string">&quot;修改数据&quot;</span>;</span><br><span class="line"></span><br><span class="line">//插入数据</span><br><span class="line">numbers.Insert(2, <span class="string">&quot;插入数据&quot;</span>);</span><br><span class="line"></span><br><span class="line">eg:例子2</span><br><span class="line">ArrayList numbers = new <span class="function"><span class="title">ArrayList</span></span>() &#123; 200,5,50,100,800&#125;;</span><br><span class="line">ArrayList letters = new <span class="function"><span class="title">ArrayList</span></span>() &#123; <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;z&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span> ,<span class="string">&quot;b&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line">//排序</span><br><span class="line">numbers.Sort(); //返回 5 50 100 200 800</span><br><span class="line">letters.Sort(); //返回 a b b c d z</span><br><span class="line"></span><br><span class="line">//反转</span><br><span class="line">numbers.Reverse();  //返回 800 200 100 50 5</span><br><span class="line">letters.Reverse();  //返回 z d c b b a</span><br><span class="line"></span><br><span class="line">Clone()复制一个数组 。。。</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/system.collections.arraylist%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="列表List"><a href="#列表List" class="headerlink" title="列表List"></a>列表List</h3><p>List是一个泛型列表。<br>可通过索引访问的对象的强类型列表， 提供用于对列表进行搜索、排序和操作的方法。</p>
+<ol>
+<li>list与ArrayList功能类似</li>
+<li>T如果为引用类型则要考虑装箱问题，就和ArrayList效果一样了</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; dinosaurs = new List&lt;T&gt;()</span><br><span class="line"></span><br><span class="line">eg：1</span><br><span class="line">List&lt;string&gt; numbers = new List&lt;string&gt;();</span><br><span class="line">numbers.Add(<span class="string">&quot;ZZZ&quot;</span>); //添加元素</span><br><span class="line">numbers.RemoveAt(0);//移除下标为0的元素</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/6sh2ey19%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="字典Dictionary"><a href="#字典Dictionary" class="headerlink" title="字典Dictionary"></a>字典Dictionary</h3><p>Dictionary表示键和值的集合，每个元素都是一个键值对。<br>是一个泛型列表。</p>
+<ol>
+<li>键（key）是唯一的</li>
+<li>键（key）和值（Value）可以是任何类型（包括自定义类型）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey,TValue&gt; myDictionary = new Dictionary&lt;TKey,TValue&gt;();</span><br><span class="line"></span><br><span class="line">eg:1</span><br><span class="line">Dictionary&lt;string, string&gt; numbers = new Dictionary&lt;string, string&gt;() &#123;</span><br><span class="line">  &#123;<span class="string">&quot;id&quot;</span>,<span class="string">&quot;100&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;lev&quot;</span>,<span class="string">&quot;15&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;info&quot;</span>,<span class="string">&quot;text text&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//添加数据</span><br><span class="line">numbers.Add(<span class="string">&quot;sum&quot;</span>,<span class="string">&quot;1000&quot;</span>);</span><br><span class="line"></span><br><span class="line">//移除数据</span><br><span class="line">numbers.Remove(<span class="string">&quot;info&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/xfhwa508%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="排序列表SortedList"><a href="#排序列表SortedList" class="headerlink" title="排序列表SortedList"></a>排序列表SortedList</h3><p>SortedList 类代表了一系列按照键来排序的键&#x2F;值对，这些键值对可以通过键和索引来访问。</p>
+<ol>
+<li>如果您使用索引访问各项，则它是一个动态数组（ArrayList）</li>
+<li>如果您使用键访问各项，则它是一个哈希表（Hashtable）。</li>
+<li>集合中的各项总是按键值排序。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">eg:1</span><br><span class="line">SortedList numbers = new <span class="function"><span class="title">SortedList</span></span>() &#123;</span><br><span class="line">    &#123;100,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">    &#123;500,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">    &#123;300,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">    &#123;1,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">    &#123;5,<span class="string">&quot;bbb&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foreach (int index <span class="keyword">in</span> numbers.Keys)</span><br><span class="line">&#123;</span><br><span class="line">    Console.Write(index + <span class="string">&quot; &quot;</span> + numbers[index]+<span class="string">&quot;, &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1 aaa, 5 bbb, 100 aaa, 300 aaa, 500 aaa,</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/ms132319%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="哈希表（Hashtable）"><a href="#哈希表（Hashtable）" class="headerlink" title="哈希表（Hashtable）"></a>哈希表（Hashtable）</h3><p>Hashtable 类代表了一系列基于键的哈希代码组织起来的键&#x2F;值对。它使用键来访问集合中的元素。</p>
+<ol>
+<li>HashTable可添加任意类型的元素</li>
+<li>HashTable添加时装箱，读取时拆箱</li>
+<li>HashTable不支持泛型</li>
+<li>Hashtable 的元素属于 Object 类型</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Hashtable ht = new <span class="function"><span class="title">Hashtable</span></span>() &#123;</span><br><span class="line">   &#123;<span class="string">&quot;100&quot;</span>,<span class="string">&quot;aaa&quot;</span>&#125;,</span><br><span class="line">   &#123;<span class="string">&quot;101&quot;</span>,<span class="string">&quot;xxx&quot;</span>&#125;,</span><br><span class="line">   &#123;<span class="string">&quot;5&quot;</span>,<span class="string">&quot;dd&quot;</span>&#125;,</span><br><span class="line">   &#123;<span class="string">&quot;50&quot;</span>,<span class="string">&quot;cc&quot;</span>&#125;,</span><br><span class="line">   &#123;<span class="string">&quot;800&quot;</span>,<span class="string">&quot;dd&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/system.collections.hashtable%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="栈Stack"><a href="#栈Stack" class="headerlink" title="栈Stack"></a>栈Stack</h3><p>堆栈（Stack）代表了一个后进先出的对象集合。<br>当您需要对各项进行后进先出的访问时，则使用堆栈。<br>当您在列表中添加一项，称为推入元素，当您从列表中移除一项时，称为弹出元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Stack st = new Stack();</span><br><span class="line"></span><br><span class="line">st.Push(<span class="string">&quot;axdsax&quot;</span>);</span><br><span class="line">st.Push(<span class="string">&quot;sad&quot;</span>);</span><br><span class="line">st.Push(<span class="string">&quot;adasxx&quot;</span>);</span><br><span class="line">st.Push(<span class="string">&quot;a4&quot;</span>);</span><br><span class="line"></span><br><span class="line">foreach (string c <span class="keyword">in</span> st)</span><br><span class="line">&#123;</span><br><span class="line">   Console.Write(c + <span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/3278tedw%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a>队列（Queue）</h3><p>队列（Queue）代表了一个先进先出的对象集合。<br>当您需要对各项进行先进先出的访问时，则使用队列。<br>当您在列表中添加一项，称为入队，当您从列表中移除一项时，称为出队。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Queue que = new Queue();</span><br><span class="line"></span><br><span class="line">//向队列加入元素</span><br><span class="line">que.Enqueue(<span class="string">&quot;100&quot;</span>);</span><br><span class="line">que.Enqueue(<span class="string">&quot;105&quot;</span>);</span><br><span class="line">que.Enqueue(<span class="string">&quot;100&quot;</span>);</span><br><span class="line">que.Enqueue(<span class="string">&quot;500&quot;</span>);</span><br><span class="line"></span><br><span class="line">foreach (string c <span class="keyword">in</span> que)</span><br><span class="line">&#123;</span><br><span class="line">  Console.Write(c + <span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">100 105 100 500</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/7977ey2c%28v=vs.110%29.aspx">msdn传送</a></p>
+<h3 id="点阵列（BitArray）"><a href="#点阵列（BitArray）" class="headerlink" title="点阵列（BitArray）"></a>点阵列（BitArray）</h3><p>BitArray 类管理一个紧凑型的位值数组，它使用布尔值来表示，其中 true 表示位是开启的（1），false 表示位是关闭的（0）。</p>
+<p>当您需要存储位，但是事先不知道位数时，则使用点阵列。您可以使用整型索引从点阵列集合中访问各项，索引从零开始。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 创建两个大小为 8 的点阵列</span><br><span class="line">BitArray ba1 = new BitArray(8);</span><br><span class="line">byte[] a = &#123; 60 &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 把值 60 存储到点阵列中</span><br><span class="line">ba1 = new BitArray(a);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (int i = 0; i &lt; ba1.Count; i++)</span><br><span class="line">&#123;</span><br><span class="line">   Console.Write(<span class="string">&quot;&#123;0&#125; &quot;</span>, ba1[i]);</span><br><span class="line">&#125;</span><br><span class="line">返回：False False True True True True False False</span><br></pre></td></tr></table></figure>
+
+<p>具体方法：<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/system.collections.bitarray%28v=vs.110%29.aspx">msdn传送</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/04/10/%E9%97%AA%E8%BF%87%E7%9A%84ajax/" rel="prev" title="闪过的ajax">
+      <i class="fa fa-chevron-left"></i> 闪过的ajax
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/04/21/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="单例模式">
+      单例模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%97%E5%88%B0%E6%83%B3%E8%A6%81%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">得到想要的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84-Array"><span class="nav-number">2.</span> <span class="nav-text">数组(Array)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%EF%BC%88Collection%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">集合（Collection）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%EF%BC%88ArrayList%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">动态数组（ArrayList）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8List"><span class="nav-number">3.2.</span> <span class="nav-text">列表List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8Dictionary"><span class="nav-number">3.3.</span> <span class="nav-text">字典Dictionary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%88%97%E8%A1%A8SortedList"><span class="nav-number">3.4.</span> <span class="nav-text">排序列表SortedList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hashtable%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">哈希表（Hashtable）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88Stack"><span class="nav-number">3.6.</span> <span class="nav-text">栈Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97%EF%BC%88Queue%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">队列（Queue）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E9%98%B5%E5%88%97%EF%BC%88BitArray%EF%BC%89"><span class="nav-number">3.8.</span> <span class="nav-text">点阵列（BitArray）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

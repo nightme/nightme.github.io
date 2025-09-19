@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="photoshop脚本PhotoShop脚本是指图像处理软件PhotoShop所支持的批处理程序，其英文为Photoshop Scripting。 它分别支持脚本编程语言有：  Mac平台上的Apple Script脚本 Windows平台上的Visual Basic Script脚本 跨平台的JavaScript脚本  注：此处未说明使用的是ps cs6版本，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ps的一些使用">
+<meta property="og:url" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="photoshop脚本PhotoShop脚本是指图像处理软件PhotoShop所支持的批处理程序，其英文为Photoshop Scripting。 它分别支持脚本编程语言有：  Mac平台上的Apple Script脚本 Windows平台上的Visual Basic Script脚本 跨平台的JavaScript脚本  注：此处未说明使用的是ps cs6版本，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/reference.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/picture_1.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/result_1.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/load_layer.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/load_layer_results.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/dis_ui_1.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/result_jpeg.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/options.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_2.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_3.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_4.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/webp.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_1.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_2.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_3.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_5.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_5.png">
+<meta property="og:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_6.png">
+<meta property="article:published_time" content="2015-12-11T03:48:59.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.095Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="PS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/reference.png">
+
+<link rel="canonical" href="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ps的一些使用 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ps的一些使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-12-11 11:48:59" itemprop="dateCreated datePublished" datetime="2015-12-11T11:48:59+08:00">2015-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PS/" itemprop="url" rel="index"><span itemprop="name">PS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="photoshop脚本"><a href="#photoshop脚本" class="headerlink" title="photoshop脚本"></a>photoshop脚本</h2><p>PhotoShop脚本是指图像处理软件PhotoShop所支持的批处理程序，其英文为Photoshop Scripting。</p>
+<p>它分别支持脚本编程语言有：</p>
+<ol>
+<li>Mac平台上的Apple Script脚本</li>
+<li>Windows平台上的Visual Basic Script脚本</li>
+<li>跨平台的JavaScript脚本</li>
+</ol>
+<p><strong>注：此处未说明使用的是ps cs6版本</strong>，</p>
+<span id="more"></span>
+
+<h3 id="参考图片"><a href="#参考图片" class="headerlink" title="参考图片"></a>参考图片</h3><img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/reference.png" class="" title="参考图片">
+
+<h3 id="自己写一个脚本"><a href="#自己写一个脚本" class="headerlink" title="自己写一个脚本"></a>自己写一个脚本</h3><p>新建一个helle.js文件，写入如下代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var username = <span class="string">&quot;小明&quot;</span>;</span><br><span class="line">alert(<span class="string">&quot;hello world&quot;</span>+username);</span><br></pre></td></tr></table></figure>
+
+<p>再紧接着, 文件 -&gt; 脚本 -&gt; 浏览 ，选择hello.js脚本，之后会出现提示内容</p>
+<p>知道ps有这么一回事，有兴趣可以网上找找学习一下</p>
+<h2 id="批量降低图片质量"><a href="#批量降低图片质量" class="headerlink" title="批量降低图片质量"></a>批量降低图片质量</h2><p>说到底就是压缩一下图片，网上工具一大批，这里用ps的脚本来做:</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/picture_1.png" class="" title="图像处理器">
+
+<ol>
+<li>菜单栏：”文件” -&gt; “脚本” -&gt; “图像处理器”,结果如上图：</li>
+<li>选择要处理的图像文件夹①</li>
+<li>选择要位置存储处理图像②</li>
+<li>文件类型，如存储为JPEG,并且选择品质(0~12)③</li>
+<li>点击<strong>运行</strong>④，处理结果对比图如下：</li>
+</ol>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/result_1.png" class="" title="结果数据对比">
+
+<h2 id="图片批量导入到图层"><a href="#图片批量导入到图层" class="headerlink" title="图片批量导入到图层"></a>图片批量导入到图层</h2><img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/load_layer.png" class="" title="载入图层">
+
+<ol>
+<li>菜单栏：”文件” -&gt; “脚本” -&gt; “将文件载入堆栈”,结果如上图：</li>
+<li>下拉选择 <strong>文件夹</strong> ①</li>
+<li><strong>浏览</strong> 选取批量图片的文件夹②,选取成功后④</li>
+<li>点击 <strong>确定</strong> ③, 生成结果如下：</li>
+</ol>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/load_layer_results.png" class="" title="生成结果界面">
+
+<h2 id="批量图层导出到图片"><a href="#批量图层导出到图片" class="headerlink" title="批量图层导出到图片"></a>批量图层导出到图片</h2><img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/dis_ui_1.png" class="" title="批量图层导入到图片">
+
+<ol>
+<li>菜单栏：”文件” -&gt; “脚本” -&gt; “图层导出到文件”,结果如上图：</li>
+<li>选择导出位①</li>
+<li>每个要导出图层的前缀②</li>
+<li>选择可见图层③</li>
+<li>选择导出的文件类型④，如此出的jpeg</li>
+<li>文件的选项，此处可设置图片质量(0~12)⑤</li>
+<li>点击 <strong>运行</strong> ⑥,生成结果如下：</li>
+</ol>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/result_jpeg.png" class="" title="图片结果">
+
+<h2 id="自动生成图标"><a href="#自动生成图标" class="headerlink" title="自动生成图标"></a>自动生成图标</h2><p>此处使用的是photoshop cc 2015,切icon图标的psd文件。</p>
+<p>1、菜单栏：”编辑” -&gt; “首选项” -&gt; “常规” -&gt; “增效工具”,勾选 <strong>生成器</strong>,点击 <strong>确定</strong>,如下图：</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/options.png" class="" title="首选项">
+
+<p>2、菜单栏：”文件” -&gt; “生成” -&gt; “图像资源”,勾选中,如下图：</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_2.png" class="" title="勾选图像资源">
+
+<p>3、修改icon图层名称,如下图：</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_3.png" class="" title="图层名称">
+
+<p>4、图层命名参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">格式</th>
+<th align="center">图层名</th>
+<th align="center">输出图片</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PNG</td>
+<td align="center">book.png</td>
+<td align="center">含alpha通道png-24(就是透明的png)</td>
+</tr>
+<tr>
+<td align="center">PNG</td>
+<td align="center">book.png8</td>
+<td align="center">png-8</td>
+</tr>
+<tr>
+<td align="center">PNG</td>
+<td align="center">book.png24</td>
+<td align="center">png-24(不透明的png)</td>
+</tr>
+<tr>
+<td align="center">JPEG</td>
+<td align="center">book.jpg</td>
+<td align="center">质量?%,经测试非80%,但已优化</td>
+</tr>
+<tr>
+<td align="center">JPEG</td>
+<td align="center">book.jpg8</td>
+<td align="center">质量80%</td>
+</tr>
+<tr>
+<td align="center">JPEG</td>
+<td align="center">book.jpg80</td>
+<td align="center">质量80%</td>
+</tr>
+<tr>
+<td align="center">JPEG</td>
+<td align="center">book.jpg10</td>
+<td align="center">质量100%</td>
+</tr>
+<tr>
+<td align="center">JPEG</td>
+<td align="center">book.jpg100%</td>
+<td align="center">质量100%</td>
+</tr>
+</tbody></table>
+<p>5、输出Retina @2x 图片,尺寸是原来的两倍，或三倍,如下图：</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/option_4.png" class="" title="@2x图">
+
+<p>6、可以设置的输出格式目前有jpg,png,gif,svg</p>
+<p>7、 设置可以输出webp图片格式,新建文件generator.json,内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;generator-assets&quot;</span>:  &#123;</span><br><span class="line">    <span class="string">&quot;webp-enabled&quot;</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Windows上：按Win+R -&gt; 输入 %USERPROFILE% -&gt; 拷贝generator.json到此目录 -&gt; 结果资源文件下出现errors.txt -&gt; Windows 不支持</p>
+<p>Mac上：未测，据说支持</p>
+<p>8、ps的webp插件，下载地址：<a target="_blank" rel="noopener" href="http://www.fnordware.com/downloads/WebP_v0.5b5_win.zip">Win</a> 和 <a target="_blank" rel="noopener" href="http://www.fnordware.com/downloads/WebP_v0.5b5_mac.zip">MAC</a></p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/webp.png" class="" title="webp插件拷贝路径">
+
+<p>安装后, 文件-&gt;另存为-&gt;选择webp格式</p>
+<h2 id="批量修改图片大小"><a href="#批量修改图片大小" class="headerlink" title="批量修改图片大小"></a>批量修改图片大小</h2><p>ps动作还是那么的好,<strong>此处使用的是ps cc 2015</strong></p>
+<p>1、ps打开要修改的图片<br>2、菜单栏：”窗口” -&gt; 勾选 <strong>动作</strong> 如下图：</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_1.png" class="" title="勾选动作">
+
+<p>3、新建动作后，可设置功能健，名称，之后点击 <strong>记录</strong></p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_2.png" class="" title="新建动作">
+
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_3.png" class="" title="设置动作">
+
+<p>4、动作记录开始了，现在开始设置图片大小，设置完成 <strong>确定</strong> 闭并 <strong>保存</strong> 到指定文件夹，最后 <strong>关闭</strong> 修改的图片的选项卡</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_5.png" class="" title="设置图片">
+
+<p>5、此时点击 <strong>停止</strong>,如下图，之后这个动作就完成了</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_5.png" class="" title="停止">
+
+<p>6、现在开始批量设置,菜单栏：”文件” -&gt; “自动” -&gt; “批处理” 如下图,设置必要的参数，点击 <strong>确定</strong> 完成。</p>
+<img src="/2015/12/11/ps%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/action_6.png" class="" title="批处理">
+
+<p>7、根据你的文件夹设置，所有图片大小都修改为你设置的大小了，到此就完了。</p>
+<h2 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h2><p>此处使用的是 <strong>ps cc 2015</strong></p>
+<p>在图层上右键单击，有一个 <strong>导出为</strong>，<strong>有一个快速到处为xxx</strong>,看看有什么用</p>
+<h2 id="ps插件-扩展推荐"><a href="#ps插件-扩展推荐" class="headerlink" title="ps插件 扩展推荐"></a>ps插件 扩展推荐</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/Linrstudio/PhotoshopCopyCSS">PhotoshopCopyCSS-复制css插件</a></li>
+<li><a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1jGkvENs">Corner Editor-修改路径圆角插件</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cutterman.cn/v2/cutterman">CUTTERMAN-切图工具</a></li>
+<li><a target="_blank" rel="noopener" href="http://css3ps.com/">css3ps-生成图层样式</a></li>
+<li><a target="_blank" rel="noopener" href="http://guideguide.me/">GuideGuide-参考线插件</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PS/" rel="tag"># PS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/11/20/http%E7%8A%B6%E6%80%81%E7%A0%81%E7%9F%A5%E5%A4%9A%E5%B0%91/" rel="prev" title="http状态码知多少">
+      <i class="fa fa-chevron-left"></i> http状态码知多少
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/12/16/%E8%AE%A4%E8%AF%86gulp/" rel="next" title="认识gulp">
+      认识gulp <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#photoshop%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">photoshop脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%9B%BE%E7%89%87"><span class="nav-number">1.1.</span> <span class="nav-text">参考图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">自己写一个脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E9%99%8D%E4%BD%8E%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">批量降低图片质量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E5%88%B0%E5%9B%BE%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">图片批量导入到图层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E5%9B%BE%E5%B1%82%E5%AF%BC%E5%87%BA%E5%88%B0%E5%9B%BE%E7%89%87"><span class="nav-number">4.</span> <span class="nav-text">批量图层导出到图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%9B%BE%E6%A0%87"><span class="nav-number">5.</span> <span class="nav-text">自动生成图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F"><span class="nav-number">6.</span> <span class="nav-text">批量修改图片大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA"><span class="nav-number">7.</span> <span class="nav-text">导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ps%E6%8F%92%E4%BB%B6-%E6%89%A9%E5%B1%95%E6%8E%A8%E8%8D%90"><span class="nav-number">8.</span> <span class="nav-text">ps插件 扩展推荐</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

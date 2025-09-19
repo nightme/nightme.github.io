@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="UnderscoreUnderscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象。  Underscore提供了100多个函数，包括each、map、reduce、 reduceRight、等 还有辅助函数，函数绑定、JavaScript模板功能、强类型相等测试、创建快速索引等  英文地址：http:&#x2F;&#x2F;underscorejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="underscore模版">
+<meta property="og:url" content="https://nightme.github.io/2015/12/31/underscore%E6%A8%A1%E7%89%88/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="UnderscoreUnderscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象。  Underscore提供了100多个函数，包括each、map、reduce、 reduceRight、等 还有辅助函数，函数绑定、JavaScript模板功能、强类型相等测试、创建快速索引等  英文地址：http:&#x2F;&#x2F;underscorejs">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2015/12/31/underscore%E6%A8%A1%E7%89%88/und_pic.png">
+<meta property="article:published_time" content="2015-12-31T05:45:05.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.108Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2015/12/31/underscore%E6%A8%A1%E7%89%88/und_pic.png">
+
+<link rel="canonical" href="https://nightme.github.io/2015/12/31/underscore%E6%A8%A1%E7%89%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>underscore模版 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2015/12/31/underscore%E6%A8%A1%E7%89%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          underscore模版
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-12-31 13:45:05" itemprop="dateCreated datePublished" datetime="2015-12-31T13:45:05+08:00">2015-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Underscore"><a href="#Underscore" class="headerlink" title="Underscore"></a>Underscore</h2><p>Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象。</p>
+<ul>
+<li>Underscore提供了100多个函数，包括each、map、reduce、 reduceRight、等</li>
+<li>还有辅助函数，函数绑定、JavaScript模板功能、强类型相等测试、创建快速索引等</li>
+</ul>
+<p>英文地址：<a target="_blank" rel="noopener" href="http://underscorejs.org/">http://underscorejs.org/</a><br>中文地址：<a target="_blank" rel="noopener" href="http://www.bootcss.com/p/underscore/">http://www.bootcss.com/p/underscore/</a></p>
+<span id="more"></span>
+
+<h2 id="Underscore模版的使用"><a href="#Underscore模版的使用" class="headerlink" title="Underscore模版的使用"></a>Underscore模版的使用</h2><p>1、视图层展示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="built_in">id</span>=<span class="string">&quot;wrap&quot;</span>&gt;&lt;/div&gt;//容器</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">id</span>=<span class="string">&quot;template&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;text/template&quot;</span>&gt;</span><br><span class="line">&lt;h2&gt;&lt;%= title %&gt;&lt;/h2&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&lt;% _.each(peoples,<span class="keyword">function</span>(item)&#123; %&gt;</span><br><span class="line">    &lt;li&gt;姓名：&lt;%= item.name %&gt;-------描述:&lt;%= item.des %&gt; -----------钱：&lt;%= item.money %&gt;&lt;/li&gt;</span><br><span class="line">&lt;% &#125;); %&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;underscore-min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、数据填充</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var data = &#123;</span><br><span class="line">    title:<span class="string">&#x27;金钱排行榜&#x27;</span>,</span><br><span class="line">    peoples:[</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主1号&#x27;</span>,des:<span class="string">&#x27;拥有500万土地&#x27;</span>,money:<span class="string">&#x27;250&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主2号&#x27;</span>,des:<span class="string">&#x27;拥有600万土地&#x27;</span>,money:<span class="string">&#x27;360&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主3号&#x27;</span>,des:<span class="string">&#x27;拥有800万土地&#x27;</span>,money:<span class="string">&#x27;390&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主4号&#x27;</span>,des:<span class="string">&#x27;拥有1000万土地&#x27;</span>,money:<span class="string">&#x27;2000&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主5号&#x27;</span>,des:<span class="string">&#x27;拥有500万土地&#x27;</span>,money:<span class="string">&#x27;1050&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主6号&#x27;</span>,des:<span class="string">&#x27;拥有200万土地&#x27;</span>,money:<span class="string">&#x27;40&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主7号&#x27;</span>,des:<span class="string">&#x27;拥有10万土地&#x27;</span>,money:<span class="string">&#x27;100&#x27;</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">&#x27;地主8号&#x27;</span>,des:<span class="string">&#x27;&#x27;</span>,money:<span class="string">&#x27;1000&#x27;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">var wrap = document.getElementById(<span class="string">&#x27;wrap&#x27;</span>);</span><br><span class="line">    tpl = document.getElementById(<span class="string">&#x27;template&#x27;</span>);</span><br><span class="line">var <span class="built_in">source</span> = tpl.innerHTML;</span><br><span class="line">var render = _.template(<span class="built_in">source</span>);</span><br><span class="line"></span><br><span class="line">var sortResults = _.sortBy(data.peoples,<span class="keyword">function</span>(item)&#123;</span><br><span class="line">    <span class="built_in">return</span> -item.money;//hight-&gt;low :+item.money</span><br><span class="line">&#125;);</span><br><span class="line">data.peoples = sortResults;</span><br><span class="line">var html = render(data);</span><br><span class="line">wrap.innerHTML = html;</span><br></pre></td></tr></table></figure>
+
+<p>3、UI展示</p>
+<img src="/2015/12/31/underscore%E6%A8%A1%E7%89%88/und_pic.png" class="" title="UI-结果">
+
+<h2 id="默认模板标签"><a href="#默认模板标签" class="headerlink" title="默认模板标签"></a>默认模板标签</h2><ol>
+<li>&lt;%  %&gt; ：包含JavaScript代码，代码将在渲染数据时被执行</li>
+<li>&lt;%&#x3D; %&gt; : 用于输出数据，可以是一个变量、某个对象的属性、或函数调用（将输出函数的返回值）</li>
+<li>&lt;%- %&gt; : 用于输出数据，同时会将数据中包含的HTML字符转换为实体形式</li>
+</ol>
+<h2 id="修改模版标签"><a href="#修改模版标签" class="headerlink" title="修改模版标签"></a>修改模版标签</h2><p>通过templateSettings来修改模版标签，如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">_.templateSettings = &#123;  </span><br><span class="line">    evaluate : /\&#123;%([\s\S]+?)\%\&#125;/g,  </span><br><span class="line">    interpolate : /\&#123;%=([\s\S]+?)\%\&#125;/g,  </span><br><span class="line">    escape : /\&#123;%-([\s\S]+?)%\&#125;/g  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">设置后的标签</span><br><span class="line">&lt;%  %&gt; =&gt; &#123;%  %&#125;</span><br><span class="line">&lt;%= %&gt; =&gt; &#123;%= %&#125;</span><br><span class="line">&lt;%- %&gt; =&gt; &#123;%- %&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析模版"><a href="#解析模版" class="headerlink" title="解析模版"></a>解析模版</h2><p>模版执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//获取模版内容</span><br><span class="line">var <span class="built_in">source</span> = tpl.innerHTML;</span><br><span class="line"></span><br><span class="line">//解析模版</span><br><span class="line">var render = _.template(<span class="built_in">source</span>);</span><br><span class="line">var html = render(data);</span><br><span class="line"></span><br><span class="line">//解析后的内容填充到dom节点</span><br><span class="line">wrap.innerHTML = html;</span><br></pre></td></tr></table></figure>
+
+<h2 id="后语"><a href="#后语" class="headerlink" title="后语"></a>后语</h2><p>然而这是underscore中自带的模版功能，而它的强大之处，在于提供的100多个函数，里面包括了:</p>
+<ul>
+<li>集合(each、map、find…)</li>
+<li>数组(first、last、rest…)</li>
+<li>函数(bind、bindAll、delay…)</li>
+<li>对象(keys、allKeys、mapObject…)</li>
+<li>功能(random、times、noConflict、template…)</li>
+<li>支持链式语法</li>
+<li>……</li>
+</ul>
+<p>十分有用,Gzip压缩后5.7kb</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/12/25/Handlebars%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="Handlebars的使用">
+      <i class="fa fa-chevron-left"></i> Handlebars的使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/04/javascript-Date%E6%97%A5%E6%9C%9F%E5%AF%B9%E8%B1%A1/" rel="next" title="javascript-Date日期对象">
+      javascript-Date日期对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Underscore"><span class="nav-number">1.</span> <span class="nav-text">Underscore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Underscore%E6%A8%A1%E7%89%88%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Underscore模版的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E6%A8%A1%E6%9D%BF%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">默认模板标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%A8%A1%E7%89%88%E6%A0%87%E7%AD%BE"><span class="nav-number">4.</span> <span class="nav-text">修改模版标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E6%A8%A1%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">解析模版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AF%AD"><span class="nav-number">6.</span> <span class="nav-text">后语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

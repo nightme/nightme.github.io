@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Function.prototype.apply()apply() 方法调用一个函数, 其具有一个指定的this值，以及作为一个数组（或类似数组的对象）提供的参数。 语法：1fun.apply(thisArg, [argsArray])">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数apply-call-bind">
+<meta property="og:url" content="https://nightme.github.io/2017/06/18/%E5%87%BD%E6%95%B0apply-call-bind/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="Function.prototype.apply()apply() 方法调用一个函数, 其具有一个指定的this值，以及作为一个数组（或类似数组的对象）提供的参数。 语法：1fun.apply(thisArg, [argsArray])">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-17T16:50:28.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.110Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://nightme.github.io/2017/06/18/%E5%87%BD%E6%95%B0apply-call-bind/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>函数apply-call-bind | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2017/06/18/%E5%87%BD%E6%95%B0apply-call-bind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          函数apply-call-bind
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-18 00:50:28" itemprop="dateCreated datePublished" datetime="2017-06-18T00:50:28+08:00">2017-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Function-prototype-apply"><a href="#Function-prototype-apply" class="headerlink" title="Function.prototype.apply()"></a>Function.prototype.apply()</h2><p><code>apply()</code> 方法调用一个函数, 其具有一个指定的this值，以及作为一个数组（或类似数组的对象）提供的参数。</p>
+<h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">apply</span>(thisArg, [argsArray])</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<ul>
+<li><p><code>thisArg</code>: 在 <code>fun</code> 函数运行时指定的 <code>this</code> 值。需要注意的是，指定的 <code>this</code> 值并不一定是该函数执行时真正的 <code>this</code> 值，如果这个函数处于非严格模式下，则指定为 <code>null</code> 或 <code>undefined</code> 时会自动指向全局对象（浏览器中就是<code>window</code>对象）,同时值为原始值（数字，字符串，布尔值）的 <code>this</code> 会指向该原始值的自动包装对象。</p>
+</li>
+<li><p><code>argsArray</code>: 一个数组或者类数组对象，其中的数组元素将作为单独的参数传给 fun 函数。如果该参数的值为null 或 undefined，则表示不需要传入任何参数。从ECMAScript 5 开始可以使用类数组对象。</p>
+</li>
+</ul>
+<p>从 <code>ECMAScript</code> 第5版开始，可以使用任何种类的类数组对象，就是说只要有一个 <code>length</code> 属性和<code>[0...length)</code> 范围的整数属性。例如现在可以使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList"><code>NodeList</code></a> 或一个自己定义的类似 <code>&#123;&#39;length&#39;: 2, &#39;0&#39;: &#39;eat&#39;, &#39;1&#39;: &#39;bananas&#39;&#125;</code> 形式的对象。</p>
+<p><strong>注意：Chrome 14 以及 <code>Internet Explorer 9</code> 仍然不接受类数组对象。如果传入类数组对象，它们会抛出异常。</strong></p>
+<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><h4 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">5</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">7</span>,+<span class="title class_">Infinity</span>,-<span class="title class_">Infinity</span>];</span><br><span class="line">max = <span class="title class_">Math</span>.<span class="property">max</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, numbers); <span class="comment">//Infinity</span></span><br><span class="line">min = <span class="title class_">Math</span>.<span class="property">min</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, numbers); <span class="comment">//-Infinity</span></span><br></pre></td></tr></table></figure>
+<h4 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cbj = &#123;</span><br><span class="line">    <span class="attr">lang</span>:<span class="string">&quot;汉语&quot;</span>,</span><br><span class="line">    <span class="attr">speak</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">lang</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> ebj = &#123;</span><br><span class="line">    <span class="attr">lang</span>:<span class="string">&quot;英语&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">cbj.<span class="property">speak</span>.<span class="title function_">apply</span>(ebj)<span class="comment">//英语</span></span><br></pre></td></tr></table></figure>
+<h4 id="例3"><a href="#例3" class="headerlink" title="例3"></a>例3</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">lang</span> = <span class="string">&quot;谁知道你讲什么&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">speak</span>  = <span class="keyword">function</span>(<span class="params">args1,args2</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;speak &quot;</span> + <span class="variable language_">this</span>.<span class="property">lang</span>,args1,args2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> pe = <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">pe.<span class="title function_">speak</span>();<span class="comment">//speak 谁知道你讲什么 undefined undefined</span></span><br><span class="line">pe.<span class="property">speak</span>.<span class="title function_">apply</span>(&#123;<span class="attr">lang</span>:<span class="string">&#x27;汉语&#x27;</span>&#125;,[<span class="number">1</span>,<span class="number">2</span>]);<span class="comment">//speak 汉语 1 2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>当心</strong>：如果用上面的方式调用 <code>apply</code>, 你很可能会遇到方法参数个数越界的问题. 当你对一个方法传入非常多的参数 (比如超过1W多个参数) 时, 就非常有可能会导致越界问题, 这个临界值是根据不同的 <code>JavaScript</code> 引擎而定的.</p>
+<h2 id="Function-prototype-call"><a href="#Function-prototype-call" class="headerlink" title="Function.prototype.call()"></a>Function.prototype.call()</h2><p><code>call()</code> 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数(参数的列表)。</p>
+<h3 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">call</span>(thisArg[, arg1[, arg2[, ...]]])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>thisArg</code>:在<code>fun</code>函数运行时指定的<code>this</code>值。需要注意的是，指定的<code>this</code>值并不一定是该函数执行时真正的<code>this</code>值，如果这个函数处于非严格模式下，则指定为<code>null</code>和<code>undefined</code>的<code>this</code>值会自动指向全局对象(浏览器中就是<code>window</code>对象)，同时值为原始值(数字，字符串，布尔值)的<code>this</code>会指向该原始值的自动包装对象。</li>
+<li><code>arg1, arg2, ...</code>:指定的参数列表。</li>
+</ul>
+<p>可以让<code>call()</code>中的对象调用当前对象所拥有的<code>function</code>。你可以使用<code>call()</code>来实现继承：写一个方法，然后让另外一个新的对象来继承它（而不是在新对象中再写一次这个方法）</p>
+<h3 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a>例子：</h3><h4 id="使用-call-方法调用函数并且指定上下文的this"><a href="#使用-call-方法调用函数并且指定上下文的this" class="headerlink" title="使用 call 方法调用函数并且指定上下文的this"></a>使用 <code>call</code> 方法调用函数并且指定上下文的<code>this</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cbj = &#123;</span><br><span class="line">    <span class="attr">lang</span>:<span class="string">&quot;汉语&quot;</span>,</span><br><span class="line">    <span class="attr">speak</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">lang</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> ebj = &#123;</span><br><span class="line">    <span class="attr">lang</span>:<span class="string">&quot;英语&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">cbj.<span class="property">speak</span>.<span class="title function_">call</span>(ebj)<span class="comment">//英语</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用call方法调用父构造函数"><a href="#使用call方法调用父构造函数" class="headerlink" title="使用call方法调用父构造函数"></a>使用call方法调用父构造函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Product</span>(<span class="params">name, price</span>) &#123;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">price</span> = price;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">getInfo</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="variable language_">this</span>.<span class="property">price</span>+<span class="string">&quot;块&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Fruits</span>(<span class="params">name, price</span>) &#123;</span><br><span class="line">	<span class="title class_">Product</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, name, price);</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">category</span> = <span class="string">&#x27;水果&#x27;</span>;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">getFruitsInfo</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">category</span>+<span class="string">&quot;:&quot;</span>+<span class="variable language_">this</span>.<span class="property">name</span>+<span class="variable language_">this</span>.<span class="property">price</span>+<span class="string">&quot;块&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Vegetables</span>(<span class="params">name, price</span>) &#123;</span><br><span class="line">	<span class="title class_">Product</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, name, price);</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">category</span> = <span class="string">&#x27;蔬菜&#x27;</span>;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">getVegetablesInfo</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">category</span>+<span class="string">&quot;:&quot;</span>+<span class="variable language_">this</span>.<span class="property">name</span>+<span class="variable language_">this</span>.<span class="property">price</span>+<span class="string">&quot;块&quot;</span>);</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pro = <span class="keyword">new</span> <span class="title class_">Product</span>(<span class="string">&#x27;红烧西瓜茄子&#x27;</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">var</span> fru = <span class="keyword">new</span> <span class="title class_">Fruits</span>(<span class="string">&#x27;西瓜&#x27;</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">var</span> veg = <span class="keyword">new</span> <span class="title class_">Vegetables</span>(<span class="string">&#x27;茄子&#x27;</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">pro.<span class="title function_">getInfo</span>();<span class="comment">//红烧西瓜茄子10块</span></span><br><span class="line"></span><br><span class="line">fru.<span class="title function_">getInfo</span>();<span class="comment">//西瓜20块</span></span><br><span class="line">fru.<span class="title function_">getFruitsInfo</span>();<span class="comment">//水果:西瓜20块</span></span><br><span class="line"></span><br><span class="line">veg.<span class="title function_">getInfo</span>();<span class="comment">//茄子30块</span></span><br><span class="line">veg.<span class="title function_">getVegetablesInfo</span>();<span class="comment">//蔬菜:茄子30块</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用call方法调用匿名函数"><a href="#使用call方法调用匿名函数" class="headerlink" title="使用call方法调用匿名函数"></a>使用<code>call</code>方法调用匿名函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animals = [</span><br><span class="line">	&#123;<span class="attr">color</span>: <span class="string">&#x27;白色&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;猴子&#x27;</span>&#125;,</span><br><span class="line">	&#123;<span class="attr">color</span>: <span class="string">&#x27;黑色&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;老虎&#x27;</span>&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; animals.<span class="property">length</span>; i++) &#123;</span><br><span class="line">	(<span class="keyword">function</span> (<span class="params">i</span>) &#123;</span><br><span class="line">		<span class="variable language_">this</span>.<span class="property">print</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">		  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;#&#x27;</span> + i  + <span class="string">&#x27; &#x27;</span> + <span class="variable language_">this</span>.<span class="property">color</span> + <span class="string">&#x27;: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="variable language_">this</span>.<span class="title function_">print</span>();</span><br><span class="line">	&#125;).<span class="title function_">call</span>(animals[i], i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//#0 白色: 猴子</span></span><br><span class="line"><span class="comment">//#1 黑色: 老虎</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind()"></a>Function.prototype.bind()</h2><p><code>bind()</code>方法创建一个新的函数, 当被调用时，将其<code>this</code>关键字设置为提供的值，在调用新函数时，在任何提供之前提供一个给定的参数序列。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">bind</span>(thisArg[, arg1[, arg2[, ...]]])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>thisArg</code>:当绑定函数被调用时，该参数会作为原函数运行时的 <code>this</code> 指向。当使用<code>new</code> 操作符调用绑定函数时，该参数无效。</li>
+<li><code>arg1, arg2, ...</code>:当绑定函数被调用时，这些参数将置于实参之前传递给被绑定的方法。</li>
+</ul>
+<p><code>bind()</code> 函数会创建一个新函数（称为绑定函数），新函数与被调函数（绑定函数的目标函数）具有相同的函数体（在 <code>ECMAScript 5</code> 规范中内置的<code>call</code>属性）。当新函数被调用时 <code>this</code> 值绑定到 <code>bind() </code>的第一个参数，该参数不能被重写。绑定函数被调用时，bind() 也接受预设的参数提供给原函数。一个绑定函数也能使用<code>new</code>操作符创建对象：这种行为就像把原函数当成构造器。提供的 <code>this</code> 值被忽略，同时调用时的参数被提供给模拟函数。</p>
+<h3 id="例子：-2"><a href="#例子：-2" class="headerlink" title="例子："></a>例子：</h3><h4 id="创建绑定函数"><a href="#创建绑定函数" class="headerlink" title="创建绑定函数"></a>创建绑定函数</h4><p><code>bind()</code> 最简单的用法是创建一个函数，使这个函数不论怎么调用都有同样的 <code>this</code> 值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">x</span> = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">x</span>: <span class="number">81</span>,</span><br><span class="line">  <span class="attr">getX</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">x</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.<span class="title function_">getX</span>(); <span class="comment">// 返回 81</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> retrieveX = obj.<span class="property">getX</span>;</span><br><span class="line"><span class="title function_">retrieveX</span>(); <span class="comment">// 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新函数，将&quot;this&quot;绑定到obj对象</span></span><br><span class="line"><span class="keyword">var</span> boundGetX = retrieveX.<span class="title function_">bind</span>(obj);</span><br><span class="line"><span class="title function_">boundGetX</span>(); <span class="comment">// 返回 81</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="用预设的初始参数创建函数"><a href="#用预设的初始参数创建函数" class="headerlink" title="用预设的初始参数创建函数"></a>用预设的初始参数创建函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">List</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用预设的初始参数创建函数</span></span><br><span class="line"><span class="keyword">var</span> clist = <span class="title class_">List</span>.<span class="title function_">bind</span>(<span class="literal">undefined</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_">clist</span>(); <span class="comment">//[100]</span></span><br><span class="line"><span class="title function_">clist</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);<span class="comment">//[100,1,2,3]</span></span><br></pre></td></tr></table></figure>
+<h4 id="作为构造函数使用的绑定函数"><a href="#作为构造函数使用的绑定函数" class="headerlink" title="作为构造函数使用的绑定函数"></a>作为构造函数使用的绑定函数</h4><p>绑定函数适用于用<code>new</code>操作符 <code>new</code> 去构造一个由目标函数创建的新的实例。</p>
+<p>当一个绑定函数是用来构建一个值的，原来提供的 <code>this</code> 就会被忽略。</p>
+<p>然而, 原先提供的那些参数仍然会被前置到构造函数调用的前面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Point</span>(<span class="params">x, y</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Point</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">print</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">x</span> + <span class="string">&#x27;,&#x27;</span> + <span class="variable language_">this</span>.<span class="property">y</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">PointA</span>= <span class="title class_">Point</span>.<span class="title function_">bind</span>(obj, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> pa = <span class="keyword">new</span> <span class="title class_">PointA</span>(<span class="number">5</span>);</span><br><span class="line"><span class="title class_">PointA</span>(<span class="number">5</span>);<span class="comment">//undefined</span></span><br><span class="line">pa.<span class="title function_">print</span>();<span class="comment">//0,5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);<span class="comment">//Object &#123;x: 0, y: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="创建捷径"><a href="#创建捷径" class="headerlink" title="创建捷径"></a>创建捷径</h4><p>将一个类似于数组的对象<code>（array-like object）</code>转换成一个真正的数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">&#x27;1&#x27;</span>:<span class="string">&#x27;小明&#x27;</span>,<span class="string">&#x27;2&#x27;</span>:<span class="string">&#x27;小黑&#x27;</span>,<span class="string">&#x27;4&#x27;</span>:<span class="string">&#x27;小刚&#x27;</span>,<span class="attr">length</span>:<span class="number">6</span>&#125;;</span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">apply</span>(a);</span><br><span class="line"><span class="comment">//[undefined × 1, &quot;小明&quot;, &quot;小黑&quot;, undefined × 1, &quot;小刚&quot;, undefined × 1]</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(a);</span><br><span class="line"><span class="comment">// [undefined × 1, &quot;小明&quot;, &quot;小黑&quot;, undefined × 1, &quot;小刚&quot;, undefined × 1]</span></span><br></pre></td></tr></table></figure>
+
+<p>用 <code>bind() </code>可以使这个过程变得简单</p>
+<p><code>slice</code> 是 <code>Function.prototype</code> 的 <code>call()</code> 方法的绑定函数.</p>
+<p>并且将 <code>Array.prototype</code> 的 <code>slice()</code> 方法作为 <code>this</code> 的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">&#x27;1&#x27;</span>:<span class="string">&#x27;小明&#x27;</span>,<span class="string">&#x27;2&#x27;</span>:<span class="string">&#x27;小黑&#x27;</span>,<span class="string">&#x27;4&#x27;</span>:<span class="string">&#x27;小刚&#x27;</span>,<span class="attr">length</span>:<span class="number">6</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> slice = <span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">call</span>.<span class="title function_">bind</span>(<span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>);</span><br><span class="line"><span class="title function_">slice</span>(a);</span><br><span class="line"><span class="comment">// [undefined × 1, &quot;小明&quot;, &quot;小黑&quot;, undefined × 1, &quot;小刚&quot;, undefined × 1]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><ul>
+<li><code>call()</code>方法第二个参数是若干个参数的列表；而<code>apply()</code>方法的第二个参数是一个包含多个参数的数组；<code>bind()</code>方法第二个参数是若干个参数的列表，是创建函数的预设的初始参数 。</li>
+<li><code>apply 、 call 、bind</code>三个方法的第一个参数都是this要指向的对象，可以改变函数的this对象的指向。</li>
+<li><code>bind</code>方法 返回对应的创建函数，便于后续调用；<code>apply 、call</code> 则是立即执行 。</li>
+</ul>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://bugs.webkit.org/show_bug.cgi?id=80797">apply参数个数限制在65536)</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/05/06/angularjs%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" rel="prev" title="angularjs1.x双向绑定">
+      <i class="fa fa-chevron-left"></i> angularjs1.x双向绑定
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/11/08/ngrok%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" rel="next" title="ngrok安装使用">
+      ngrok安装使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-prototype-apply"><span class="nav-number">1.</span> <span class="nav-text">Function.prototype.apply()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B1"><span class="nav-number">1.2.1.</span> <span class="nav-text">例1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B2"><span class="nav-number">1.2.2.</span> <span class="nav-text">例2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B3"><span class="nav-number">1.2.3.</span> <span class="nav-text">例3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-prototype-call"><span class="nav-number">2.</span> <span class="nav-text">Function.prototype.call()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A-1"><span class="nav-number">2.2.</span> <span class="nav-text">例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-call-%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E5%B9%B6%E4%B8%94%E6%8C%87%E5%AE%9A%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84this"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用 call 方法调用函数并且指定上下文的this</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8call%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用call方法调用父构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8call%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">使用call方法调用匿名函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-prototype-bind"><span class="nav-number">3.</span> <span class="nav-text">Function.prototype.bind()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A-2"><span class="nav-number">3.2.</span> <span class="nav-text">例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建绑定函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E9%A2%84%E8%AE%BE%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8F%82%E6%95%B0%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.2.</span> <span class="nav-text">用预设的初始参数创建函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E7%9A%84%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.3.</span> <span class="nav-text">作为构造函数使用的绑定函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%8D%B7%E5%BE%84"><span class="nav-number">3.2.4.</span> <span class="nav-text">创建捷径</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nightme.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="bowerBower一个好用的Web包管理器，可以搜索、安装和卸载如JavaScript、HTML、CSS等资源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bower使用">
+<meta property="og:url" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="某人">
+<meta property="og:description" content="bowerBower一个好用的Web包管理器，可以搜索、安装和卸载如JavaScript、HTML、CSS等资源">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_1.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_2.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_3.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_4.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_5.png">
+<meta property="og:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_6.png">
+<meta property="article:published_time" content="2016-11-06T08:53:34.000Z">
+<meta property="article:modified_time" content="2025-09-19T04:25:12.071Z">
+<meta property="article:author" content="某人">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_1.png">
+
+<link rel="canonical" href="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>bower使用 | 某人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">某人</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">此前素未谋面、此后遥遥无期</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nightme.github.io/2016/11/06/bower%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="某人">
+      <meta itemprop="description" content="此前素未谋面、此后遥遥无期">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="某人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          bower使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-11-06 16:53:34" itemprop="dateCreated datePublished" datetime="2016-11-06T16:53:34+08:00">2016-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-19 12:25:12" itemprop="dateModified" datetime="2025-09-19T12:25:12+08:00">2025-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="bower"><a href="#bower" class="headerlink" title="bower"></a>bower</h2><p>Bower一个好用的Web包管理器，可以搜索、安装和卸载如JavaScript、HTML、CSS等资源</p>
+<span id="more"></span>
+
+<p>bower官网地址-英文：<a target="_blank" rel="noopener" href="https://bower.io/">https://bower.io/</a></p>
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_1.png" class="" title="bower英文网">
+
+<p>bower官网地址-中文：<a target="_blank" rel="noopener" href="http://www.bowercn.com/">http://www.bowercn.com/</a></p>
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_2.png" class="" title="bower中文网">
+
+<h2 id="安装bower"><a href="#安装bower" class="headerlink" title="安装bower"></a>安装bower</h2><p>Bower是命令行工具，通过npm安装,Bower依赖node, npm 和git.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">npm install -g bower <span class="comment">#全局安装bower</span></span><br><span class="line"></span><br><span class="line">bower <span class="built_in">help</span> <span class="comment">#查看帮助</span></span><br><span class="line">bower -v   <span class="comment">#查看版本</span></span><br><span class="line">bower cache <span class="comment">#缓存管理</span></span><br><span class="line">bower <span class="built_in">help</span> <span class="comment">#显示Bower命令的帮助信息</span></span><br><span class="line">bower home <span class="comment">#通过浏览器打开一个包的github发布页</span></span><br><span class="line">bower info <span class="comment">#查看包的信息</span></span><br><span class="line">bower init <span class="comment">#创建bower.json文件</span></span><br><span class="line">bower install <span class="comment">#安装包</span></span><br><span class="line">bower <span class="built_in">link</span> <span class="comment">#在本地bower库建立一个项目链接</span></span><br><span class="line">bower list <span class="comment">#列出项目已安装的包</span></span><br><span class="line">bower lookup <span class="comment">#根据包名查询包的URL</span></span><br><span class="line">bower prune <span class="comment">#删除项目无关的包</span></span><br><span class="line">bower register <span class="comment">#注册一个包</span></span><br><span class="line">bower search <span class="comment">#搜索包</span></span><br><span class="line">bower update <span class="comment">#更新项目的包</span></span><br><span class="line">bower uninstall <span class="comment">#删除项目的包</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_3.png" class="" title="bower-help">
+
+<h2 id="bower使用"><a href="#bower使用" class="headerlink" title="bower使用"></a>bower使用</h2><p>通过命令 bower install安装软件包，默认会安装到 bower_components&#x2F;目录.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install &lt;package&gt;</span><br></pre></td></tr></table></figure>
+
+<p>想要下载的包可以是GitHub上的短链接（如jquery&#x2F;jquery）、 .git 、 一个URL或者其它. 了解更多： bower install。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 bower.json 文件安装</span></span><br><span class="line">$ bower install</span><br><span class="line"><span class="comment"># 通过在github上注册的包名安装</span></span><br><span class="line">$ bower install jquery</span><br><span class="line"><span class="comment"># GitHub短链接</span></span><br><span class="line">$ bower install desandro/masonry</span><br><span class="line"><span class="comment"># Github上的 .git</span></span><br><span class="line">$ bower install git://github.com/user/package.git</span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">$ bower install http://example.com/script.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="搜索包"><a href="#搜索包" class="headerlink" title="搜索包"></a>搜索包</h2><p>官网地址: <a target="_blank" rel="noopener" href="https://bower.io/search/">https://bower.io/search/</a></p>
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_4.png" class="" title="bower搜索">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower search jquery <span class="comment">#搜索jquery</span></span><br></pre></td></tr></table></figure>
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_5.png" class="" title="bower搜索">
+
+<h2 id="设置bower-json"><a href="#设置bower-json" class="headerlink" title="设置bower.json"></a>设置bower.json</h2><p>可以通过bower init命令新建一个bower.json文件。会提示你输入一些基本信息，根据提示按回车或者空格即可，然后会生成一个bower.json文件，用来保存该项目的配置。<br>果想保存依赖信息(dependencies)到你的bower.json文件，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bower init <span class="comment">#新建bower,json文件</span></span><br><span class="line">bower install PACKAGE --save <span class="comment">#安装包并添加到 bower.json dependencies中</span></span><br><span class="line">bower install &lt;package&gt; --save-dev <span class="comment">#安装包并添加到 bower.json devDependencies中</span></span><br></pre></td></tr></table></figure>
+<p>bower init，出现错误</p>
+<img src="/2016/11/06/bower%E4%BD%BF%E7%94%A8/bower_6.png" class="" title="init错误">
+
+<p>问题链接：<a target="_blank" rel="noopener" href="https://github.com/bower/bower/issues/802">https://github.com/bower/bower/issues/802</a></p>
+<p>在 windows cmd 里面使用 bower init,而不是在 git bash 里面使用 bower init.</p>
+<p>参考文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;testbower&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;2.1.2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;测试bower&quot;</span>,</span><br><span class="line">  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">  <span class="string">&quot;keywords&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;test&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;authors&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;test&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;license&quot;</span>: <span class="string">&quot;MIT&quot;</span>,</span><br><span class="line">  <span class="string">&quot;homepage&quot;</span>: <span class="string">&quot;test.com&quot;</span>,</span><br><span class="line">  <span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">&quot;ignore&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;**/.*&quot;</span>,</span><br><span class="line">    <span class="string">&quot;node_modules&quot;</span>,</span><br><span class="line">    <span class="string">&quot;bower_components&quot;</span>,</span><br><span class="line">    <span class="string">&quot;lib/&quot;</span>,</span><br><span class="line">    <span class="string">&quot;test&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tests&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;bootstrap&quot;</span>: <span class="string">&quot;3.3.5&quot;</span>,</span><br><span class="line">    <span class="string">&quot;jquery&quot;</span>: <span class="string">&quot;^3.1.1&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置包的安装目录"><a href="#设置包的安装目录" class="headerlink" title="设置包的安装目录"></a>设置包的安装目录</h2><p>Bower的配置文件是.bowerrc,使用JSON格式进行描述。详细参数 :<a target="_blank" rel="noopener" href="http://www.bowercn.com/docs/config/">http://www.bowercn.com/docs/config/</a></p>
+<p>再项目目录下新建.bowerrc文件，内容为如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;directory&quot;</span>: <span class="string">&quot;lib/&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bower install jquery -save <span class="comment">#安装jquery,默认安装最新版本</span></span><br><span class="line">bower info jquery <span class="comment">#查找jquery的相关信息</span></span><br><span class="line">bower info jquery<span class="comment">#1.11.1 #查看指定版本的信息</span></span><br><span class="line">bower install jquery<span class="comment">#1.12.4 --save #安装指定版本的jquery-如果与你项目不兼容，则不成功</span></span><br></pre></td></tr></table></figure>
+<h3 id="切换jquery版本"><a href="#切换jquery版本" class="headerlink" title="切换jquery版本"></a>切换jquery版本</h3><p>修改bower.json文件中的jquery版本,执行：bower update jquery</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;jquery&quot;</span>: <span class="string">&quot;~1.11.3&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="卸载包"><a href="#卸载包" class="headerlink" title="卸载包"></a>卸载包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bower uninstall jquery --save  <span class="comment">#卸载jquery包</span></span><br><span class="line">bower prune <span class="comment">#根据bower.json文件来清除包</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h2><p>用bower安装包时，bower会把这个包缓存到本地，下次再安装同样的包时，bower就会从本地缓存去下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower cache list <span class="comment">#查看包缓存</span></span><br></pre></td></tr></table></figure>
+
+<p>使用本地缓存安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bower install jquery --offline --save</span><br><span class="line">bower cache clean <span class="comment">#清除缓存</span></span><br><span class="line">bower cache clean jquery <span class="comment">#清除jquery缓存</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="修改项目版本号"><a href="#修改项目版本号" class="headerlink" title="修改项目版本号"></a>修改项目版本号</h2><ul>
+<li>major :项目有很大变化</li>
+<li>minor :项目添加了一些功能</li>
+<li>patch :项目修正了一些错误</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1.0.0 <span class="comment">#起初版本</span></span><br><span class="line"></span><br><span class="line">bower version major <span class="comment">#升级一大版本2.0.0</span></span><br><span class="line">bower version minor <span class="comment">#升级一中版本2.1.0</span></span><br><span class="line">bower version patch <span class="comment">#升级一小版本2.1.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="修改版本号自定义提交信息呢"><a href="#修改版本号自定义提交信息呢" class="headerlink" title="修改版本号自定义提交信息呢"></a>修改版本号自定义提交信息呢</h2><p>前提是你项目使用了版本控制如git,使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bower version patch -m <span class="string">&quot;%s 修正一些小错误&quot;</span></span><br><span class="line">git <span class="built_in">log</span> <span class="comment">#查看日志</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/05/cygwin%E5%AE%89%E8%A3%85/" rel="prev" title="cygwin安装">
+      <i class="fa fa-chevron-left"></i> cygwin安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/06/%E8%AF%AD%E4%B9%89%E5%8C%96%E7%89%88%E6%9C%AC/" rel="next" title="语义化版本2.0.0">
+      语义化版本2.0.0 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bower"><span class="nav-number">1.</span> <span class="nav-text">bower</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85bower"><span class="nav-number">2.</span> <span class="nav-text">安装bower</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bower%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">bower使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">搜索包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEbower-json"><span class="nav-number">5.</span> <span class="nav-text">设置bower.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8C%85%E7%9A%84%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">设置包的安装目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2jquery%E7%89%88%E6%9C%AC"><span class="nav-number">6.1.</span> <span class="nav-text">切换jquery版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E5%8C%85"><span class="nav-number">7.</span> <span class="nav-text">卸载包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="nav-number">8.</span> <span class="nav-text">离线安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">9.</span> <span class="nav-text">修改项目版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%89%88%E6%9C%AC%E5%8F%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E5%91%A2"><span class="nav-number">10.</span> <span class="nav-text">修改版本号自定义提交信息呢</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">某人</p>
+  <div class="site-description" itemprop="description">此前素未谋面、此后遥遥无期</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">某人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
