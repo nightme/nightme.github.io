@@ -4738,4 +4738,55 @@
         <tag>unity</tag>
       </tags>
   </entry>
+  <entry>
+    <title>订阅转换服务</title>
+    <url>/2026/01/06/%E8%AE%A2%E9%98%85%E8%BD%AC%E6%8D%A2%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>当你订阅了一个服务，可是你的客户端不支持这个服务，你可以使用订阅转换服务，将你的订阅转换为一个新的服务。</p>
+<p>当然你也可以使用 <a href="https://github.com/acl4ssr/acl4ssr-sub">acl4ssr-sub</a> 来转换订阅。</p>
+<span id="more"></span>
+
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>安全：转换后的订阅不会暴露你的原始订阅信息</li>
+<li>方便：你可以在任何支持订阅的客户端使用转换后的订阅</li>
+</ul>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ssh进入服务器</span></span><br><span class="line">ssh root@192.286.222.333 </span><br><span class="line">yourpassword</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 更新系统软件包</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt install wget tar -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建并进入目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /opt/subconverter_tmp</span><br><span class="line"><span class="built_in">cd</span> /opt/subconverter_tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 下载 Linux 64位版本的二进制包</span></span><br><span class="line">wget https://github.com/tindy2013/subconverter/releases/latest/download/subconverter_linux64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar -zxvf subconverter_linux64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 关键动作：直接把解压出来的程序文件夹重命名到 /opt/subconverter</span></span><br><span class="line"><span class="built_in">cd</span> /opt/subconverter_tmp</span><br><span class="line"><span class="built_in">mv</span> subconverter /opt/subconverter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 清理临时下载目录</span></span><br><span class="line"><span class="built_in">rm</span> -rf /opt/subconverter_tmp</span><br></pre></td></tr></table></figure>
+
+<h2 id="检查文件是否到位"><a href="#检查文件是否到位" class="headerlink" title="检查文件是否到位"></a>检查文件是否到位</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /opt/subconverter</span><br></pre></td></tr></table></figure>
+
+<p>如果看到以下内容，说明成功了：</p>
+<ul>
+<li><code>subconverter</code> (二进制文件)</li>
+<li><code>base</code> (文件夹)</li>
+<li><code>pref.ini</code> (配置文件)</li>
+</ul>
+<h2 id="创建-Systemd-守护进程（实现开机自启）"><a href="#创建-Systemd-守护进程（实现开机自启）" class="headerlink" title="创建 Systemd 守护进程（实现开机自启）"></a>创建 Systemd 守护进程（实现开机自启）</h2><p>为了让 Subconverter 在后台持续运行，即使服务器重启也能自动启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">cat</span> &lt;&lt;<span class="string">EOF &gt; /etc/systemd/system/subconverter.service</span></span><br><span class="line"><span class="string">[Unit]</span></span><br><span class="line"><span class="string">Description=Subconverter Service</span></span><br><span class="line"><span class="string">After=network.target</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[Service]</span></span><br><span class="line"><span class="string">Type=simple</span></span><br><span class="line"><span class="string">WorkingDirectory=/opt/subconverter</span></span><br><span class="line"><span class="string">ExecStart=/opt/subconverter/subconverter</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">User=root</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[Install]</span></span><br><span class="line"><span class="string">WantedBy=multi-user.target</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动服务："><a href="#启动服务：" class="headerlink" title="启动服务："></a>启动服务：</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 给予执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /opt/subconverter/subconverter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 重新加载系统守护进程（必须执行，否则找不到新服务）</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 启动服务</span></span><br><span class="line">sudo systemctl start subconverter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 设置开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> subconverter</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证是否运行成功"><a href="#验证是否运行成功" class="headerlink" title="验证是否运行成功"></a>验证是否运行成功</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl status subconverter</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果看到绿色的 active (running)：恭喜你，后端已经跑起来了！</li>
+</ul>
+<h2 id="第三步：配置-Nginx-反向代理（支持-HTTPS）"><a href="#第三步：配置-Nginx-反向代理（支持-HTTPS）" class="headerlink" title="第三步：配置 Nginx 反向代理（支持 HTTPS）"></a>第三步：配置 Nginx 反向代理（支持 HTTPS）</h2><p>编辑你的 <code>Nginx</code> 配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 检查服务运行的端口</span></span><br><span class="line">ss -tulpn | grep subconverter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑你的nginx配置文件</span></span><br><span class="line">nano /etc/nginx/conf.d/xui.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加子路径 /sub 用于自建转换</span></span><br><span class="line">location /sub/ &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:25500; <span class="comment"># subconverter 默认监听端口</span></span><br><span class="line">    proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">    proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查配置</span></span><br><span class="line">nginx -t</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"><span class="comment"># 重启nginx</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">最后访问：https://youdomain.com/sub?target=clash&amp;url=https://www.google.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后生成链接"><a href="#最后生成链接" class="headerlink" title="最后生成链接"></a>最后生成链接</h2><p>搭建自己的私有订阅转换服务器</p>
+<p>直接在地址栏合成，可以参考<strong>acl4ssr-sub</strong>的写法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># vmess写法</span></span><br><span class="line">https://youdomain.com/sub?target=clash&amp;url=vmess://xxxxxxxxxxx=&amp;insert=<span class="literal">true</span>&amp;config=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini&amp;emoji=<span class="literal">true</span>&amp;list=<span class="literal">false</span>&amp;tfo=<span class="literal">false</span>&amp;scv=<span class="literal">true</span>&amp;fdn=<span class="literal">false</span>&amp;<span class="built_in">expand</span>=<span class="literal">true</span>&amp;<span class="built_in">sort</span>=<span class="literal">false</span>&amp;new_name=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 订阅链接的写法</span></span><br><span class="line">https://youdomain.com/sub?target=clash&amp;url=https://youdomain/yyyyyyy&amp;insert=<span class="literal">true</span>&amp;config=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini&amp;emoji=<span class="literal">true</span>&amp;list=<span class="literal">false</span>&amp;tfo=<span class="literal">false</span>&amp;scv=<span class="literal">true</span>&amp;fdn=<span class="literal">false</span>&amp;<span class="built_in">expand</span>=<span class="literal">true</span>&amp;<span class="built_in">sort</span>=<span class="literal">false</span>&amp;new_name=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a href="https://acl4ssr-sub.github.io/">acl4ssr-sub</a></li>
+<li><a href="https://github.com/tindy2013/subconverter/blob/master/README-cn.md">subconverter 转换规则</a></li>
+<li><a href="https://www.clashverge.dev/">Clash Verge 客户端下载</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>墙</category>
+      </categories>
+      <tags>
+        <tag>墙</tag>
+      </tags>
+  </entry>
 </search>
